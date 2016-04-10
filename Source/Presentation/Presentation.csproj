@@ -32,13 +32,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMainView.cs" />
+    <Compile Include="IView.cs" />
     <Compile Include="UserAddingDialogPresenter.cs" />
     <Compile Include="UserEditDialogPresenter.cs" />
     <Compile Include="UserListPresenter.cs" />
