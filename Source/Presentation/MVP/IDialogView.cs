@@ -1,6 +1,6 @@
 namespace Presentation.MVP
 {
-    public interface IDialogView
+    public interface IDialogView : IView
     {
         bool? Result { get; }
 
