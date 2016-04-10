@@ -39,7 +39,6 @@
     <Compile Include="MVP\IDialogView.cs" />
     <Compile Include="UserInserting\IUserInsertingDialogPresenter.cs" />
     <Compile Include="UserInserting\IUserInsertingDialogView.cs" />
-    <Compile Include="Services\IUserRepository.cs" />
     <Compile Include="UserList\IMainView.cs" />
     <Compile Include="MVP\IPresenter.cs" />
     <Compile Include="UserList\IUserListPresenter.cs" />

@@ -8,13 +8,13 @@ namespace Presentation.MVP
 
         void Run();
 
+        void Initialize();
+
         event EventHandler LoadViewCompleted;
     }
 
     public interface IPresenter<TView> : IPresenter where TView : IView
     {
         new TView View { get; set; }
-
-        void Initialize();
     }
 }

@@ -1,19 +1,15 @@
 ﻿using System;
 using Presentation.MVP;
-using Presentation.Services;
 using Presentation.UserInserting;
 
 namespace Presentation.UserList
 {
     public class UserListPresenter : PresenterBase<IMainView>, IUserListPresenter
     {
-        private readonly IUserRepository _userRepository;
-
         private readonly IUserInsertingDialogPresenter _userInsertingDialogPresenter;
 
-        public UserListPresenter(IUserRepository userRepository, IUserInsertingDialogPresenter userInsertingDialogPresenter)
+        public UserListPresenter(IUserInsertingDialogPresenter userInsertingDialogPresenter)
         {
-            _userRepository = userRepository;
             _userInsertingDialogPresenter = userInsertingDialogPresenter;
         }
 

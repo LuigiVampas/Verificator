@@ -7,9 +7,9 @@ namespace UI
 {
     public class DialogViewBase : Window, IDialogView
     {
-        public DialogViewBase() : base()
+        public DialogViewBase()
         {
-            base.Loaded += OnWindowLoaded;
+            Loaded += OnWindowLoaded;
         }
 
         public bool? Result { get; private set; }
