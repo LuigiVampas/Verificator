@@ -35,7 +35,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMainView.cs" />
+    <Compile Include="IPresenter.cs" />
     <Compile Include="IView.cs" />
+    <Compile Include="PresenterBase.cs" />
     <Compile Include="UserAddingDialogPresenter.cs" />
     <Compile Include="UserEditDialogPresenter.cs" />
     <Compile Include="UserListPresenter.cs" />

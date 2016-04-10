@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using Model;
 using Presentation;
 
@@ -12,20 +13,15 @@ namespace UI
     /// </summary>
     public partial class MainWindow : IMainView
     {
-        private MainWindowDataContext _itemsSource;
+        private readonly MainWindowDataContext _itemsSource;
 
         public MainWindow()
         {
             InitializeComponent();
-            InitializeItemsSource(new MainWindowDataContext());
-            
+            _itemsSource = new MainWindowDataContext();
         }
 
-        public void InitializeItemsSource(MainWindowDataContext itemsSource)
-        {
-            _itemsSource = itemsSource;
-            UsersList.ItemsSource = _itemsSource.Users;
-        }
+        public event EventHandler LoadCompleted;
 
         public IList<User> Users 
         {
@@ -33,9 +29,10 @@ namespace UI
             set { _itemsSource.Users = new ObservableCollection<User>(value); } 
         }
 
-        private void DataGridLoaded(object sender, EventArgs e)
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            _itemsSource.Users.Add(new User { Login = "Login", Name = "Name", Soname = "Soname", LastName = "LastName", Password = "Password", Position = "Position" });
+            if (LoadCompleted != null)
+                LoadCompleted(this, EventArgs.Empty);
         }
     }
 }
