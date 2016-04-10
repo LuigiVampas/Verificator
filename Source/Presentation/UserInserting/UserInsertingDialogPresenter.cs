@@ -2,7 +2,7 @@
 
 namespace Presentation.UserInserting
 {
-    public class UserInsertingDialogPresenter : PresenterBase<IUserInsertingDialogView>, IUserInsertingDialogPresenter
+    public class UserInsertingDialogPresenter : DialogPresenterBase<IUserInsertingDialogView>, IUserInsertingDialogPresenter
     {
         
     }

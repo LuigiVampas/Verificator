@@ -5,17 +5,16 @@ using Presentation.MVP;
 
 namespace UI
 {
-    /// <summary>
-    /// Interaction logic for DialogViewBase.xaml
-    /// </summary>
-    public partial class DialogViewBase : IDialogView
+    public class DialogViewBase : Window, IDialogView
     {
-        public DialogViewBase()
+        public DialogViewBase() : base()
         {
-            InitializeComponent();
+            base.Loaded += OnWindowLoaded;
         }
 
         public bool? Result { get; private set; }
+
+        public event EventHandler LoadCompleted;
 
         public new void Show()
         {
@@ -29,6 +28,12 @@ namespace UI
 
             Result = activeWindow.ShowDialog();
             return Result;
+        }
+
+        private void OnWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            if (LoadCompleted != null)
+                LoadCompleted(this, EventArgs.Empty);
         }
     }
 }

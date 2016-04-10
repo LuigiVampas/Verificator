@@ -17,6 +17,4 @@ namespace Presentation.MVP
 
         void Initialize();
     }
-
-    public interface IDialogPresenter<TView> : IPresenter<TView> where TView : IDialogView
 }

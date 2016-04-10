@@ -34,6 +34,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVP\DialogPresenterBase.cs" />
+    <Compile Include="MVP\IDialogPresenter.cs" />
+    <Compile Include="MVP\IDialogView.cs" />
     <Compile Include="UserInserting\IUserInsertingDialogPresenter.cs" />
     <Compile Include="UserInserting\IUserInsertingDialogView.cs" />
     <Compile Include="Services\IUserRepository.cs" />

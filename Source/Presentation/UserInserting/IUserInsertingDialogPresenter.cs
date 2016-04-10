@@ -2,7 +2,7 @@
 
 namespace Presentation.UserInserting
 {
-    public interface IUserInsertingDialogPresenter : IPresenter<IUserInsertingDialogView>
+    public interface IUserInsertingDialogPresenter : IDialogPresenter<IUserInsertingDialogView>
     {
         
     }
