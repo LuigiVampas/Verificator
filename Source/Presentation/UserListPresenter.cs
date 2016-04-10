@@ -1,4 +1,6 @@
-﻿namespace Presentation
+﻿using System;
+
+namespace Presentation
 {
     public class UserListPresenter : PresenterBase<IMainView>, IUserListPresenter
     {
@@ -9,6 +11,14 @@
             _userRepository = userRepository;
         }
 
+        protected override void OnViewLoaded()
+        {
+            View.InsertingUser += OnInsertingUser;
+        }
 
+        private void OnInsertingUser(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

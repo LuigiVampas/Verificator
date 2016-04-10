@@ -34,13 +34,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUserInsertingDialogPresenter.cs" />
+    <Compile Include="IUserInsertingDialogView.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IMainView.cs" />
     <Compile Include="IPresenter.cs" />
     <Compile Include="IUserListPresenter.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="PresenterBase.cs" />
-    <Compile Include="UserAddingDialogPresenter.cs" />
+    <Compile Include="UserInsertingDialogPresenter.cs" />
     <Compile Include="UserEditDialogPresenter.cs" />
     <Compile Include="UserListPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
