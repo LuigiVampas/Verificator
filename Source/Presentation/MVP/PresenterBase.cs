@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Presentation
+namespace Presentation.MVP
 {
     public class PresenterBase<TView> : IPresenter<TView> where TView : IView
     {

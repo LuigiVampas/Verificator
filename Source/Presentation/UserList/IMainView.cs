@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Model;
+using Presentation.MVP;
 
-namespace Presentation
+namespace Presentation.UserList
 {
     public interface IMainView : IView
     {

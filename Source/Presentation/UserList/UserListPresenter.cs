@@ -1,14 +1,20 @@
 ﻿using System;
+using Presentation.MVP;
+using Presentation.Services;
+using Presentation.UserInserting;
 
-namespace Presentation
+namespace Presentation.UserList
 {
     public class UserListPresenter : PresenterBase<IMainView>, IUserListPresenter
     {
         private readonly IUserRepository _userRepository;
 
-        public UserListPresenter(IUserRepository userRepository)
+        private readonly IUserInsertingDialogPresenter _userInsertingDialogPresenter;
+
+        public UserListPresenter(IUserRepository userRepository, IUserInsertingDialogPresenter userInsertingDialogPresenter)
         {
             _userRepository = userRepository;
+            _userInsertingDialogPresenter = userInsertingDialogPresenter;
         }
 
         protected override void OnViewLoaded()
@@ -18,7 +24,6 @@ namespace Presentation
 
         private void OnInsertingUser(object sender, EventArgs e)
         {
-            
         }
     }
 }

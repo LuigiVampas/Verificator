@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using Model;
 using Presentation;
+using Presentation.UserList;
 
 namespace UI
 {

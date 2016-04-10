@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using LightInject;
 using Presentation;
+using Presentation.UserList;
 using UI;
 
 namespace Verificator.App

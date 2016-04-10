@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Model;
 
-namespace Presentation
+namespace Presentation.Services
 {
     public interface IUserRepository
     {
