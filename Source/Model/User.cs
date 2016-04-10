@@ -8,7 +8,7 @@ namespace Model
 
         public string Password { get; set; }
 
-        public string Soname { get; set; }
+        public string Surname { get; set; }
 
         public string Name { get; set; }
 
@@ -19,8 +19,9 @@ namespace Model
             get
             {
                 var firstNameLetter = Name.First();
+                var firstSurnameLetter = Surname.First();
                 var firstLastNameLetter = LastName.First();
-                return firstNameLetter + "." + firstLastNameLetter;
+                return firstNameLetter + "." + firstSurnameLetter + "." + firstLastNameLetter;
             }
         }
 
