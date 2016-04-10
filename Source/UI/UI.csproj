@@ -84,9 +84,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{7b3f463e-dab2-4d26-b64f-035989181c09}</Project>
       <Name>Model</Name>

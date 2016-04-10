@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUserRepository.cs" />
     <Compile Include="IMainView.cs" />
     <Compile Include="IPresenter.cs" />
     <Compile Include="IUserListPresenter.cs" />

@@ -27,7 +27,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel x:Name="ButtonsPanel" Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-            
             <Button x:Name="InsertButton" Width="80" Content="Добавить" Margin="0 0 25 0"/>
             <Button x:Name="DeleteButton" Width="80" Content="Удалить" Margin="0 0 25 0"/>
             <Button x:Name="ChangeButton" Width="80" Content="Изменить"/>
