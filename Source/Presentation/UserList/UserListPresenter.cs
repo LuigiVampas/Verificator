@@ -11,10 +11,13 @@ namespace Presentation.UserList
 
         private readonly IUserInsertingDialogPresenter _userInsertingDialogPresenter;
 
-        public UserListPresenter(IUserRepository userRepository, IUserInsertingDialogPresenter userInsertingDialogPresenter)
+        private readonly IActiveWindowProvider _activeWindowProvider;
+
+        public UserListPresenter(IUserRepository userRepository, IUserInsertingDialogPresenter userInsertingDialogPresenter, IActiveWindowProvider activeWindowProvider)
         {
             _userRepository = userRepository;
             _userInsertingDialogPresenter = userInsertingDialogPresenter;
+            _activeWindowProvider = activeWindowProvider;
         }
 
         protected override void OnViewLoaded()
