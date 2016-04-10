@@ -1,6 +1,7 @@
 ﻿namespace Presentation
 {
-    public class UserListPresenter
+    public class UserListPresenter : PresenterBase<IMainView>, IUserListPresenter
     {
+        
     }
 }
