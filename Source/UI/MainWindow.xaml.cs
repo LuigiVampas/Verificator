@@ -23,6 +23,8 @@ namespace UI
 
         public event EventHandler LoadCompleted;
 
+        public event EventHandler InsertingUser;
+
         public IList<User> Users 
         {
             get { return _itemsSource.Users.ToList(); } 
@@ -33,6 +35,12 @@ namespace UI
         {
             if (LoadCompleted != null)
                 LoadCompleted(this, EventArgs.Empty);
+        }
+
+        private void InsertButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (InsertingUser != null)
+                InsertingUser(this, EventArgs.Empty);
         }
     }
 }
