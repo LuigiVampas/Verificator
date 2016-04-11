@@ -15,6 +15,19 @@ namespace Model
             return true;
         }
 
+        public bool IsPasswordValid(string password)
+        {
+            var result = new StringBuilder();
+            result.AppendLine(CheckLength(password, 32));
+            result.AppendLine(IsPassword(password));
+            if (CheckPasswordStrength(password) == PasswordStrength.Weak ||
+                CheckPasswordStrength(password) == PasswordStrength.PwdNotSet)
+                result.AppendLine("Password is too weak, or not set");
+            if (!string.IsNullOrWhiteSpace(result.ToString()))
+                throw new DataIsNotValidReason(result.ToString());
+            return true;
+        }
+
         public bool IsNameValid(string name)
         {
             return IsDataValid(name);
@@ -59,23 +72,29 @@ namespace Model
         private static string StartingWithUpper(string str)
         {
            if ((str.First() >= 'A' && str.First() <= 'Z') || (str.First() >= 'А' && str.First() <= 'Я')) return "";
-            return "Поле должно начинаться с заглавной буквы или не содержать посторонних символов;"; 
+            return "Field have to be started with Upper and have not to contain non-english symbols"; 
         }
 
         private static string ContainsEnglish(string str)
         {
             for (int i = 0; i < str.Length; ++i)
-                if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z'))) return "Поле должно содержать только английские символы;";
+                if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z'))) return "Field have to contain only english symbols";
+            return "";
+        }
+        private static string IsPassword(string str)
+        {
+            for (int i = 0; i < str.Length; ++i)
+                if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= '!' && str[i] <= '@'))) return "Not allowed symbols for password";
             return "";
         }
 
         private static string CheckLength(string str, int allowedLength)
         {
             if (string.IsNullOrWhiteSpace(str))
-                return "Поле должно содержать больше символов;";
+                return "Field is too short";
             if (str.Length <= allowedLength)
                 return "";
-            return "Поле содержит слишком много символов;";
+            return "Field is too long";
         }
         
         public PasswordStrength CheckPasswordStrength(string password)

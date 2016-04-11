@@ -1,5 +1,4 @@
-﻿using System.CodeDom;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Model.Tests
 {
@@ -18,6 +17,15 @@ namespace Model.Tests
             Assert.That(validator.CheckPasswordStrength("AntoshKa@987Lukas"), Is.EqualTo(PasswordStrength.Strong));
             Assert.That(validator.CheckPasswordStrength("&^&68Ff*%&(&*"), Is.EqualTo(PasswordStrength.Normal));
         }
+
+        [Test]
+        public void PasswordCrypt()
+        {
+            var pwdCrypt = new PasswordCrypt();
+
+            Assert.True(pwdCrypt.IsPasswordValid("AntoshKa@987Lukas", pwdCrypt.GetHashString("AntoshKa@987Lukas")));
+        }
+
         [Test]
         [ExpectedException (typeof(DataIsNotValidReason))]
         public void IsLoginValidTest()
@@ -27,6 +35,26 @@ namespace Model.Tests
             Assert.True(validator.IsLoginValid("qwerty"));
             Assert.True(validator.IsLoginValid("йцукен"));
         }
+
+        [Test]
+        [ExpectedException(typeof(DataIsNotValidReason))]
+        public void IsPasswordValidTest()
+        {
+            var validator = new Validator();
+
+            Assert.True(validator.IsPasswordValid("AntoshKa@987Lukas"));
+            Assert.True(validator.IsPasswordValid("&^&68Ff*%&(&*"));
+        }
+
+        [Test]
+        [ExpectedException(typeof(DataIsNotValidReason))]
+        public void IsEmptyPasswordValidTest()
+        {
+            var validator = new Validator();
+
+            Assert.True(validator.IsPasswordValid(""));
+        }
+
         [Test]
         [ExpectedException(typeof(DataIsNotValidReason))]
         public void IsEmptyLoginValidTest()
@@ -35,6 +63,7 @@ namespace Model.Tests
 
             Assert.True(validator.IsLoginValid(""));
         }
+
         [Test]
         [ExpectedException(typeof(DataIsNotValidReason))]
         public void IsNameValidTest()
@@ -44,6 +73,7 @@ namespace Model.Tests
             Assert.True(validator.IsNameValid("Andrey"));
             Assert.True(validator.IsNameValid("йцукен"));
         }
+
         [Test]
         [ExpectedException(typeof(DataIsNotValidReason))]
         public void IsSurnameValidTest()
@@ -53,6 +83,7 @@ namespace Model.Tests
             Assert.True(validator.IsSurnameValid("Igorevich"));
             Assert.True(validator.IsSurnameValid("йцукен"));
         }
+
         [Test]
         [ExpectedException(typeof(DataIsNotValidReason))]
         public void IsLastnameValidTest()
@@ -62,6 +93,7 @@ namespace Model.Tests
             Assert.True(validator.IsLastnameValid("Sokov"));
             Assert.True(validator.IsLastnameValid("йцукен"));
         }
+
         [Test]
         [ExpectedException(typeof(DataIsNotValidReason))]
         public void IsPositionValidTest()
@@ -71,6 +103,7 @@ namespace Model.Tests
             Assert.True(validator.IsPostionValid("Engineer"));
             Assert.True(validator.IsPostionValid("Engineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineer"));
         }
+
         [Test]
         [ExpectedException(typeof(DataIsNotValidReason))]
         public void AreInitialsValidTest()
