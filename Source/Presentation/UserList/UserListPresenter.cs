@@ -23,7 +23,9 @@ namespace Presentation.UserList
             var okButtonPressed = _userInsertingDialogPresenter.ShowDialog() == true;
 
             if (okButtonPressed)
+            {
                 var user = _userInsertingDialogPresenter.View.User;
+            }
         }
     }
 }

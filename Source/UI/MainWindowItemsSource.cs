@@ -3,9 +3,9 @@ using Model;
 
 namespace UI
 {
-    public class MainWindowDataContext
+    public class MainWindowItemsSource
     {
-        public MainWindowDataContext()
+        public MainWindowItemsSource()
         {
             Users = new ObservableCollection<User>();
         }

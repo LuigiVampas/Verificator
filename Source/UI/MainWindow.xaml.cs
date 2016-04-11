@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using Model;
 using Presentation.UserList;
 
@@ -13,13 +14,13 @@ namespace UI
     /// </summary>
     public partial class MainWindow : IMainView
     {
-        private readonly MainWindowDataContext _itemsSource;
+        private readonly MainWindowItemsSource _itemsSource;
 
         public MainWindow()
         {
             Application.Current.MainWindow = this;
             InitializeComponent();
-            _itemsSource = new MainWindowDataContext();
+            _itemsSource = new MainWindowItemsSource();
         }
 
         public event EventHandler LoadCompleted;
@@ -40,8 +41,23 @@ namespace UI
 
         private void InsertButton_OnClick(object sender, RoutedEventArgs e)
         {
+            OnIsertingUser();
+        }
+
+        private void OnIsertingUser()
+        {
             if (InsertingUser != null)
                 InsertingUser(this, EventArgs.Empty);
+        }
+
+        private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Insert:
+                    OnIsertingUser();
+                    break;
+            }
         }
     }
 }

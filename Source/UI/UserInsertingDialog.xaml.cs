@@ -27,6 +27,8 @@ namespace UI
                 _user.Name = NameTextBox.Text;
                 _user.LastName = LastNameTextBox.Text;
                 _user.Position = PositionTextBox.Text;
+
+                return _user;
             }
         }
 
