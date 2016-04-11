@@ -18,7 +18,7 @@ namespace Model
             return result.ToString();
         }
 
-        public PasswordStrength CheckPasswordsStrengh(string password)
+        public PasswordStrength CheckPasswordsStrenght(string password)
         {
             const string lowerChars = "abcdefghijklmnopqrstuvwxyz";
             const string upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

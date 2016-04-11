@@ -10,12 +10,12 @@ namespace Model.Tests
         {
             var validator = new Validator();
 
-            Assert.That(validator.CheckPasswordsStrengh(""), Is.EqualTo(PasswordStrength.PwdNotSet));
-            Assert.That(validator.CheckPasswordsStrengh("lol"), Is.EqualTo(PasswordStrength.Weak));
-            Assert.That(validator.CheckPasswordsStrengh("lol124"), Is.EqualTo(PasswordStrength.Weak));
-            Assert.That(validator.CheckPasswordsStrengh("loL1%"), Is.EqualTo(PasswordStrength.Weak));
-            Assert.That(validator.CheckPasswordsStrengh("AntoshKa@987Lukas"), Is.EqualTo(PasswordStrength.Strong));
-            Assert.That(validator.CheckPasswordsStrengh("&^&68Ff*%&(&*"), Is.EqualTo(PasswordStrength.Normal));
+            Assert.That(validator.CheckPasswordsStrenght(""), Is.EqualTo(PasswordStrength.PwdNotSet));
+            Assert.That(validator.CheckPasswordsStrenght("lol"), Is.EqualTo(PasswordStrength.Weak));
+            Assert.That(validator.CheckPasswordsStrenght("lol124"), Is.EqualTo(PasswordStrength.Weak));
+            Assert.That(validator.CheckPasswordsStrenght("loL1%"), Is.EqualTo(PasswordStrength.Weak));
+            Assert.That(validator.CheckPasswordsStrenght("AntoshKa@987Lukas"), Is.EqualTo(PasswordStrength.Strong));
+            Assert.That(validator.CheckPasswordsStrenght("&^&68Ff*%&(&*"), Is.EqualTo(PasswordStrength.Normal));
         }
     }
 }

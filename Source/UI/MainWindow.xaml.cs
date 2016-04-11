@@ -24,6 +24,8 @@ namespace UI
 
         public event EventHandler LoadCompleted;
 
+        public event EventHandler ViewClosed;
+
         public event EventHandler InsertingUser;
 
         public IList<User> Users 
@@ -42,6 +44,12 @@ namespace UI
         {
             if (InsertingUser != null)
                 InsertingUser(this, EventArgs.Empty);
+        }
+
+        private void MainWindow_OnClosed(object sender, EventArgs e)
+        {
+            if (ViewClosed != null)
+                ViewClosed(this, EventArgs.Empty);
         }
     }
 }
