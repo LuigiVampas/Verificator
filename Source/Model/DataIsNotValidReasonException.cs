@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Model
 {
     [Serializable]
-    public class DataNotValidReason : Exception
+    public class DataIsNotValidReason : Exception
     {
         //
         // For guidelines regarding the creation of new exception types, see
@@ -13,19 +13,19 @@ namespace Model
         //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
         //
 
-        public DataNotValidReason()
+        public DataIsNotValidReason()
         {
         }
 
-        public DataNotValidReason(string message) : base(message)
+        public DataIsNotValidReason(string message) : base(message)
         {
         }
 
-        public DataNotValidReason(string message, Exception inner) : base(message, inner)
+        public DataIsNotValidReason(string message, Exception inner) : base(message, inner)
         {
         }
 
-        protected DataNotValidReason(
+        protected DataIsNotValidReason(
             SerializationInfo info,
             StreamingContext context) : base(info, context)
         {
