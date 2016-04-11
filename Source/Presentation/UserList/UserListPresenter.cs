@@ -20,7 +20,10 @@ namespace Presentation.UserList
 
         private void OnInsertingUser(object sender, EventArgs e)
         {
+            var okButtonPressed = _userInsertingDialogPresenter.ShowDialog() == true;
 
+            if (okButtonPressed)
+                _userInsertingDialogPresenter.View
         }
     }
 }

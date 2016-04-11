@@ -9,8 +9,6 @@ namespace Presentation.UserList
     {
         IList<User> Users { get; set; }
 
-        event EventHandler ViewClosed;
-
         event EventHandler InsertingUser;
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using LightInject;
-using Presentation;
 using Presentation.UserInserting;
 using Presentation.UserList;
 using UI;

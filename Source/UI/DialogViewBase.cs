@@ -23,10 +23,9 @@ namespace UI
 
         public new bool? ShowDialog()
         {
-            var activeWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(w => w.IsActive);
-            if (activeWindow == null) throw new ApplicationException("No active window found");
+            var currentDialog = (Window) this;
 
-            Result = activeWindow.ShowDialog();
+            Result = currentDialog.ShowDialog();
             return Result;
         }
 

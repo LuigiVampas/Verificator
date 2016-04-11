@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using Model;
-using Presentation;
 using Presentation.UserList;
 
 namespace UI
@@ -18,13 +17,12 @@ namespace UI
 
         public MainWindow()
         {
+            Application.Current.MainWindow = this;
             InitializeComponent();
             _itemsSource = new MainWindowDataContext();
         }
 
         public event EventHandler LoadCompleted;
-
-        public event EventHandler ViewClosed;
 
         public event EventHandler InsertingUser;
 
@@ -44,12 +42,6 @@ namespace UI
         {
             if (InsertingUser != null)
                 InsertingUser(this, EventArgs.Empty);
-        }
-
-        private void MainWindow_OnClosed(object sender, EventArgs e)
-        {
-            if (ViewClosed != null)
-                ViewClosed(this, EventArgs.Empty);
         }
     }
 }

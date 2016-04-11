@@ -1,23 +1,92 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 
 namespace Model
 {
     public class Validator
     {
-        public string IsLoginValid(string login)
+        public bool IsLoginValid(string login)
         {
-            var result = new StringBuilder();
-            
-            return result.ToString();
+            return IsFieldValid(login, DataType.Login);
         }
 
-        public string IsUsersDataVaild(string name, string surname, string lastname, string initials, string positon)
+        public bool IsNameValid(string name)
         {
-            var result = new StringBuilder();
-
-            return result.ToString();
+            return IsFieldValid(name, DataType.Name);
         }
 
+        public bool IsSurnameValid(string surname)
+        {
+            return IsFieldValid(surname, DataType.Surname);
+        }
+
+        public bool IsLastnameValid(string lastname)
+        {
+            return IsFieldValid(lastname, DataType.Lastname);
+        }
+
+        public bool IsPostionValid(string position)
+        {
+            return IsFieldValid(position, DataType.Position);
+        }
+
+        public bool AreInitialsValid(string initials, string name, string surname, string lastname)
+        {
+            if (initials != GetInitialsFromNameAndLastname(name, surname, lastname))
+                return false;
+            return true;
+        }
+
+        private string GetInitialsFromNameAndLastname(string name, string surname, string lastname)
+        {
+            return name.First() + "." + surname.First() + "." +lastname.First();
+        }
+
+        private bool IsFieldValid(string field, DataType dataType)
+        {
+            switch (dataType)
+            {
+                case DataType.Name :
+                    IsDataValid(field);
+                    break;
+                case DataType.Surname:
+                    IsDataValid(field);
+                    break;
+                case DataType.Lastname:
+                    IsDataValid(field);
+                    break;
+                case DataType.Initials:
+                    if (field.Length > 3 && !field.Contains("."))
+                        return false;
+                    break;
+                case DataType.Position:
+                    if (field.Length < 50 && IsDataValid(field))
+                        return true;
+                    break;
+                case DataType.Password:
+                    if (field.Length > 500)
+                        return false;
+                    break;
+            }
+            return true;
+        }
+
+        private bool IsDataValid(string str)
+        {
+            var result = new StringBuilder();
+            var lenght = str.Length;
+            if (lenght == 0)
+                result.Append("Поле должно содержать больше символов");
+            if (lenght > 20)
+                result.Append("Поле содержит слишком много символов");
+            if (!(str.First() >= 'A' && str.First() <= 'Z') ||
+                (str.First() >= 'А' && str.First() <= 'Я'))
+                result.Append("Поле должно начинаться с заглавной буквы или не содержать посторонних символов");
+            if (result.ToString() != "")
+                throw new DataNotValidReason(result.ToString());
+            return true;
+        }
+        
         public PasswordStrength CheckPasswordsStrenght(string password)
         {
             const string lowerChars = "abcdefghijklmnopqrstuvwxyz";
@@ -47,6 +116,7 @@ namespace Model
             if (pwdLenght >= 15 && difficulty == 4) return PasswordStrength.Strong;
             return PasswordStrength.Weak;
         }
+
     }
 }
 

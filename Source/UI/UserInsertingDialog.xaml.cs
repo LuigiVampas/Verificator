@@ -1,4 +1,5 @@
-﻿using Presentation.UserInserting;
+﻿using System.Windows;
+using Presentation.UserInserting;
 
 namespace UI
 {
@@ -10,6 +11,11 @@ namespace UI
         public UserInsertingDialog()
         {
             InitializeComponent();
+        }
+
+        private void OkButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
         }
     }
 }

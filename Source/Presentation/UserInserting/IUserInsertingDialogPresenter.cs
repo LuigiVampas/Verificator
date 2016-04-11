@@ -4,6 +4,6 @@ namespace Presentation.UserInserting
 {
     public interface IUserInsertingDialogPresenter : IDialogPresenter<IUserInsertingDialogView>
     {
-        
+        bool? ShowDialog();
     }
 }
