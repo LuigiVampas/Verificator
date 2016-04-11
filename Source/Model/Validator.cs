@@ -7,88 +7,80 @@ namespace Model
     {
         public bool IsLoginValid(string login)
         {
-            return IsFieldValid(login, DataType.Login);
+            var result = new StringBuilder();
+            result.AppendLine(ContainsEnglish(login));
+            result.AppendLine(CheckLength(login, 15));
+            if (!string.IsNullOrWhiteSpace(result.ToString()))
+                throw new DataIsNotValidReason(result.ToString());
+            return true;
         }
 
         public bool IsNameValid(string name)
         {
-            return IsFieldValid(name, DataType.Name);
+            return IsDataValid(name);
         }
 
         public bool IsSurnameValid(string surname)
         {
-            return IsFieldValid(surname, DataType.Surname);
+            return IsDataValid(surname);
         }
 
         public bool IsLastnameValid(string lastname)
         {
-            return IsFieldValid(lastname, DataType.Lastname);
+            return IsDataValid(lastname);
         }
 
         public bool IsPostionValid(string position)
         {
-            return IsFieldValid(position, DataType.Position);
+            return IsDataValid(position);
         }
 
-        public bool AreInitialsValid(string initials, string name, string surname, string lastname)
+        public bool AreInitialsValid(string initials, string name, string surname)
         {
-            if (initials != GetInitialsFromNameAndLastname(name, surname, lastname))
-                return false;
-            return true;
+            return initials == GetInitialsFromNameAndSurname(name, surname);
         }
 
-        private string GetInitialsFromNameAndLastname(string name, string surname, string lastname)
+        private static string GetInitialsFromNameAndSurname(string name, string surname)
         {
-            return name.First() + "." + surname.First() + "." +lastname.First();
+            return name.First() + "." + surname.First();
         }
 
-        private bool IsFieldValid(string field, DataType dataType)
-        {
-            switch (dataType)
-            {
-                case DataType.Name :
-                    IsDataValid(field);
-                    break;
-                case DataType.Surname:
-                    IsDataValid(field);
-                    break;
-                case DataType.Lastname:
-                    IsDataValid(field);
-                    break;
-                case DataType.Initials:
-                    if (field.Length > 3 && !field.Contains("."))
-                        return false;
-                    break;
-                case DataType.Position:
-                    if (field.Length < 50 && IsDataValid(field))
-                        return true;
-                    break;
-                case DataType.Password:
-                    if (field.Length > 500)
-                        return false;
-                    break;
-            }
-            return true;
-        }
-
-        private bool IsDataValid(string str)
+        private static bool IsDataValid(string str)
         {
             var result = new StringBuilder();
             var lenght = str.Length;
-            if (lenght == 0)
-                result.Append("Поле должно содержать больше символов");
-            if (lenght > 20)
-                result.Append("Поле содержит слишком много символов");
-            if (!(str.First() >= 'A' && str.First() <= 'Z') ||
-                (str.First() >= 'А' && str.First() <= 'Я'))
-                result.Append("Поле должно начинаться с заглавной буквы или не содержать посторонних символов");
-            if (result.ToString() != "")
-                throw new DataNotValidReason(result.ToString());
+           result.AppendLine(StartingWithUpper(str));
+           result.AppendLine(CheckLength(str, 20));
+            if (!string.IsNullOrWhiteSpace(result.ToString()))
+                throw new DataIsNotValidReason(result.ToString());
             return true;
         }
-        
-        public PasswordStrength CheckPasswordsStrenght(string password)
+
+        private static string StartingWithUpper(string str)
         {
+           if ((str.First() >= 'A' && str.First() <= 'Z') || (str.First() >= 'А' && str.First() <= 'Я')) return "";
+            return "Поле должно начинаться с заглавной буквы или не содержать посторонних символов;"; 
+        }
+
+        private static string ContainsEnglish(string str)
+        {
+            for (int i = 0; i < str.Length; ++i)
+                if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z'))) return "Поле должно содержать только английские символы;";
+            return "";
+        }
+
+        private static string CheckLength(string str, int allowedLength)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+                return "Поле должно содержать больше символов;";
+            if (str.Length <= allowedLength)
+                return "";
+            return "Поле содержит слишком много символов;";
+        }
+        
+        public PasswordStrength CheckPasswordStrength(string password)
+        {
+
             const string lowerChars = "abcdefghijklmnopqrstuvwxyz";
             const string upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             const string digits = "1234567890";

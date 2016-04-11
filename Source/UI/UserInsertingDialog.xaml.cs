@@ -30,6 +30,7 @@ namespace UI
 
                 return _user;
             }
+
         }
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)

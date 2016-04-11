@@ -49,8 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataNotValidReasonExceprion.cs" />
-    <Compile Include="DataType.cs" />
+    <Compile Include="DataIsNotValidReasonException.cs" />
     <Compile Include="PasswordStrength.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

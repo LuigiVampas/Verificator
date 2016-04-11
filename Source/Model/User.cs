@@ -19,9 +19,8 @@ namespace Model
             get
             {
                 var firstNameLetter = Name.First();
-                var firstSurnameLetter = Surname.First();
                 var firstLastNameLetter = LastName.First();
-                return firstNameLetter + "." + firstSurnameLetter + "." + firstLastNameLetter;
+                return firstNameLetter + "." + firstLastNameLetter;
             }
         }
 
