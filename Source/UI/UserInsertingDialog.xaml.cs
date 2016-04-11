@@ -25,7 +25,7 @@ namespace UI
                 _user.Password = PasswordTextBox.Text;
                 _user.Surname = SurnameTextBox.Text;
                 _user.Name = NameTextBox.Text;
-                _user.LastName = LastNameTextBox.Text;
+                _user.Lastname = LastNameTextBox.Text;
                 _user.Position = PositionTextBox.Text;
 
                 return _user;

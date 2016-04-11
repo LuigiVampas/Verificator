@@ -25,7 +25,15 @@ namespace Model.Tests
             var validator = new Validator();
 
             Assert.True(validator.IsLoginValid("qwerty"));
-            Assert.True(validator.IsLoginValid("qwertyqwertyqwertyqwerty"));
+            Assert.True(validator.IsLoginValid("йцукен"));
+        }
+        [Test]
+        [ExpectedException(typeof(DataIsNotValidReason))]
+        public void IsEmptyLoginValidTest()
+        {
+            var validator = new Validator();
+
+            Assert.True(validator.IsLoginValid(""));
         }
         [Test]
         [ExpectedException(typeof(DataIsNotValidReason))]
@@ -34,8 +42,7 @@ namespace Model.Tests
             var validator = new Validator();
 
             Assert.True(validator.IsNameValid("Andrey"));
-            Assert.True(validator.IsNameValid("andrey"));
-            
+            Assert.True(validator.IsNameValid("йцукен"));
         }
         [Test]
         [ExpectedException(typeof(DataIsNotValidReason))]
@@ -44,8 +51,7 @@ namespace Model.Tests
             var validator = new Validator();
 
             Assert.True(validator.IsSurnameValid("Igorevich"));
-            Assert.True(validator.IsSurnameValid("igorevich"));
-            
+            Assert.True(validator.IsSurnameValid("йцукен"));
         }
         [Test]
         [ExpectedException(typeof(DataIsNotValidReason))]
@@ -54,8 +60,26 @@ namespace Model.Tests
             var validator = new Validator();
 
             Assert.True(validator.IsLastnameValid("Sokov"));
-            Assert.True(validator.IsLastnameValid("sokov"));
-            
+            Assert.True(validator.IsLastnameValid("йцукен"));
         }
+        [Test]
+        [ExpectedException(typeof(DataIsNotValidReason))]
+        public void IsPositionValidTest()
+        {
+            var validator = new Validator();
+
+            Assert.True(validator.IsPostionValid("Engineer"));
+            Assert.True(validator.IsPostionValid("Engineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineer"));
+        }
+        [Test]
+        [ExpectedException(typeof(DataIsNotValidReason))]
+        public void AreInitialsValidTest()
+        {
+            var validator = new Validator();
+
+            Assert.True(validator.AreInitialsValid("A.I", "Andrey", "Igorevich"));
+            Assert.True(validator.IsPostionValid("Engineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineer"));
+        }
+
 }
 }
