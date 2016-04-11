@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using Model;
-using Presentation;
 using Presentation.UserList;
 
 namespace UI
@@ -18,6 +17,7 @@ namespace UI
 
         public MainWindow()
         {
+            Application.Current.MainWindow = this;
             InitializeComponent();
             _itemsSource = new MainWindowDataContext();
         }

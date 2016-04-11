@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DialogViewBase.cs" />
+    <Compile Include="MainWindowItemsSource.cs" />
     <Compile Include="UserInsertingDialog.xaml.cs">
       <DependentUpon>UserInsertingDialog.xaml</DependentUpon>
     </Compile>
@@ -66,7 +67,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindowDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

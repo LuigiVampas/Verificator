@@ -80,6 +80,7 @@ namespace Model
         
         public PasswordStrength CheckPasswordStrength(string password)
         {
+
             const string lowerChars = "abcdefghijklmnopqrstuvwxyz";
             const string upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             const string digits = "1234567890";
