@@ -5,39 +5,51 @@ namespace Model
 {
     public class Validator
     {
-        public bool IsLoginValid(string login)
+        public string IsLoginValid(string login)
         {
             var result = new StringBuilder();
             result.AppendLine(ContainsEnglish(login));
             result.AppendLine(CheckLength(login, 15));
-            if (!string.IsNullOrWhiteSpace(result.ToString()))
-                throw new DataIsNotValidReason(result.ToString());
-            return true;
+            return result.ToString();
         }
 
-        public bool IsNameValid(string name)
+        public string IsPasswordValid(string password)
+        {
+            var result = new StringBuilder();
+            result.AppendLine(CheckLength(password, 32));
+            result.AppendLine(IsPassword(password));
+            if (CheckPasswordStrength(password) == PasswordStrength.Weak ||
+                CheckPasswordStrength(password) == PasswordStrength.PwdNotSet)
+                result.AppendLine("Password is too weak, or not set");
+
+            return result.ToString();
+        }
+
+        public string IsNameValid(string name)
         {
             return IsDataValid(name);
         }
 
-        public bool IsSurnameValid(string surname)
+        public string IsSurnameValid(string surname)
         {
             return IsDataValid(surname);
         }
 
-        public bool IsLastnameValid(string lastname)
+        public string IsLastnameValid(string lastname)
         {
             return IsDataValid(lastname);
         }
 
-        public bool IsPostionValid(string position)
+        public string IsPostionValid(string position)
         {
             return IsDataValid(position);
         }
 
-        public bool AreInitialsValid(string initials, string name, string surname)
+        public string AreInitialsValid(string initials, string name, string surname)
         {
-            return initials == GetInitialsFromNameAndSurname(name, surname);
+            if (initials != GetInitialsFromNameAndSurname(name, surname))
+                return "Initials are not correct";
+            return "";
         }
 
         private static string GetInitialsFromNameAndSurname(string name, string surname)
@@ -45,39 +57,41 @@ namespace Model
             return name.First() + "." + surname.First();
         }
 
-        private static bool IsDataValid(string str)
+        private static string IsDataValid(string str)
         {
             var result = new StringBuilder();
             result.AppendLine(StartingWithUpper(str));
            result.AppendLine(CheckLength(str, 20));
-            if (!string.IsNullOrWhiteSpace(result.ToString()))
-                throw new DataIsNotValidReason(result.ToString());
-            return true;
+
+           return result.ToString();
         }
 
         private static string StartingWithUpper(string str)
         {
-           if ((str.First() >= 'A' && str.First() <= 'Z') || (str.First() >= 'А' && str.First() <= 'Я')) 
-               return "";
-            return "Поле должно начинаться с заглавной буквы или не содержать посторонних символов;"; 
+           if ((str.First() >= 'A' && str.First() <= 'Z') || (str.First() >= 'А' && str.First() <= 'Я')) return "";
+            return "Field have to be started with Upper and have not to contain non-english symbols"; 
         }
 
         private static string ContainsEnglish(string str)
         {
-            if (str.Any(t => !(t >= 'A' && t <= 'Z' || t >= 'a' && t <= 'z')))
-            {
-                return "Поле должно содержать только английские символы;";
-            }
+            for (int i = 0; i < str.Length; ++i)
+                if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z'))) return "Field have to contain only english symbols";
+            return "";
+        }
+        private static string IsPassword(string str)
+        {
+            for (int i = 0; i < str.Length; ++i)
+                if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= '!' && str[i] <= '@'))) return "Not allowed symbols for password";
             return "";
         }
 
         private static string CheckLength(string str, int allowedLength)
         {
             if (string.IsNullOrWhiteSpace(str))
-                return "Поле должно содержать больше символов;";
+                return "Field is too short";
             if (str.Length <= allowedLength)
                 return "";
-            return "Поле содержит слишком много символов;";
+            return "Field is too long";
         }
         
         public PasswordStrength CheckPasswordStrength(string password)

@@ -12,15 +12,15 @@ namespace Model
 
         public string Name { get; set; }
 
-        public string LastName { get; set; }
+        public string Lastname { get; set; }
 
         public string Initials
         {
             get
             {
                 var firstNameLetter = Name.First();
-                var firstLastNameLetter = LastName.First();
-                return firstNameLetter + "." + firstLastNameLetter;
+                var firstSurnameLetter = Surname.First();
+                return firstNameLetter + "." + firstSurnameLetter;
             }
         }
 
