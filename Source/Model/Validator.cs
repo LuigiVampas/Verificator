@@ -48,8 +48,7 @@ namespace Model
         private static bool IsDataValid(string str)
         {
             var result = new StringBuilder();
-            var lenght = str.Length;
-           result.AppendLine(StartingWithUpper(str));
+            result.AppendLine(StartingWithUpper(str));
            result.AppendLine(CheckLength(str, 20));
             if (!string.IsNullOrWhiteSpace(result.ToString()))
                 throw new DataIsNotValidReason(result.ToString());
@@ -58,14 +57,17 @@ namespace Model
 
         private static string StartingWithUpper(string str)
         {
-           if ((str.First() >= 'A' && str.First() <= 'Z') || (str.First() >= 'А' && str.First() <= 'Я')) return "";
+           if ((str.First() >= 'A' && str.First() <= 'Z') || (str.First() >= 'А' && str.First() <= 'Я')) 
+               return "";
             return "Поле должно начинаться с заглавной буквы или не содержать посторонних символов;"; 
         }
 
         private static string ContainsEnglish(string str)
         {
-            for (int i = 0; i < str.Length; ++i)
-                if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z'))) return "Поле должно содержать только английские символы;";
+            if (str.Any(t => !(t >= 'A' && t <= 'Z' || t >= 'a' && t <= 'z')))
+            {
+                return "Поле должно содержать только английские символы;";
+            }
             return "";
         }
 

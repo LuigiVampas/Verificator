@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using Presentation.MVP;
 
@@ -9,6 +10,7 @@ namespace UI
         public DialogViewBase()
         {
             Loaded += OnWindowLoaded;
+            Closing += OnWindowClosing;
         }
 
         public bool? Result { get; private set; }
@@ -32,6 +34,21 @@ namespace UI
         {
             if (LoadCompleted != null)
                 LoadCompleted(this, EventArgs.Empty);
+        }
+
+        private void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+
+            OnClosing();
+
+            Result = null;
+            Hide();
+        }
+
+        protected virtual void OnClosing()
+        {
+            
         }
     }
 }

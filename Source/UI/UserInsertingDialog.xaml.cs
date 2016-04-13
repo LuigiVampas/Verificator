@@ -33,6 +33,16 @@ namespace UI
 
         }
 
+        protected override void OnClosing()
+        {
+            LoginTextBox.Text = "";
+            PasswordTextBox.Text = "";
+            SurnameTextBox.Text = "";
+            NameTextBox.Text = "";
+            LastNameTextBox.Text = "";
+            PositionTextBox.Text = "";
+        }
+
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
             DialogResult = true;

@@ -1,5 +1,4 @@
-﻿using System.CodeDom;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Model.Tests
 {
