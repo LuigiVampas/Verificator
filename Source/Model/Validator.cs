@@ -5,17 +5,15 @@ namespace Model
 {
     public class Validator
     {
-        public bool IsLoginValid(string login)
+        public string IsLoginValid(string login)
         {
             var result = new StringBuilder();
             result.AppendLine(ContainsEnglish(login));
             result.AppendLine(CheckLength(login, 15));
-            if (!string.IsNullOrWhiteSpace(result.ToString()))
-                throw new DataIsNotValidReason(result.ToString());
-            return true;
+            return result.ToString();
         }
 
-        public bool IsPasswordValid(string password)
+        public string IsPasswordValid(string password)
         {
             var result = new StringBuilder();
             result.AppendLine(CheckLength(password, 32));
@@ -23,34 +21,35 @@ namespace Model
             if (CheckPasswordStrength(password) == PasswordStrength.Weak ||
                 CheckPasswordStrength(password) == PasswordStrength.PwdNotSet)
                 result.AppendLine("Password is too weak, or not set");
-            if (!string.IsNullOrWhiteSpace(result.ToString()))
-                throw new DataIsNotValidReason(result.ToString());
-            return true;
+
+            return result.ToString();
         }
 
-        public bool IsNameValid(string name)
+        public string IsNameValid(string name)
         {
             return IsDataValid(name);
         }
 
-        public bool IsSurnameValid(string surname)
+        public string IsSurnameValid(string surname)
         {
             return IsDataValid(surname);
         }
 
-        public bool IsLastnameValid(string lastname)
+        public string IsLastnameValid(string lastname)
         {
             return IsDataValid(lastname);
         }
 
-        public bool IsPostionValid(string position)
+        public string IsPostionValid(string position)
         {
             return IsDataValid(position);
         }
 
-        public bool AreInitialsValid(string initials, string name, string surname)
+        public string AreInitialsValid(string initials, string name, string surname)
         {
-            return initials == GetInitialsFromNameAndSurname(name, surname);
+            if (initials != GetInitialsFromNameAndSurname(name, surname))
+                return "Initials are not correct";
+            return "";
         }
 
         private static string GetInitialsFromNameAndSurname(string name, string surname)
@@ -58,15 +57,14 @@ namespace Model
             return name.First() + "." + surname.First();
         }
 
-        private static bool IsDataValid(string str)
+        private static string IsDataValid(string str)
         {
             var result = new StringBuilder();
             var lenght = str.Length;
            result.AppendLine(StartingWithUpper(str));
            result.AppendLine(CheckLength(str, 20));
-            if (!string.IsNullOrWhiteSpace(result.ToString()))
-                throw new DataIsNotValidReason(result.ToString());
-            return true;
+
+           return result.ToString();
         }
 
         private static string StartingWithUpper(string str)

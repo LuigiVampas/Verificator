@@ -27,91 +27,82 @@ namespace Model.Tests
         }
 
         [Test]
-        [ExpectedException (typeof(DataIsNotValidReason))]
         public void IsLoginValidTest()
         {
             var validator = new Validator();
 
-            Assert.True(validator.IsLoginValid("qwerty"));
-            Assert.True(validator.IsLoginValid("йцукен"));
+            Assert.That(validator.IsLoginValid("qwerty"), Is.EqualTo("\r\n\r\n"));
+            Assert.That(validator.IsLoginValid("йцукен"), Is.EqualTo("Field have to contain only english symbols\r\n\r\n"));
         }
 
         [Test]
-        [ExpectedException(typeof(DataIsNotValidReason))]
         public void IsPasswordValidTest()
         {
             var validator = new Validator();
 
-            Assert.True(validator.IsPasswordValid("AntoshKa@987Lukas"));
-            Assert.True(validator.IsPasswordValid("&^&68Ff*%&(&*"));
+            Assert.That(validator.IsPasswordValid("AntoshKa@987Lukas"), Is.EqualTo("\r\n\r\n"));
+            Assert.That(validator.IsPasswordValid("&^&68Ff*%&(&*"), Is.EqualTo("\r\nNot allowed symbols for password\r\n"));
         }
 
         [Test]
-        [ExpectedException(typeof(DataIsNotValidReason))]
         public void IsEmptyPasswordValidTest()
         {
             var validator = new Validator();
 
-            Assert.True(validator.IsPasswordValid(""));
+            Assert.That(validator.IsPasswordValid(""), Is.EqualTo("Field is too short\r\n\r\nPassword is too weak, or not set\r\n"));
         }
 
         [Test]
-        [ExpectedException(typeof(DataIsNotValidReason))]
         public void IsEmptyLoginValidTest()
         {
             var validator = new Validator();
 
-            Assert.True(validator.IsLoginValid(""));
+            Assert.That(validator.IsLoginValid(""), Is.EqualTo("\r\nField is too short\r\n"));
         }
 
         [Test]
-        [ExpectedException(typeof(DataIsNotValidReason))]
         public void IsNameValidTest()
         {
             var validator = new Validator();
 
-            Assert.True(validator.IsNameValid("Andrey"));
-            Assert.True(validator.IsNameValid("йцукен"));
+            Assert.That(validator.IsNameValid("Andrey"), Is.EqualTo("\r\n\r\n"));
+            Assert.That(validator.IsNameValid("йцукен"), Is.EqualTo("Field have to be started with Upper and have not to contain non-english symbols\r\n\r\n"));
         }
 
         [Test]
-        [ExpectedException(typeof(DataIsNotValidReason))]
         public void IsSurnameValidTest()
         {
             var validator = new Validator();
 
-            Assert.True(validator.IsSurnameValid("Igorevich"));
-            Assert.True(validator.IsSurnameValid("йцукен"));
+            Assert.That(validator.IsSurnameValid("Igorevich"), Is.EqualTo("\r\n\r\n"));
+            Assert.That(validator.IsSurnameValid("йцукен"), Is.EqualTo("Field have to be started with Upper and have not to contain non-english symbols\r\n\r\n"));
         }
 
         [Test]
-        [ExpectedException(typeof(DataIsNotValidReason))]
         public void IsLastnameValidTest()
         {
             var validator = new Validator();
 
-            Assert.True(validator.IsLastnameValid("Sokov"));
-            Assert.True(validator.IsLastnameValid("йцукен"));
+            Assert.That(validator.IsLastnameValid("Sokov"), Is.EqualTo("\r\n\r\n"));
+            Assert.That(validator.IsLastnameValid("йцукен"), Is.EqualTo("Field have to be started with Upper and have not to contain non-english symbols\r\n\r\n"));
         }
 
         [Test]
-        [ExpectedException(typeof(DataIsNotValidReason))]
         public void IsPositionValidTest()
         {
             var validator = new Validator();
 
-            Assert.True(validator.IsPostionValid("Engineer"));
-            Assert.True(validator.IsPostionValid("Engineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineer"));
+            Assert.That(validator.IsPostionValid("Engineer"), Is.EqualTo("\r\n\r\n"));
+            Assert.That(validator.IsPostionValid("Engineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineer"), Is.EqualTo("\r\nField is too long\r\n"));
         }
 
         [Test]
-        [ExpectedException(typeof(DataIsNotValidReason))]
         public void AreInitialsValidTest()
         {
             var validator = new Validator();
 
-            Assert.True(validator.AreInitialsValid("A.I", "Andrey", "Igorevich"));
-            Assert.True(validator.IsPostionValid("Engineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineer"));
+            Assert.That(validator.AreInitialsValid("A.I", "Andrey", "Igorevich"), Is.EqualTo(""));
+            Assert.That(validator.AreInitialsValid("A.I.", "Andrey", "Igorevich"), Is.EqualTo("Initials are not correct"));
         }
 
 }
