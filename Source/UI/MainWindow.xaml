@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <DataGrid x:Name="UsersList" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" ColumnWidth="Auto" ItemsSource="{Binding}"
                   CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
-                  CanUserResizeColumns="False"
+                  CanUserResizeColumns="False" SelectionMode="Single"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
@@ -29,7 +29,7 @@
         </DataGrid>
         <WrapPanel x:Name="ButtonsPanel" Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Margin="4 10 0 0">
             <Button x:Name="InsertButton" Width="80" Content="Добавить" Margin="0 0 25 0" Click="InsertButton_OnClick"/>
-            <Button x:Name="DeleteButton" Width="80" Content="Удалить" Margin="0 0 25 0"/>
+            <Button x:Name="DeleteButton" Width="80" Content="Удалить" Margin="0 0 25 0" Click="DeleteButton_OnClick"/>
             <Button x:Name="ChangeButton" Width="80" Content="Изменить"/>
         </WrapPanel>
     </Grid>

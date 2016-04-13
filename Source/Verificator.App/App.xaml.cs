@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using LightInject;
+using Presentation.UserDeleting;
 using Presentation.UserInserting;
 using Presentation.UserList;
 using UI;
@@ -18,6 +19,8 @@ namespace Verificator.App
             container.Register<IMainView>(c => new MainWindow(), new PerContainerLifetime());
             container.Register<IUserInsertingDialogPresenter, UserInsertingDialogPresenter>(new PerContainerLifetime());
             container.Register<IUserInsertingDialogView>(c => new UserInsertingDialog(), new PerContainerLifetime());
+            container.Register<IUserDeletingDialogPresenter, UserDeletingDialogPresenter>(new PerContainerLifetime());
+            container.Register<IUserDeletingDialogView>(c => new UserDeletingDialog(), new PerContainerLifetime());
 
             var mainPresenter = container.GetInstance<IUserListPresenter>();
             mainPresenter.Initialize();

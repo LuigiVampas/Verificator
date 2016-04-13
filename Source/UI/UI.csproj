@@ -48,11 +48,18 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserDeletingDialog.xaml.cs">
+      <DependentUpon>UserDeletingDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DialogViewBase.cs" />
     <Compile Include="MainWindowItemsSource.cs" />
     <Compile Include="UserInsertingDialog.xaml.cs">
       <DependentUpon>UserInsertingDialog.xaml</DependentUpon>
     </Compile>
+    <Page Include="UserDeletingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
