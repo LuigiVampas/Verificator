@@ -20,9 +20,9 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
                 <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
-                <DataGridTextColumn Header="Фамилия" Binding="{Binding Soname}"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Отчество" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Lastname}"/>
                 <DataGridTextColumn Header="Инициалы" Binding="{Binding Initials}"/>
                 <DataGridTextColumn Header="Должность" Binding="{Binding Position}"/>
             </DataGrid.Columns>

@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Model
 {
-    public class User
+    public class User : ICloneable
     {
+        public int Id { get; set; }
+
         public string Login { get; set; }
 
         public string Password { get; set; }
@@ -25,5 +28,11 @@ namespace Model
         }
 
         public string Position { get; set; }
+
+        public object Clone()
+        {
+            return new User { Id = Id, Name = Name, Surname = Surname, Position = Position, 
+                Login = Login, Password = Password, Lastname = Lastname};
+        }
     }
 }

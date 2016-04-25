@@ -26,8 +26,14 @@ namespace UI
         {
             var currentDialog = (Window) this;
 
-            Result = currentDialog.ShowDialog();
+            OnShowing();
+
+            currentDialog.ShowDialog();
             return Result;
+        }
+
+        protected virtual void OnShowing()
+        {
         }
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
@@ -38,11 +44,11 @@ namespace UI
 
         private void OnWindowClosing(object sender, CancelEventArgs e)
         {
+            Result = DialogResult;
             e.Cancel = true;
 
             OnClosing();
 
-            Result = null;
             Hide();
         }
 

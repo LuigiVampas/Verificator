@@ -52,7 +52,6 @@
       <DependentUpon>UserDeletingDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="DialogViewBase.cs" />
-    <Compile Include="MainWindowItemsSource.cs" />
     <Compile Include="UserInsertingDialog.xaml.cs">
       <DependentUpon>UserInsertingDialog.xaml</DependentUpon>
     </Compile>

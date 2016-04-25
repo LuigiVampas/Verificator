@@ -19,7 +19,7 @@ namespace Model
             result.AppendLine(CheckLength(password, 32));
             result.AppendLine(IsPassword(password));
             if (CheckPasswordStrength(password) == PasswordStrength.Weak ||
-                CheckPasswordStrength(password) == PasswordStrength.PwdNotSet)
+                CheckPasswordStrength(password) == PasswordStrength.PasswordNotSet)
                 result.AppendLine("Password is too weak, or not set");
 
             return result.ToString();
@@ -107,7 +107,7 @@ namespace Model
             var hasSpecials = false;
             var difficulty = 0;
             var pwdLenght = password.Length;
-            if (pwdLenght == 0) return PasswordStrength.PwdNotSet;
+            if (pwdLenght == 0) return PasswordStrength.PasswordNotSet;
 
             for (var i = 0; i < pwdLenght; ++i)
             {

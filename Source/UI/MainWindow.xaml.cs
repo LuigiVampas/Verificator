@@ -14,13 +14,14 @@ namespace UI
     /// </summary>
     public partial class MainWindow : IMainView
     {
-        private readonly MainWindowItemsSource _itemsSource;
+        private ObservableCollection<User> _users;
 
         public MainWindow()
         {
             Application.Current.MainWindow = this;
             InitializeComponent();
-            _itemsSource = new MainWindowItemsSource();
+            _users = new ObservableCollection<User>();
+            UsersList.ItemsSource = _users;
         }
 
         public event EventHandler LoadCompleted;
@@ -31,8 +32,12 @@ namespace UI
 
         public IList<User> Users 
         {
-            get { return _itemsSource.Users.ToList(); } 
-            set { _itemsSource.Users = new ObservableCollection<User>(value); } 
+            get { return _users; }
+            set
+            {
+                _users = new ObservableCollection<User>(value);
+                UsersList.ItemsSource = _users;
+            } 
         }
 
         public User SelectedUser
@@ -40,7 +45,7 @@ namespace UI
             get
             {
                 var selectedIndex = UsersList.SelectedIndex;
-                if (selectedIndex == -1)
+                if (selectedIndex < 0)
                     return null;
 
                 return Users[selectedIndex];

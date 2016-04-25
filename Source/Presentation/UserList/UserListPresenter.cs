@@ -9,11 +9,13 @@ namespace Presentation.UserList
     {
         private readonly IUserInsertingDialogPresenter _userInsertingDialogPresenter;
         private readonly IUserDeletingDialogPresenter _userDeletingDialogPresenter;
+        private readonly IUserRepository _userRepository;
 
-        public UserListPresenter(IUserInsertingDialogPresenter userInsertingDialogPresenter, IUserDeletingDialogPresenter userDeletingDialogPresenter)
+        public UserListPresenter(IUserInsertingDialogPresenter userInsertingDialogPresenter, IUserDeletingDialogPresenter userDeletingDialogPresenter, IUserRepository userRepository)
         {
             _userInsertingDialogPresenter = userInsertingDialogPresenter;
             _userDeletingDialogPresenter = userDeletingDialogPresenter;
+            _userRepository = userRepository;
         }
 
         protected override void OnViewLoaded()
@@ -28,7 +30,10 @@ namespace Presentation.UserList
 
             if (okButtonPressed)
             {
-                var user = _userInsertingDialogPresenter.View.User;
+                var user = _userInsertingDialogPresenter.User;
+                _userRepository.AddUser(user);
+
+                View.Users.Add(user);
             }
         }
 

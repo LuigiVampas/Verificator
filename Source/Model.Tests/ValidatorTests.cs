@@ -10,7 +10,7 @@ namespace Model.Tests
         {
             var validator = new Validator();
 
-            Assert.That(validator.CheckPasswordStrength(""), Is.EqualTo(PasswordStrength.PwdNotSet));
+            Assert.That(validator.CheckPasswordStrength(""), Is.EqualTo(PasswordStrength.PasswordNotSet));
             Assert.That(validator.CheckPasswordStrength("lol"), Is.EqualTo(PasswordStrength.Weak));
             Assert.That(validator.CheckPasswordStrength("lol124"), Is.EqualTo(PasswordStrength.Weak));
             Assert.That(validator.CheckPasswordStrength("loL1%"), Is.EqualTo(PasswordStrength.Weak));

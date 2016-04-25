@@ -13,23 +13,23 @@ namespace Model
 
         public bool IsPasswordValid(string passwordInput, string pwdHashFromDb)
         {
-            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            var comparer = StringComparer.OrdinalIgnoreCase;
 
             return 0 == comparer.Compare(GetHashString(passwordInput), pwdHashFromDb);
         }
 
         private string GetPwdHashOnce(string password)
         {
-            string pwdHash = string.Empty;
-            byte[] bytes = Encoding.Default.GetBytes(password);
-            MD5CryptoServiceProvider csp = new MD5CryptoServiceProvider();
+            var passwordHash = string.Empty;
+            var bytes = Encoding.Default.GetBytes(password);
+            var md5CryptoServiceProvider = new MD5CryptoServiceProvider();
 
-            byte[] byteHash = csp.ComputeHash(bytes);
+            var byteHash = md5CryptoServiceProvider.ComputeHash(bytes);
             
             foreach (byte b in byteHash)
-                pwdHash += string.Format("{0:x2}", b);  
+                passwordHash += string.Format("{0:x2}", b);  
 
-            return pwdHash;
+            return passwordHash;
         }
 
         private string GetSaltPwdHash(string password)

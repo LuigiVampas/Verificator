@@ -33,7 +33,7 @@ namespace UI
 
         }
 
-        protected override void OnClosing()
+        protected override void OnShowing()
         {
             LoginTextBox.Text = "";
             PasswordTextBox.Text = "";
