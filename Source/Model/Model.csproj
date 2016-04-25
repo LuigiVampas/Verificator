@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="PasswordCrypt.cs" />
     <Compile Include="PasswordStrength.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validator.cs" />

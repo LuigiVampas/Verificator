@@ -3,9 +3,9 @@ using System.Text;
 
 namespace Model
 {
-    public class Validator
+    public static class Validator
     {
-        public string IsLoginValid(string login)
+        public static string IsLoginValid(string login)
         {
             var result = new StringBuilder();
             result.AppendLine(ContainsEnglish(login));
@@ -13,39 +13,40 @@ namespace Model
             return result.ToString();
         }
 
-        public string IsPasswordValid(string password)
+        public static string IsPasswordValid(string password)
         {
             var result = new StringBuilder();
             result.AppendLine(CheckLength(password, 32));
             result.AppendLine(IsPassword(password));
-            if (CheckPasswordStrength(password) == PasswordStrength.Weak ||
-                CheckPasswordStrength(password) == PasswordStrength.PasswordNotSet)
+            var passwordStrength = CheckPasswordStrength(password);
+            if (passwordStrength == PasswordStrength.Weak ||
+                passwordStrength == PasswordStrength.PasswordNotSet)
                 result.AppendLine("Password is too weak, or not set");
 
             return result.ToString();
         }
 
-        public string IsNameValid(string name)
+        public static string IsNameValid(string name)
         {
             return IsDataValid(name);
         }
 
-        public string IsSurnameValid(string surname)
+        public static string IsSurnameValid(string surname)
         {
             return IsDataValid(surname);
         }
 
-        public string IsLastnameValid(string lastname)
+        public static string IsLastnameValid(string lastname)
         {
             return IsDataValid(lastname);
         }
 
-        public string IsPostionValid(string position)
+        public static string IsPositionValid(string position)
         {
             return IsDataValid(position);
         }
 
-        public string AreInitialsValid(string initials, string name, string surname)
+        public static string AreInitialsValid(string initials, string name, string surname)
         {
             if (initials != GetInitialsFromNameAndSurname(name, surname))
                 return "Initials are not correct";
@@ -93,8 +94,8 @@ namespace Model
                 return "";
             return "Field is too long";
         }
-        
-        public PasswordStrength CheckPasswordStrength(string password)
+
+        public static PasswordStrength CheckPasswordStrength(string password)
         {
 
             const string lowerChars = "abcdefghijklmnopqrstuvwxyz";

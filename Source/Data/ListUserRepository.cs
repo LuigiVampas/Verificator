@@ -8,6 +8,7 @@ namespace Data
     public class ListUserRepository : IUserRepository
     {
         private readonly List<User> _users;
+        private int _lastId;
 
         public ListUserRepository()
         {
@@ -55,6 +56,9 @@ namespace Data
 
         public void AddUser(User user)
         {
+            if (user.Id == 0)
+                user.Id = ++_lastId;
+
             if (_users.Any(u => u.Id == user.Id))
                 return;
 

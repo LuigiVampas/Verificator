@@ -29,6 +29,7 @@ namespace UI
             OnShowing();
 
             currentDialog.ShowDialog();
+
             return Result;
         }
 

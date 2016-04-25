@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 using Model;
 using Presentation.UserInserting;
 
@@ -9,43 +11,40 @@ namespace UI
     /// </summary>
     public partial class UserInsertingDialog : IUserInsertingDialogView
     {
-        private readonly User _user;
-
         public UserInsertingDialog()
         {
             InitializeComponent();
-            _user = new User();
+            DataContext = new User();
         }
 
         public User User
         {
-            get
-            {
-                _user.Login = LoginTextBox.Text;
-                _user.Password = PasswordTextBox.Text;
-                _user.Surname = SurnameTextBox.Text;
-                _user.Name = NameTextBox.Text;
-                _user.Lastname = LastNameTextBox.Text;
-                _user.Position = PositionTextBox.Text;
-
-                return _user;
-            }
-
+            get { return (User)DataContext;  }
+            set { DataContext = value; }
         }
 
         protected override void OnShowing()
         {
-            LoginTextBox.Text = "";
-            PasswordTextBox.Text = "";
-            SurnameTextBox.Text = "";
-            NameTextBox.Text = "";
-            LastNameTextBox.Text = "";
-            PositionTextBox.Text = "";
+            User = new User();
         }
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
+            foreach(var child in UserParametersGrid.Children)
+            {
+                if (Validation.GetHasError((DependencyObject)child))
+                {
+                    var control = (UIElement) child;
+                    control.Focus();
+                    return;
+                }
+            }
             DialogResult = true;
+        }
+
+        private void UserInsertingDialog_OnActivated(object sender, EventArgs e)
+        {
+            LoginTextBox.Focus();
         }
     }
 }

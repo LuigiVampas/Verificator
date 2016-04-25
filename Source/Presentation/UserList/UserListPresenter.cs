@@ -39,8 +39,15 @@ namespace Presentation.UserList
 
         private void OnDeletingUser(object sender, EventArgs e)
         {
+            if (View.SelectedUser == null)
+                return;
+
             if (_userDeletingDialogPresenter.RunDialog() == true)
-                View.Users.Remove(View.SelectedUser);
+            {
+                var activeUser = View.SelectedUser;
+                _userRepository.DeleteUser(activeUser);
+                View.Users.Remove(activeUser);
+            }
         }
     }
 }
