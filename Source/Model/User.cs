@@ -35,7 +35,7 @@ namespace Model
                 var error = Validator.IsLoginValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
-                    throw new ArgumentException(error, "Login");
+                    throw new ArgumentException(error);
 
                 _login = value;
 
@@ -51,7 +51,7 @@ namespace Model
                 var error = Validator.IsPasswordValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
-                    throw new ArgumentException(error, "Password");
+                    throw new ArgumentException(error);
 
                 _password = value;
             }
@@ -65,7 +65,7 @@ namespace Model
                 var error = Validator.IsSurnameValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
-                    throw new ArgumentException(error, "Surname");
+                    throw new ArgumentException(error);
 
                 _surname = value;
             }
@@ -79,7 +79,7 @@ namespace Model
                 var error = Validator.IsNameValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
-                    throw new ArgumentException(error, "Name");
+                    throw new ArgumentException(error);
 
                 _name = value;
             }
@@ -93,7 +93,7 @@ namespace Model
                 var error = Validator.IsLastnameValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
-                    throw new ArgumentException(error, "Lastname");
+                    throw new ArgumentException(error);
 
                 _lastname = value;
             }
@@ -104,8 +104,8 @@ namespace Model
             get
             {
                 var firstNameLetter = Name.First();
-                var firstSurnameLetter = Surname.First();
-                return firstNameLetter + "." + firstSurnameLetter;
+                var firstLastnameLetter = Lastname.First();
+                return firstNameLetter + "." + firstLastnameLetter + ".";
             }
         }
 
@@ -114,10 +114,10 @@ namespace Model
             get { return _position; }
             set
             {
-                var error = Validator.IsPasswordValid(value);
+                var error = Validator.IsPositionValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
-                    throw new ArgumentException(error, "Position");
+                    throw new ArgumentException(error);
 
                 _position = value;
             }

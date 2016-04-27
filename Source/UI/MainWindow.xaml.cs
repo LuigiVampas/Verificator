@@ -80,7 +80,7 @@ namespace UI
                 DeletingUser(this, EventArgs.Empty);
         }
 
-        private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
+        private void MainWindow_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
