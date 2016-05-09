@@ -14,6 +14,10 @@ namespace Verificator.App
     /// </summary>
     public partial class App
     {
+        /// <summary>
+        /// Запуск приложения.
+        /// </summary>
+        /// <param name="e">Аргументы запуска приложения.</param>
         protected override void OnStartup(StartupEventArgs e)
         {
             var container = new ServiceContainer();

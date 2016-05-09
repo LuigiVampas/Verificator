@@ -11,23 +11,37 @@ namespace UI
     /// </summary>
     public partial class UserInsertingDialog : IUserInsertingDialogView
     {
+        /// <summary>
+        /// Создаёт диалог добавления пользователя.
+        /// </summary>
         public UserInsertingDialog()
         {
             InitializeComponent();
             DataContext = new User();
         }
 
+        /// <summary>
+        /// Возвращает, пользователя с данными, заполненными на диалоговом окне.
+        /// </summary>
         public User User
         {
             get { return (User)DataContext;  }
             set { DataContext = value; }
         }
 
+        /// <summary>
+        /// Действия, которые необходимо выполнить при показе диалога.
+        /// </summary>
         protected override void OnShowing()
         {
             User = new User();
         }
 
+        /// <summary>
+        /// Обработчик стандартного события нажатия на кнопку подтверждения добавления нового пользователя.
+        /// </summary>
+        /// <param name="sender">Отправитель события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
             foreach(var child in UserParametersGrid.Children)
@@ -42,6 +56,11 @@ namespace UI
             DialogResult = true;
         }
 
+        /// <summary>
+        /// Обработчик стандартного события, возникающего при активизации диалога.
+        /// </summary>
+        /// <param name="sender">Отправитель события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void UserInsertingDialog_OnActivated(object sender, EventArgs e)
         {
             LoginTextBox.Focus();

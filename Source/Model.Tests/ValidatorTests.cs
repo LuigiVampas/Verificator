@@ -17,11 +17,9 @@ namespace Model.Tests
         }
 
         [Test]
-        public void PasswordCrypt()
+        public void PasswordCryptTest()
         {
-            var pwdCrypt = new PasswordCrypt();
-
-            Assert.True(pwdCrypt.IsPasswordValid("AntoshKa@987Lukas", pwdCrypt.GetHashString("AntoshKa@987Lukas")));
+            Assert.True(PasswordCrypt.IsPasswordValid("AntoshKa@987Lukas", PasswordCrypt.GetHashString("AntoshKa@987Lukas")));
         }
 
         [Test]
