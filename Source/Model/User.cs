@@ -25,6 +25,7 @@ namespace Model
                 var firstLastnameLetter = Lastname.First();
                 return firstNameLetter + "." + firstLastnameLetter + ".";
             }
+            set { throw new NotImplementedException(); }
         }
 
         public string Position { get; set; }
