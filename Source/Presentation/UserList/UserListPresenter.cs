@@ -33,6 +33,7 @@ namespace Presentation.UserList
         /// </summary>
         /// <param name="userInsertingDialogPresenter">Презентер диалога добавления нового пользователя.</param>
         /// <param name="userDeletingDialogPresenter">Презентер диалога удаления пользователя.</param>
+        /// <param name="userEditDialogPresenter">Презентер диалога изменения данных пользователя.</param>
         /// <param name="userRepository">Репозиторий, в котором хранятся объекты класса User.</param>
         public UserListPresenter(IUserInsertingDialogPresenter userInsertingDialogPresenter, IUserDeletingDialogPresenter userDeletingDialogPresenter, IUserEditDialogPresenter userEditDialogPresenter, IUserRepository userRepository)
         {
@@ -66,7 +67,7 @@ namespace Presentation.UserList
                 var user = _userInsertingDialogPresenter.User;
                 _userRepository.AddUser(user);
 
-                View.Users.Add(user);
+                View.Users.Add(new UserDataContext(user));
             }
         }
 
@@ -83,7 +84,7 @@ namespace Presentation.UserList
             if (_userDeletingDialogPresenter.RunDialog() == true)
             {
                 var selectedUser = View.SelectedUser;
-                _userRepository.DeleteUser(selectedUser);
+                _userRepository.DeleteUser(selectedUser.CreateUser());
                 View.Users.Remove(selectedUser);
             }
         }
@@ -95,7 +96,7 @@ namespace Presentation.UserList
 
             var selectedUser = View.SelectedUser;
 
-            var newUser = _userEditDialogPresenter.EditUser(selectedUser);
+            var newUser = _userEditDialogPresenter.EditUser(selectedUser.CreateUser());
         }
     }
 }

@@ -105,10 +105,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{7b3f463e-dab2-4d26-b64f-035989181c09}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Presentation\Presentation.csproj">
       <Project>{9F983495-9BC4-4870-BE0B-361EADC58688}</Project>
       <Name>Presentation</Name>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using Model;
+using Presentation;
 using Presentation.UserInserting;
 
 namespace UI
@@ -17,16 +17,17 @@ namespace UI
         public UserInsertingDialog()
         {
             InitializeComponent();
-            DataContext = new User();
+
+            UserDataContext = new UserDataContext();
         }
 
         /// <summary>
         /// Возвращает, пользователя с данными, заполненными на диалоговом окне.
         /// </summary>
-        public User User
+        public UserDataContext UserDataContext
         {
-            get { return (User)DataContext;  }
-            set { DataContext = value; }
+            get { return (UserDataContext)DataContext; }
+            private set { DataContext = value; }
         }
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace UI
         /// </summary>
         protected override void OnShowing()
         {
-            User = new User();
+            UserDataContext = new UserDataContext();
         }
 
         /// <summary>

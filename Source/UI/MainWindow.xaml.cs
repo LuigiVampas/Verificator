@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
-using Model;
+using Presentation;
 using Presentation.UserList;
 
 namespace UI
@@ -16,7 +16,7 @@ namespace UI
         /// <summary>
         /// Пользователи, показываемые в окне.
         /// </summary>
-        private ObservableCollection<User> _users;
+        private ObservableCollection<UserDataContext> _users;
 
         /// <summary>
         /// Создаёт главный вид приложения.
@@ -24,8 +24,10 @@ namespace UI
         public MainWindow()
         {
             Application.Current.MainWindow = this;
+
             InitializeComponent();
-            _users = new ObservableCollection<User>();
+
+            _users = new ObservableCollection<UserDataContext>();
             UsersList.ItemsSource = _users;
         }
 
@@ -49,12 +51,12 @@ namespace UI
         /// <summary>
         /// Список пользователей, отображаемых на экране.
         /// </summary>
-        public IList<User> Users 
+        public IList<UserDataContext> Users 
         {
             get { return _users; }
             set
             {
-                _users = new ObservableCollection<User>(value);
+                _users = new ObservableCollection<UserDataContext>(value);
                 UsersList.ItemsSource = _users;
             } 
         }
@@ -62,7 +64,7 @@ namespace UI
         /// <summary>
         /// Выбранный пользователь.
         /// </summary>
-        public User SelectedUser
+        public UserDataContext SelectedUser
         {
             get
             {
