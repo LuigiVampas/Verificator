@@ -38,6 +38,9 @@
     <Compile Include="MVP\DialogPresenterBase.cs" />
     <Compile Include="MVP\IDialogPresenter.cs" />
     <Compile Include="MVP\IDialogView.cs" />
+    <Compile Include="PasswordEdit\IPasswordEditPresenter.cs" />
+    <Compile Include="PasswordEdit\IPasswordEditView.cs" />
+    <Compile Include="PasswordEdit\PasswordEditPresenter.cs" />
     <Compile Include="UserDataContext.cs" />
     <Compile Include="UserDeleting\IUserDeletingDialogPresenter.cs" />
     <Compile Include="UserDeleting\IUserDeletingDialogView.cs" />

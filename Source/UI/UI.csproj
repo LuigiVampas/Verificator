@@ -48,6 +48,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PasswordEditDialog.xaml.cs">
+      <DependentUpon>PasswordEditDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserDeletingDialog.xaml.cs">
       <DependentUpon>UserDeletingDialog.xaml</DependentUpon>
     </Compile>
@@ -58,6 +61,10 @@
     <Compile Include="UserInsertingDialog.xaml.cs">
       <DependentUpon>UserInsertingDialog.xaml</DependentUpon>
     </Compile>
+    <Page Include="PasswordEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserDeletingDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
