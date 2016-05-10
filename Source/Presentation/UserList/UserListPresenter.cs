@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Presentation.MVP;
 using Presentation.UserDeleting;
 using Presentation.UserEdit;
@@ -84,7 +85,7 @@ namespace Presentation.UserList
             if (_userDeletingDialogPresenter.RunDialog() == true)
             {
                 var selectedUser = View.SelectedUser;
-                _userRepository.DeleteUser(selectedUser.CreateUser());
+                _userRepository.DeleteUser(selectedUser.CreateUser(false));
                 View.Users.Remove(selectedUser);
             }
         }
@@ -96,7 +97,16 @@ namespace Presentation.UserList
 
             var selectedUser = View.SelectedUser;
 
-            var newUser = _userEditDialogPresenter.EditUser(selectedUser.CreateUser());
+            var newUser = _userEditDialogPresenter.EditUser(selectedUser.CreateUser(false));
+
+            _userRepository.UpdateUser(newUser);
+
+            View.Users = View.Users.Select(userDataContext =>
+            {
+                if (userDataContext == selectedUser)
+                    return new UserDataContext(newUser);
+                return userDataContext;
+            }).ToList();
         }
     }
 }

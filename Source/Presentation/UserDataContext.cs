@@ -137,11 +137,12 @@ namespace Presentation
             _user = (User)user.Clone();
         }
 
-        public User CreateUser()
+        public User CreateUser(bool needHash)
         {
             var resultUser = (User)_user.Clone();
 
-            resultUser.Password = PasswordCrypt.GetHashString(Password);
+            if (needHash)
+                resultUser.Password = PasswordCrypt.GetHashString(Password);
 
             return resultUser;
         }

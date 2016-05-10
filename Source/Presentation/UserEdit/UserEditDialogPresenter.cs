@@ -21,7 +21,7 @@ namespace Presentation.UserEdit
             View.UserDataContext = dataContext;
 
             if (View.ShowDialog() == true)
-                return View.UserDataContext.CreateUser();
+                return View.UserDataContext.CreateUser(false);
 
             return editingUser;
         }
