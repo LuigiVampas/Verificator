@@ -11,7 +11,14 @@ namespace Presentation.Contexts
         private string _oldPassword;
         private string _newPassword;
 
-        public string OldPasswordHashSum { get; set; }
+        public PasswordEditContext(string oldPasswordHash)
+        {
+            OldPasswordHashSum = oldPasswordHash;
+            _oldPassword = "";
+            _newPassword = "";
+        }
+
+        public string OldPasswordHashSum { get; private set; }
 
         public string OldPassword
         {
@@ -47,6 +54,11 @@ namespace Presentation.Contexts
 
                 OnPropertyChanged();
             }
+        }
+
+        public string GetNewPasswordHash()
+        {
+            return PasswordCrypt.GetHashString(_newPassword);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

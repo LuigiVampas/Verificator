@@ -1,5 +1,8 @@
-﻿using Model;
+﻿using System;
+using Model;
+using Presentation.Contexts;
 using Presentation.MVP;
+using Presentation.PasswordEdit;
 
 namespace Presentation.UserEdit
 {
@@ -8,6 +11,18 @@ namespace Presentation.UserEdit
     /// </summary>
     public class UserEditDialogPresenter : DialogPresenterBase<IUserEditDialogView>, IUserEditDialogPresenter
     {
+        private readonly IPasswordEditPresenter _passwordEditPresenter;
+
+        public UserEditDialogPresenter(IPasswordEditPresenter passwordEditPresenter)
+        {
+            _passwordEditPresenter = passwordEditPresenter;
+        }
+
+        protected override void OnViewLoaded()
+        {
+            View.EditPassword += OnEditPassword;
+        }
+
         public new bool RunDialog()
         {
             return false;
@@ -24,6 +39,13 @@ namespace Presentation.UserEdit
                 return View.UserDataContext.CreateUser(false);
 
             return editingUser;
+        }
+
+        private void OnEditPassword(object sender, EventArgs e)
+        {
+            var user = View.UserDataContext.CreateUser(false);
+            user.Password = _passwordEditPresenter.EditPassword(user.Password);
+            View.UserDataContext.Initialize(user);
         }
     }
 }

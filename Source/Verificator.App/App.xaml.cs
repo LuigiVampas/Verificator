@@ -2,6 +2,7 @@
 using Data;
 using LightInject;
 using Presentation;
+using Presentation.PasswordEdit;
 using Presentation.UserDeleting;
 using Presentation.UserEdit;
 using Presentation.UserInserting;
@@ -30,6 +31,8 @@ namespace Verificator.App
             container.Register<IUserDeletingDialogView>(c => new UserDeletingDialog(), new PerContainerLifetime());
             container.Register<IUserEditDialogPresenter, UserEditDialogPresenter>(new PerContainerLifetime());
             container.Register<IUserEditDialogView>(c => new UserEditDialog(), new PerContainerLifetime());
+            container.Register<IPasswordEditPresenter, PasswordEditPresenter>(new PerContainerLifetime());
+            container.Register<IPasswordEditView>(c => new PasswordEditDialog(), new PerContainerLifetime());
             container.Register<IUserRepository, ListUserRepository>(new PerContainerLifetime());
 
             var mainPresenter = container.GetInstance<IUserListPresenter>();

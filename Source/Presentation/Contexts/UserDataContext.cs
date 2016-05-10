@@ -156,47 +156,4 @@ namespace Presentation.Contexts
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
-    public class PasswordEditContext : INotifyPropertyChanged
-    {
-        private string _oldPassword;
-        private string _newPassword;
-
-        public string OldPassword
-        {
-            get { return _oldPassword; }
-            set
-            {
-                if (_oldPassword == value)
-                    return;
-
-                _oldPassword = value;
-
-                OnPropertyChanged();
-            }
-        }
-        
-        public string NewPassword
-        {
-            get { return _newPassword; }
-            set
-            {
-                if (_newPassword == value)
-                    return;
-
-                _newPassword = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
 }

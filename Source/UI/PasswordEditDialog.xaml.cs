@@ -1,5 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Controls;
+using Presentation.Contexts;
 using Presentation.PasswordEdit;
 
 namespace UI
@@ -14,9 +15,24 @@ namespace UI
             InitializeComponent();
         }
 
+        public PasswordEditContext PasswordDataContext
+        {
+            get { return (PasswordEditContext)DataContext; }
+            set { DataContext = value; }
+        }
+
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            foreach (var child in PasswordsGrid.Children)
+            {
+                if (Validation.GetHasError((DependencyObject)child))
+                {
+                    var control = (UIElement)child;
+                    control.Focus();
+                    return;
+                }
+            }
+            DialogResult = true;
         }
     }
 }

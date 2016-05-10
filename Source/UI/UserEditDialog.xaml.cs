@@ -1,6 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
-using Presentation;
+using Presentation.Contexts;
 using Presentation.UserEdit;
 
 namespace UI
@@ -21,6 +22,8 @@ namespace UI
             set { DataContext = value; }
         }
 
+        public event EventHandler EditPassword;
+
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
             foreach (var child in UserParametersGrid.Children)
@@ -33,6 +36,12 @@ namespace UI
                 }
             }
             DialogResult = true;
+        }
+
+        private void PasswordEditButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (EditPassword != null)
+                EditPassword(this, EventArgs.Empty);
         }
     }
 }
