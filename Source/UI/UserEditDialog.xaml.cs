@@ -1,4 +1,4 @@
-﻿using Model;
+﻿using Presentation;
 using Presentation.UserEdit;
 
 namespace UI
@@ -13,6 +13,6 @@ namespace UI
             InitializeComponent();
         }
 
-        public User EditingUser { get; set; }
+        public UserDataContext UserDataContext { get; set; }
     }
 }

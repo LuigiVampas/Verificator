@@ -13,12 +13,12 @@ namespace Presentation.UserList
         /// <summary>
         /// Список пользователей, отображаемых на экране.
         /// </summary>
-        IList<User> Users { get; set; }
+        IList<UserDataContext> Users { get; set; }
 
         /// <summary>
         /// Выбранный пользователь.
         /// </summary>
-        User SelectedUser { get; }
+        UserDataContext SelectedUser { get; }
 
         /// <summary>
         /// Событие добавления нового пользователя.

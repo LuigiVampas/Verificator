@@ -15,10 +15,13 @@ namespace Presentation.UserEdit
 
         public User EditUser(User editingUser)
         {
-            View.EditingUser = editingUser;
+            var dataContext = new UserDataContext();
+            dataContext.Initialize(editingUser);
+
+            View.UserDataContext = dataContext;
 
             if (View.ShowDialog() == true)
-                return View.EditingUser;
+                return View.UserDataContext.CreateUser();
 
             return editingUser;
         }

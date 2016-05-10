@@ -1,4 +1,3 @@
-using Model;
 using Presentation.MVP;
 
 namespace Presentation.UserInserting
@@ -11,6 +10,6 @@ namespace Presentation.UserInserting
         /// <summary>
         /// Возвращает, пользователя с данными, заполненными на диалоговом окне.
         /// </summary>
-        User User { get; }
+        UserDataContext UserDataContext { get; }
     }
 }

@@ -23,8 +23,8 @@ namespace Presentation.UserInserting
 
             if (result == false) 
                 return false;
-                
-            User = (User)View.User.Clone();
+
+            User = View.UserDataContext.CreateUser();
 
             return result;
         }

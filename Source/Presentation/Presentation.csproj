@@ -38,6 +38,7 @@
     <Compile Include="MVP\DialogPresenterBase.cs" />
     <Compile Include="MVP\IDialogPresenter.cs" />
     <Compile Include="MVP\IDialogView.cs" />
+    <Compile Include="UserDataContext.cs" />
     <Compile Include="UserDeleting\IUserDeletingDialogPresenter.cs" />
     <Compile Include="UserDeleting\IUserDeletingDialogView.cs" />
     <Compile Include="UserDeleting\UserDeletingDialogPresenter.cs" />
