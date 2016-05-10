@@ -44,6 +44,8 @@ namespace UI
         /// </summary>
         public event EventHandler DeletingUser;
 
+        public event EventHandler EditingUser;
+
         /// <summary>
         /// Список пользователей, отображаемых на экране.
         /// </summary>
@@ -103,6 +105,11 @@ namespace UI
             OnDeletingUser();
         }
 
+        private void EditButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            OnEditingUser();
+        }
+
         /// <summary>
         /// Трансляция стандарного события.
         /// </summary>
@@ -119,6 +126,12 @@ namespace UI
         {
             if (DeletingUser != null)
                 DeletingUser(this, EventArgs.Empty);
+        }
+
+        private void OnEditingUser()
+        {
+            if (EditingUser != null)
+                EditingUser(this, EventArgs.Empty);
         }
 
         /// <summary>

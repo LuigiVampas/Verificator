@@ -52,6 +52,9 @@
       <DependentUpon>UserDeletingDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="DialogViewBase.cs" />
+    <Compile Include="UserEditDialog.xaml.cs">
+      <DependentUpon>UserEditDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInsertingDialog.xaml.cs">
       <DependentUpon>UserInsertingDialog.xaml</DependentUpon>
     </Compile>
@@ -67,6 +70,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInsertingDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

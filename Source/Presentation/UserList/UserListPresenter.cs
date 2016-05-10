@@ -1,6 +1,7 @@
 ﻿using System;
 using Presentation.MVP;
 using Presentation.UserDeleting;
+using Presentation.UserEdit;
 using Presentation.UserInserting;
 
 namespace Presentation.UserList
@@ -20,6 +21,8 @@ namespace Presentation.UserList
         /// </summary>
         private readonly IUserDeletingDialogPresenter _userDeletingDialogPresenter;
 
+        private readonly IUserEditDialogPresenter _userEditDialogPresenter;
+
         /// <summary>
         /// Репозиторий, в котором хранятся объекты класса User.
         /// </summary>
@@ -31,10 +34,11 @@ namespace Presentation.UserList
         /// <param name="userInsertingDialogPresenter">Презентер диалога добавления нового пользователя.</param>
         /// <param name="userDeletingDialogPresenter">Презентер диалога удаления пользователя.</param>
         /// <param name="userRepository">Репозиторий, в котором хранятся объекты класса User.</param>
-        public UserListPresenter(IUserInsertingDialogPresenter userInsertingDialogPresenter, IUserDeletingDialogPresenter userDeletingDialogPresenter, IUserRepository userRepository)
+        public UserListPresenter(IUserInsertingDialogPresenter userInsertingDialogPresenter, IUserDeletingDialogPresenter userDeletingDialogPresenter, IUserEditDialogPresenter userEditDialogPresenter, IUserRepository userRepository)
         {
             _userInsertingDialogPresenter = userInsertingDialogPresenter;
             _userDeletingDialogPresenter = userDeletingDialogPresenter;
+            _userEditDialogPresenter = userEditDialogPresenter;
             _userRepository = userRepository;
         }
 
@@ -45,6 +49,7 @@ namespace Presentation.UserList
         {
             View.InsertingUser += OnInsertingUser;
             View.DeletingUser += OnDeletingUser;
+            View.EditingUser += OnEditingUser;
         }
 
         /// <summary>
@@ -77,10 +82,20 @@ namespace Presentation.UserList
 
             if (_userDeletingDialogPresenter.RunDialog() == true)
             {
-                var activeUser = View.SelectedUser;
-                _userRepository.DeleteUser(activeUser);
-                View.Users.Remove(activeUser);
+                var selectedUser = View.SelectedUser;
+                _userRepository.DeleteUser(selectedUser);
+                View.Users.Remove(selectedUser);
             }
+        }
+
+        private void OnEditingUser(object sender, EventArgs e)
+        {
+            if (View.SelectedUser == null)
+                return;
+
+            var selectedUser = View.SelectedUser;
+
+            var newUser = _userEditDialogPresenter.EditUser(selectedUser);
         }
     }
 }

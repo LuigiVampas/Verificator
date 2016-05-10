@@ -29,5 +29,7 @@ namespace Presentation.UserList
         /// Событие удаления пользователя.
         /// </summary>
         event EventHandler DeletingUser;
+
+        event EventHandler EditingUser;
     }
 }

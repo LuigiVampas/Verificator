@@ -41,6 +41,8 @@
     <Compile Include="UserDeleting\IUserDeletingDialogPresenter.cs" />
     <Compile Include="UserDeleting\IUserDeletingDialogView.cs" />
     <Compile Include="UserDeleting\UserDeletingDialogPresenter.cs" />
+    <Compile Include="UserEdit\IUserEditDialogPresenter.cs" />
+    <Compile Include="UserEdit\IUserEditDialogView.cs" />
     <Compile Include="UserInserting\IUserInsertingDialogPresenter.cs" />
     <Compile Include="UserInserting\IUserInsertingDialogView.cs" />
     <Compile Include="UserList\IMainView.cs" />

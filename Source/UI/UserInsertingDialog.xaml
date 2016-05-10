@@ -4,33 +4,9 @@
         xmlns:ui="clr-namespace:UI"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" x:Class="UI.UserInsertingDialog"
-        Title="UserInsertingDialog" Height="250" Width="300" ResizeMode="NoResize"
+        Title="UserInsertingDialog" Height="283" Width="316" ResizeMode="NoResize"
         Activated="UserInsertingDialog_OnActivated">
     <Grid x:Name="UserParametersGrid">
-        <Grid.Resources>
-            <Style TargetType="{x:Type TextBox}">
-                <Setter Property="Validation.ErrorTemplate">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <DockPanel LastChildFill="True">
-                                <TextBlock DockPanel.Dock="Left" Foreground="Red" FontSize="14" FontWeight="Bold"
-                                                       Text="*"/>
-                                <Border BorderBrush="Green" BorderThickness="1">
-                                    <AdornedElementPlaceholder Name="adornerPlaceholder"/>
-                                </Border>
-                            </DockPanel>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="Validation.HasError" Value="True">
-                        <Setter Property="Foreground" Value="Red"/>
-                        <Setter Property="ToolTip" 
-                         Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="200"/>
@@ -42,10 +18,10 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0" Content="Логин" HorizontalAlignment="Center"/>
-        <TextBox x:Name="LoginTextBox" Grid.Column="1" Grid.Row="0" TabIndex="0" TextAlignment="Center">
+        <TextBox x:Name="LoginTextBox" Grid.Column="1" Grid.Row="0" TabIndex="0" TextAlignment="Center" Margin="16,6,3,6">
             <TextBox.Text>
                 <Binding Path="Login" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -54,8 +30,8 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Label Grid.Column="0" Grid.Row="1" Content="Пароль" HorizontalAlignment="Center"/>
-        <TextBox x:Name="PasswordTextBox" Grid.Column="1" Grid.Row="1" TabIndex="1" TextAlignment="Center">
+        <Label Grid.Column="0" Grid.Row="1" Content="Пароль"/>
+        <TextBox x:Name="PasswordTextBox" Grid.Column="1" Grid.Row="1" TabIndex="1" TextAlignment="Center" Margin="16,6,3,6">
             <TextBox.Text>
                 <Binding Path="Password" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -64,8 +40,8 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Label Grid.Column="0" Grid.Row="2" Content="Фамилия" HorizontalAlignment="Center"/>
-        <TextBox x:Name="SurnameTextBox" Grid.Column="1" Grid.Row="2" TabIndex="2" TextAlignment="Center">
+        <Label Grid.Column="0" Grid.Row="2" Content="Фамилия"/>
+        <TextBox x:Name="SurnameTextBox" Grid.Column="1" Grid.Row="2" TabIndex="2" TextAlignment="Center" Margin="16,5,3,5">
             <TextBox.Text>
                 <Binding Path="Surname" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -74,8 +50,8 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Label Grid.Column="0" Grid.Row="3" Content="Имя" HorizontalAlignment="Center"/>
-        <TextBox x:Name="NameTextBox" Grid.Column="1" Grid.Row="3" TabIndex="3" TextAlignment="Center">
+        <Label Grid.Column="0" Grid.Row="3" Content="Имя"/>
+        <TextBox x:Name="NameTextBox" Grid.Column="1" Grid.Row="3" TabIndex="3" TextAlignment="Center" Margin="16,5,3,5">
             <TextBox.Text>
                 <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -84,8 +60,8 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Label Grid.Column="0" Grid.Row="4" Content="Отчество" HorizontalAlignment="Center"/>
-        <TextBox x:Name="LastNameTextBox" Grid.Column="1" Grid.Row="4" TabIndex="4" TextAlignment="Center">
+        <Label Grid.Column="0" Grid.Row="4" Content="Отчество"/>
+        <TextBox x:Name="LastNameTextBox" Grid.Column="1" Grid.Row="4" TabIndex="4" TextAlignment="Center" Margin="16,5,3,5">
             <TextBox.Text>
                 <Binding Path="Lastname" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -94,8 +70,8 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Label Grid.Column="0" Grid.Row="5" Content="Должность" HorizontalAlignment="Center"/>
-        <TextBox x:Name="PositionTextBox" Grid.Column="1" Grid.Row="5" TabIndex="5" TextAlignment="Center">
+        <Label Grid.Column="0" Grid.Row="5" Content="Должность"/>
+        <TextBox x:Name="PositionTextBox" Grid.Column="1" Grid.Row="5" TabIndex="5" TextAlignment="Center" Margin="16,6,3,6">
             <TextBox.Text>
                 <Binding Path="Position" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -104,7 +80,7 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button x:Name="OkButton" Grid.Column="0" Grid.Row="6" Content="ОК" TabIndex="6" Click="OkButton_OnClick"/>
-        <Button x:Name="CancelButton" Grid.Column="1" Grid.Row="6" Content="Отмена" TabIndex="7" IsCancel="True"/>
+        <Button x:Name="OkButton" Grid.Column="0" Grid.Row="6" Content="ОК" TabIndex="6" Click="OkButton_OnClick" Grid.ColumnSpan="2" Margin="19,11,185,10"/>
+        <Button x:Name="CancelButton" Grid.Column="1" Grid.Row="6" Content="Отмена" TabIndex="7" IsCancel="True" Margin="84,11,15,10"/>
     </Grid>
 </ui:DialogViewBase>
