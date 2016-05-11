@@ -24,7 +24,7 @@ namespace Presentation.UserInserting
             if (result == false) 
                 return false;
 
-            User = View.UserDataContext.CreateUser();
+            User = View.UserDataContext.CreateUser(true);
 
             return result;
         }

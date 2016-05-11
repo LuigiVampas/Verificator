@@ -16,7 +16,7 @@
         <DataGrid x:Name="UsersList" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" ColumnWidth="84" MinColumnWidth="84" ItemsSource="{Binding}"
                   CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
                   CanUserResizeColumns="False" SelectionMode="Single"
-                  AutoGenerateColumns="False" HorizontalAlignment="Center">
+                  AutoGenerateColumns="False" HorizontalAlignment="Center" Margin="2,0" Width="590">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
                 <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>

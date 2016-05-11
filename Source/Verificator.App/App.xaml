@@ -8,6 +8,7 @@
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
         </Style>
+        
         <Style TargetType="TextBox">
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
@@ -33,6 +34,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        
         <Style TargetType="Button">
             <Setter Property="BorderBrush">
                 <Setter.Value>
