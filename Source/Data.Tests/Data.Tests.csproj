@@ -75,6 +75,10 @@
       <Project>{7B3F463E-DAB2-4D26-B64F-035989181C09}</Project>
       <Name>Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Presentation\Presentation.csproj">
+      <Project>{9f983495-9bc4-4870-be0b-361eadc58688}</Project>
+      <Name>Presentation</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Model;
 using MySql.Data.MySqlClient;
 using NUnit.Framework;
 
 namespace Data.Tests
 {
+    [TestFixture]
     public class DbUserRepositoryTests
     {
-        [Test]
-        public void AddUserToDb()
+        private User _user;
+
+        private const string ConnectionString = "server=127.0.0.1;port=3306;database=Users;uid=root";
+
+        [SetUp]
+        public void SetUp()
         {
-            const string connectionString = "server=127.0.0.1;port=2096;database=test;uid=root;password=root";
-
-            List<User> users = new List<User>();
-
-            users.Add(new User
+            _user = new User
             {
                 Lastname = "Sokov",
                 Login = "cwdlcs",
@@ -24,10 +23,14 @@ namespace Data.Tests
                 Position = "Engineer",
                 Surname = "Igorevich",
                 Password = "Qwerty123!asd"
-            });
+            };
+        }
 
+        [Test]
+        public void AddUserToDb()
+        {
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
                 // Create database if not exists
                 using (var contextDb = new UserDbContext(connection, false))
@@ -36,20 +39,15 @@ namespace Data.Tests
                 }
 
                 connection.Open();
-                MySqlTransaction transaction = connection.BeginTransaction();
+                var transaction = connection.BeginTransaction();
 
                 try
                 {
-                    // DbConnection that is already opened
                     using (var context = new UserDbContext(connection, false))
                     {
-
-                        // Passing an existing transaction to the context
                         context.Database.UseTransaction(transaction);
 
-                        // DbSet.AddRange
-                        
-                        context.Users.AddRange(users);
+                        context.Users.Add(_user);
 
                         context.SaveChanges();
                     }
@@ -66,11 +64,10 @@ namespace Data.Tests
 
                 try
                 {
-                    // DbConnection that is already opened
                     using (var context = new UserDbContext(connection, false))
                     {
-
-                        Assert.That(context.Users.Contains(users.First()), Is.True);
+                        var userInDb = context.Users.Where(u => u.Id == _user.Id).First();
+                        Assert.That(userInDb == _user);
                     }
 
                     transaction.Commit();
@@ -82,6 +79,29 @@ namespace Data.Tests
                 }
 
             }
+        }
+
+        [Test]
+        public void AddUserToRepository()
+        {
+            var repository = new DbUserRepository();
+
+            repository.AddUser(_user);
+
+            var users = repository.GetAllUsers();
+
+            var userInDb = users.FirstOrDefault(u => u == _user);
+
+            Assert.That(userInDb, Is.Not.Null);
+
+            var sameUsers = repository.GetAllUsers().Where(u => u == _user);
+
+            foreach (var userClone in sameUsers)
+                repository.DeleteUser(userClone);
+
+            users = repository.GetAllUsers();
+
+            Assert.That(users.All(u => u != _user), Is.True);
         }
     }
 }

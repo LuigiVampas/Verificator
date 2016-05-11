@@ -33,7 +33,7 @@ namespace Verificator.App
             container.Register<IUserEditDialogView>(c => new UserEditDialog(), new PerContainerLifetime());
             container.Register<IPasswordEditPresenter, PasswordEditPresenter>(new PerContainerLifetime());
             container.Register<IPasswordEditView>(c => new PasswordEditDialog(), new PerContainerLifetime());
-            container.Register<IUserRepository, ListUserRepository>(new PerContainerLifetime());
+            container.Register<IUserRepository, DbUserRepository>(new PerContainerLifetime());
 
             var mainPresenter = container.GetInstance<IUserListPresenter>();
             mainPresenter.Initialize();

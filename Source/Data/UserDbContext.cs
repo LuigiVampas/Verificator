@@ -12,7 +12,6 @@ namespace Data
         public DbSet<User> Users { get; set; }
 
         public UserDbContext()
-            : base()
         {
 
         }
