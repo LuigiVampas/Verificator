@@ -19,13 +19,13 @@ namespace Model
 
         public string Initials
         {
-            get
-            {
-                var firstNameLetter = Name.First();
-                var firstLastnameLetter = Lastname.First();
-                return firstNameLetter + "." + firstLastnameLetter + ".";
-            }
-            set { throw new NotImplementedException(); }
+            get;
+         //   {
+//                var firstNameLetter = Name.First();
+   //             var firstLastnameLetter = Lastname.First();
+      //          return firstNameLetter + "." + firstLastnameLetter + ".";
+       //     }
+            set ;// { throw new NotImplementedException(); }
         }
 
         public string Position { get; set; }
