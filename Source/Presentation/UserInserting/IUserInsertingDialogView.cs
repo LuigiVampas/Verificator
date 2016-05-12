@@ -11,6 +11,6 @@ namespace Presentation.UserInserting
         /// <summary>
         /// Возвращает, пользователя с данными, заполненными на диалоговом окне.
         /// </summary>
-        UserDataContext UserDataContext { get; }
+        IUserDataContext UserDataContext { get; set; }
     }
 }

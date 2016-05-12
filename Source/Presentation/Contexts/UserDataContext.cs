@@ -7,12 +7,16 @@ using Model.Annotations;
 
 namespace Presentation.Contexts
 {
-    public class UserDataContext : INotifyPropertyChanged
+    public class UserDataContext : IUserDataContext
     {
+        private readonly IValidator _validator;
+        private readonly IPasswordCrypt _passwordCrypt;
         private User _user;
 
-        public UserDataContext()
+        public UserDataContext(IValidator validator, IPasswordCrypt passwordCrypt)
         {
+            _validator = validator;
+            _passwordCrypt = passwordCrypt;
             _user = new User();
         }
 
@@ -31,7 +35,7 @@ namespace Presentation.Contexts
             get { return _user.Login; }
             set
             {
-                var error = Validator.IsLoginValid(value);
+                var error = _validator.IsLoginValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
                     throw new ArgumentException(error);
@@ -47,7 +51,7 @@ namespace Presentation.Contexts
             get { return _user.Password; }
             set
             {
-                var error = Validator.IsPasswordValid(value);
+                var error = _validator.IsPasswordValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
                     throw new ArgumentException(error);
@@ -63,7 +67,7 @@ namespace Presentation.Contexts
             get { return _user.Surname; }
             set
             {
-                var error = Validator.IsSurnameValid(value);
+                var error = _validator.IsSurnameValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
                     throw new ArgumentException(error);
@@ -79,7 +83,7 @@ namespace Presentation.Contexts
             get { return _user.Name; }
             set
             {
-                var error = Validator.IsNameValid(value);
+                var error = _validator.IsNameValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
                     throw new ArgumentException(error);
@@ -95,7 +99,7 @@ namespace Presentation.Contexts
             get { return _user.Lastname; }
             set
             {
-                var error = Validator.IsLastnameValid(value);
+                var error = _validator.IsLastnameValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
                     throw new ArgumentException(error);
@@ -121,7 +125,7 @@ namespace Presentation.Contexts
             get { return _user.Position; }
             set
             {
-                var error = Validator.IsPositionValid(value);
+                var error = _validator.IsPositionValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
                     throw new ArgumentException(error);
@@ -142,7 +146,7 @@ namespace Presentation.Contexts
             var resultUser = (User)_user.Clone();
 
             if (needHash)
-                resultUser.Password = PasswordCrypt.GetHashString(Password);
+                resultUser.Password = _passwordCrypt.GetHashString(Password);
 
             return resultUser;
         }

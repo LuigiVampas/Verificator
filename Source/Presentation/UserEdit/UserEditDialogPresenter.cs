@@ -12,10 +12,12 @@ namespace Presentation.UserEdit
     public class UserEditDialogPresenter : DialogPresenterBase<IUserEditDialogView>, IUserEditDialogPresenter
     {
         private readonly IPasswordEditPresenter _passwordEditPresenter;
+        private readonly Func<IUserDataContext> _userDataContextFactory;
 
-        public UserEditDialogPresenter(IPasswordEditPresenter passwordEditPresenter)
+        public UserEditDialogPresenter(IPasswordEditPresenter passwordEditPresenter, Func<IUserDataContext> userDataContextFactory)
         {
             _passwordEditPresenter = passwordEditPresenter;
+            _userDataContextFactory = userDataContextFactory;
         }
 
         protected override void OnViewLoaded()
@@ -30,7 +32,7 @@ namespace Presentation.UserEdit
 
         public User EditUser(User editingUser)
         {
-            var dataContext = new UserDataContext();
+            var dataContext = _userDataContextFactory();
             dataContext.Initialize(editingUser);
 
             View.UserDataContext = dataContext;

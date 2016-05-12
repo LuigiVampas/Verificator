@@ -18,25 +18,15 @@ namespace UI
         public UserInsertingDialog()
         {
             InitializeComponent();
-
-            UserDataContext = new UserDataContext();
         }
 
         /// <summary>
         /// Возвращает, пользователя с данными, заполненными на диалоговом окне.
         /// </summary>
-        public UserDataContext UserDataContext
+        public IUserDataContext UserDataContext
         {
-            get { return (UserDataContext)DataContext; }
-            private set { DataContext = value; }
-        }
-
-        /// <summary>
-        /// Действия, которые необходимо выполнить при показе диалога.
-        /// </summary>
-        protected override void OnShowing()
-        {
-            UserDataContext = new UserDataContext();
+            get { return (IUserDataContext)DataContext; }
+            set { DataContext = value; }
         }
 
         /// <summary>

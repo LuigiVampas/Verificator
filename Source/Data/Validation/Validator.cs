@@ -1,92 +1,93 @@
 ﻿using System.Linq;
 using System.Text;
+using Presentation;
 
-namespace Model
+namespace Data.Validation
 {
-    public static class Validator
+    public class Validator : IValidator
     {
-        public static string IsLoginValid(string login)
+        public string IsLoginValid(string login)
         {
-            var result = new StringBuilder();
-            result.AppendLine(ContainsEnglish(login));
-            result.AppendLine(CheckLength(login, 15));
-            return result.ToString();
+            var error = new StringBuilder();
+            error.AppendLine(ContainsEnglish(login));
+            error.AppendLine(CheckLength(login, 15));
+            return error.ToString();
         }
 
-        public static string IsPasswordValid(string password)
+        public string IsPasswordValid(string password)
         {
-            var result = new StringBuilder();
-            result.AppendLine(CheckLength(password, 32));
-            result.AppendLine(IsPassword(password));
+            var error = new StringBuilder();
+            error.AppendLine(CheckLength(password, 32));
+            error.AppendLine(IsPassword(password));
             var passwordStrength = CheckPasswordStrength(password);
             if (passwordStrength == PasswordStrength.Weak ||
                 passwordStrength == PasswordStrength.PasswordNotSet)
-                result.AppendLine("Password is too weak, or not set");
+                error.AppendLine("Password is too weak, or not set");
 
-            return result.ToString();
+            return error.ToString();
         }
 
-        public static string IsNameValid(string name)
+        public string IsNameValid(string name)
         {
             return IsDataValid(name);
         }
 
-        public static string IsSurnameValid(string surname)
+        public string IsSurnameValid(string surname)
         {
             return IsDataValid(surname);
         }
 
-        public static string IsLastnameValid(string lastname)
+        public string IsLastnameValid(string lastname)
         {
             return IsDataValid(lastname);
         }
 
-        public static string IsPositionValid(string position)
+        public string IsPositionValid(string position)
         {
             return IsDataValid(position);
         }
 
-        public static string AreInitialsValid(string initials, string name, string surname)
+        public string AreInitialsValid(string initials, string name, string surname)
         {
             if (initials != GetInitialsFromNameAndSurname(name, surname))
                 return "Initials are not correct";
             return "";
         }
 
-        private static string GetInitialsFromNameAndSurname(string name, string surname)
+        private string GetInitialsFromNameAndSurname(string name, string surname)
         {
             return name.First() + "." + surname.First();
         }
 
-        private static string IsDataValid(string str)
+        private string IsDataValid(string str)
         {
-            var result = new StringBuilder();
-            result.AppendLine(StartingWithUpper(str));
-           result.AppendLine(CheckLength(str, 20));
+            var error = new StringBuilder();
+            error.AppendLine(StartingWithUpper(str));
+            error.AppendLine(CheckLength(str, 20));
 
-           return result.ToString();
+            return error.ToString();
         }
 
-        private static string StartingWithUpper(string str)
+        private string StartingWithUpper(string str)
         {
            if ((str.First() >= 'A' && str.First() <= 'Z') || (str.First() >= 'А' && str.First() <= 'Я')) return "";
-            return "Field have to be started with Upper and have not to contain non-english symbols"; 
+                return "Field have to be started with Upper and have not to contain non-english symbols"; 
         }
 
-        private static string ContainsEnglish(string str)
+        private string ContainsEnglish(string str)
         {
             for (int i = 0; i < str.Length; ++i)
                 if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z'))) return "Field have to contain only english symbols";
             return "";
         }
-        private static string IsPassword(string str)
+        private string IsPassword(string str)
         {
             for (int i = 0; i < str.Length; ++i)
                 if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= '!' && str[i] <= '@'))) return "Not allowed symbols for password";
             return "";
         }
 
-        private static string CheckLength(string str, int allowedLength)
+        private string CheckLength(string str, int allowedLength)
         {
             if (string.IsNullOrWhiteSpace(str))
                 return "Field is too short";
@@ -95,7 +96,7 @@ namespace Model
             return "Field is too long";
         }
 
-        public static PasswordStrength CheckPasswordStrength(string password)
+        public PasswordStrength CheckPasswordStrength(string password)
         {
 
             const string lowerChars = "abcdefghijklmnopqrstuvwxyz";

@@ -1,18 +1,22 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Model;
 using Model.Annotations;
 
 namespace Presentation.Contexts
 {
-    public class PasswordEditContext : INotifyPropertyChanged
+    public class PasswordEditContext : IPasswordEditContext
     {
+        private readonly IValidator _validator;
+        private readonly IPasswordCrypt _passwordCrypt;
         private string _oldPassword;
         private string _newPassword;
 
-        public PasswordEditContext(string oldPasswordHash)
+        public PasswordEditContext(IValidator validator, IPasswordCrypt passwordCrypt, string oldPasswordHash)
         {
+            _validator = validator;
+            _passwordCrypt = passwordCrypt;
+
             OldPasswordHashSum = oldPasswordHash;
             _oldPassword = "";
             _newPassword = "";
@@ -30,7 +34,7 @@ namespace Presentation.Contexts
 
                 _oldPassword = value;
 
-                if (!PasswordCrypt.IsPasswordValid(_oldPassword, OldPasswordHashSum))
+                if (!_passwordCrypt.IsPasswordValid(_oldPassword, OldPasswordHashSum))
                     throw new ArgumentException("Неправильный пароль!");
 
                 OnPropertyChanged();
@@ -45,7 +49,7 @@ namespace Presentation.Contexts
                 if (_newPassword == value)
                     return;
 
-                var error = Validator.IsPasswordValid(value);
+                var error = _validator.IsPasswordValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
                     throw new ArgumentException(error);
@@ -58,7 +62,7 @@ namespace Presentation.Contexts
 
         public string GetNewPasswordHash()
         {
-            return PasswordCrypt.GetHashString(_newPassword);
+            return _passwordCrypt.GetHashString(_newPassword);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

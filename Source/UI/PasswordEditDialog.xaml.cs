@@ -15,9 +15,9 @@ namespace UI
             InitializeComponent();
         }
 
-        public PasswordEditContext PasswordDataContext
+        public IPasswordEditContext PasswordDataContext
         {
-            get { return (PasswordEditContext)DataContext; }
+            get { return (IPasswordEditContext)DataContext; }
             set { DataContext = value; }
         }
 

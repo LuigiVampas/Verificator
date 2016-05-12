@@ -16,9 +16,9 @@ namespace UI
             InitializeComponent();
         }
 
-        public UserDataContext UserDataContext
+        public IUserDataContext UserDataContext
         {
-            get { return (UserDataContext) DataContext; }
+            get { return (IUserDataContext) DataContext; }
             set { DataContext = value; }
         }
 

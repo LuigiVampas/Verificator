@@ -2,23 +2,23 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Model
+namespace Data.Validation
 {
-    public static class PasswordCrypt
+    public class PasswordCrypt
     {
-        public static string GetHashString(string password)
+        public string GetHashString(string password)
         {
             return GetSaltPwdHash(password);
         }
 
-        public static bool IsPasswordValid(string passwordInput, string pwdHashFromDb)
+        public bool IsPasswordValid(string passwordInput, string pwdHashFromDb)
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
 
             return 0 == comparer.Compare(GetHashString(passwordInput), pwdHashFromDb);
         }
 
-        private static string GetPwdHashOnce(string password)
+        private string GetPwdHashOnce(string password)
         {
             var passwordHash = string.Empty;
             var bytes = Encoding.Default.GetBytes(password);
@@ -32,7 +32,7 @@ namespace Model
             return passwordHash;
         }
 
-        private static string GetSaltPwdHash(string password)
+        private string GetSaltPwdHash(string password)
         {
             var saltPwdHash = string.Empty;
             for (int i = 0; i < 9999; ++i)

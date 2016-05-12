@@ -1,4 +1,6 @@
-﻿using Model;
+﻿using System;
+using Model;
+using Presentation.Contexts;
 using Presentation.MVP;
 
 namespace Presentation.UserInserting
@@ -8,6 +10,13 @@ namespace Presentation.UserInserting
     /// </summary>
     public class UserInsertingDialogPresenter : DialogPresenterBase<IUserInsertingDialogView>, IUserInsertingDialogPresenter
     {
+        private readonly Func<IUserDataContext> _userDataContextFactory;
+
+        public UserInsertingDialogPresenter(Func<IUserDataContext> userDataContextFactory)
+        {
+            _userDataContextFactory = userDataContextFactory;
+        }
+
         /// <summary>
         /// Возвращает, пользователя с данными, заполненными на диалоговом окне.
         /// </summary>
@@ -19,6 +28,8 @@ namespace Presentation.UserInserting
         /// <returns>true - если пользователь OK, false - в противном случае.</returns>
         public bool? ShowDialog()
         {
+            View.UserDataContext = _userDataContextFactory();
+
             var result = View.ShowDialog();
 
             if (result == false) 

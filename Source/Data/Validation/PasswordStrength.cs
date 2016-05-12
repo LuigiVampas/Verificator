@@ -1,4 +1,4 @@
-﻿namespace Model
+﻿namespace Data.Validation
 {
     public enum PasswordStrength
     {

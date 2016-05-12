@@ -60,6 +60,9 @@
     <Compile Include="UserDbContext.cs" />
     <Compile Include="ListUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\PasswordCrypt.cs" />
+    <Compile Include="Validation\PasswordStrength.cs" />
+    <Compile Include="Validation\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

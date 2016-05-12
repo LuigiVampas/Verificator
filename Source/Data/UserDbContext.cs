@@ -5,7 +5,6 @@ using MySql.Data.Entity;
 
 namespace Data
 {
-    // Code-Based Configuration and Dependency resolution
     [DbConfigurationType(typeof (MySqlEFConfiguration))]
     public class UserDbContext : DbContext
     {
@@ -16,7 +15,6 @@ namespace Data
 
         }
 
-        // Constructor to use on a DbConnection that is already opened
         public UserDbContext(DbConnection existingConnection, bool contextOwnsConnection)
             : base(existingConnection, contextOwnsConnection)
         {
