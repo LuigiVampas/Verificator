@@ -20,11 +20,6 @@ namespace Presentation.Contexts
             _user = new User();
         }
 
-        public UserDataContext(User user)
-        {
-            Initialize(user);
-        }
-
         public int Id
         {
             get { return _user.Id; }

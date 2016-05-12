@@ -8,11 +8,13 @@ namespace Data.Tests
     {
         private Validator _validator;
         private PasswordCrypt _passwordCrypt;
+        private ListUserRepository _listUserRepository;
 
         [SetUp]
         public void SetUp()
         {
-            _validator = new Validator();
+            _listUserRepository = new ListUserRepository();
+            _validator = new Validator(_listUserRepository);
             _passwordCrypt = new PasswordCrypt();;
         }
 
@@ -56,7 +58,7 @@ namespace Data.Tests
         [Test]
         public void IsEmptyLoginValidTest()
         {
-            Assert.That(_validator.IsLoginValid(""), Is.EqualTo("\r\nField is too short\r\n"));
+            Assert.That(_validator.IsLoginValid(""), Is.EqualTo("\r\nField is too short\r\n\r\n"));
         }
 
         [Test]

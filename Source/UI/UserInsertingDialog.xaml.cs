@@ -38,7 +38,8 @@ namespace UI
         {
             foreach(var child in UserParametersGrid.Children)
             {
-                if (Validation.GetHasError((DependencyObject)child))
+                if (Validation.GetHasError((DependencyObject)child)
+                    || child is TextBox && ((TextBox)child).Text == "")
                 {
                     var control = (UIElement) child;
                     control.Focus();

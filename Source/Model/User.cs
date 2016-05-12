@@ -5,6 +5,16 @@ namespace Model
 {
     public class User : ICloneable
     {
+        public User()
+        {
+            Login = "";
+            Password = "";
+            Surname = "";
+            Name = "";
+            Lastname = "";
+            Position = "";
+        }
+
         public int Id { get; set; }
 
         public string Login { get; set; }
@@ -17,16 +27,7 @@ namespace Model
 
         public string Lastname { get; set; }
 
-        public string Initials
-        {
-            get;
-         //   {
-//                var firstNameLetter = Name.First();
-   //             var firstLastnameLetter = Lastname.First();
-      //          return firstNameLetter + "." + firstLastnameLetter + ".";
-       //     }
-            set ;// { throw new NotImplementedException(); }
-        }
+        public string Initials { get; set; }
 
         public string Position { get; set; }
 

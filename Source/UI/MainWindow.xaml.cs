@@ -16,7 +16,7 @@ namespace UI
         /// <summary>
         /// Пользователи, показываемые в окне.
         /// </summary>
-        private ObservableCollection<UserDataContext> _users;
+        private ObservableCollection<IUserDataContext> _users;
 
         /// <summary>
         /// Создаёт главный вид приложения.
@@ -27,7 +27,7 @@ namespace UI
 
             InitializeComponent();
 
-            _users = new ObservableCollection<UserDataContext>();
+            _users = new ObservableCollection<IUserDataContext>();
             UsersList.ItemsSource = _users;
         }
 
@@ -51,12 +51,12 @@ namespace UI
         /// <summary>
         /// Список пользователей, отображаемых на экране.
         /// </summary>
-        public IList<UserDataContext> Users 
+        public IList<IUserDataContext> Users 
         {
             get { return _users; }
             set
             {
-                _users = new ObservableCollection<UserDataContext>(value);
+                _users = new ObservableCollection<IUserDataContext>(value);
                 UsersList.ItemsSource = _users;
             } 
         }
@@ -64,7 +64,7 @@ namespace UI
         /// <summary>
         /// Выбранный пользователь.
         /// </summary>
-        public UserDataContext SelectedUser
+        public IUserDataContext SelectedUser
         {
             get
             {

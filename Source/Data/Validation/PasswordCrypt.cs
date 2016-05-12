@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using Presentation;
 
 namespace Data.Validation
 {
-    public class PasswordCrypt
+    public class PasswordCrypt : IPasswordCrypt
     {
         public string GetHashString(string password)
         {

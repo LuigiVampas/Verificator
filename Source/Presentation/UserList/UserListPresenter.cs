@@ -30,6 +30,8 @@ namespace Presentation.UserList
         /// </summary>
         private readonly IUserRepository _userRepository;
 
+        private readonly Func<IUserDataContext> _userDataContextFactory;
+
         /// <summary>
         /// Создаёт новый главный презентер.
         /// </summary>
@@ -37,12 +39,14 @@ namespace Presentation.UserList
         /// <param name="userDeletingDialogPresenter">Презентер диалога удаления пользователя.</param>
         /// <param name="userEditDialogPresenter">Презентер диалога изменения данных пользователя.</param>
         /// <param name="userRepository">Репозиторий, в котором хранятся объекты класса User.</param>
-        public UserListPresenter(IUserInsertingDialogPresenter userInsertingDialogPresenter, IUserDeletingDialogPresenter userDeletingDialogPresenter, IUserEditDialogPresenter userEditDialogPresenter, IUserRepository userRepository)
+        /// <param name="userDataContextFactory"></param>
+        public UserListPresenter(IUserInsertingDialogPresenter userInsertingDialogPresenter, IUserDeletingDialogPresenter userDeletingDialogPresenter, IUserEditDialogPresenter userEditDialogPresenter, IUserRepository userRepository, Func<IUserDataContext> userDataContextFactory)
         {
             _userInsertingDialogPresenter = userInsertingDialogPresenter;
             _userDeletingDialogPresenter = userDeletingDialogPresenter;
             _userEditDialogPresenter = userEditDialogPresenter;
             _userRepository = userRepository;
+            _userDataContextFactory = userDataContextFactory;
         }
 
         /// <summary>
@@ -53,6 +57,19 @@ namespace Presentation.UserList
             View.InsertingUser += OnInsertingUser;
             View.DeletingUser += OnDeletingUser;
             View.EditingUser += OnEditingUser;
+            FillViewWithUsersFromDb();
+        }
+
+        private void FillViewWithUsersFromDb()
+        {
+            var usersFormDb = _userRepository.GetAllUsers();
+
+            foreach (var user in usersFormDb)
+            {
+                var userDataContext = _userDataContextFactory();
+                userDataContext.Initialize(user);
+                View.Users.Add(userDataContext);
+            }
         }
 
         /// <summary>
@@ -69,7 +86,10 @@ namespace Presentation.UserList
                 var user = _userInsertingDialogPresenter.User;
                 _userRepository.AddUser(user);
 
-                View.Users.Add(new UserDataContext(user));
+                var userDataContext = _userDataContextFactory();
+                userDataContext.Initialize(user);
+
+                View.Users.Add(userDataContext);
             }
         }
 
@@ -105,7 +125,11 @@ namespace Presentation.UserList
             View.Users = View.Users.Select(userDataContext =>
             {
                 if (userDataContext == selectedUser)
-                    return new UserDataContext(newUser);
+                {
+                    var newUserDataContext = _userDataContextFactory();
+                    newUserDataContext.Initialize(newUser);
+                    return newUserDataContext;
+                }
                 return userDataContext;
             }).ToList();
         }

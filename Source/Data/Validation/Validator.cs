@@ -6,12 +6,25 @@ namespace Data.Validation
 {
     public class Validator : IValidator
     {
+        private readonly IUserRepository _userRepository;
+
+        public Validator(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
         public string IsLoginValid(string login)
         {
             var error = new StringBuilder();
             error.AppendLine(ContainsEnglish(login));
             error.AppendLine(CheckLength(login, 15));
+            error.AppendLine(IsLoginUnique(login));
             return error.ToString();
+        }
+
+        private string IsLoginUnique(string login)
+        {
+            return _userRepository.GetAllUsers().All(u => u.Login != login) ? "" : "Данный логин уже используется другим пользователем.";
         }
 
         public string IsPasswordValid(string password)
