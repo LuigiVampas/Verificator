@@ -34,7 +34,7 @@ namespace Model
         {
             get
             {
-                return  Name.First() + "." + Surname.First();
+                return  Name.FirstOrDefault() + "." + Lastname.FirstOrDefault() + ".";
             }
         }
 

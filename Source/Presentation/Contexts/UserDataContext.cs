@@ -109,8 +109,8 @@ namespace Presentation.Contexts
         {
             get
             {
-                var firstNameLetter = Name.First();
-                var firstLastnameLetter = Lastname.First();
+                var firstNameLetter = Name.FirstOrDefault();
+                var firstLastnameLetter = Lastname.FirstOrDefault();
                 return firstNameLetter + "." + firstLastnameLetter + ".";
             }
         }
