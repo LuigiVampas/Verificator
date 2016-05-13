@@ -36,7 +36,7 @@ namespace Data
         public User GetUser(int id)
         {
             var singleOrDefault = _users.SingleOrDefault(s => s.Id == id);
-            if (singleOrDefault == null) 
+            if (singleOrDefault == null)
                 return null;
 
             return (User)singleOrDefault.Clone();

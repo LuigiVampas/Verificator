@@ -38,55 +38,55 @@ namespace Data.Tests
         [Test]
         public void IsLoginValidTest()
         {
-            Assert.That(_validator.IsLoginValid("qwerty"), Is.EqualTo("\r\n\r\n"));
-            Assert.That(_validator.IsLoginValid("йцукен"), Is.EqualTo("Field have to contain only english symbols\r\n\r\n"));
+            Assert.That(_validator.IsLoginValid("qwerty"), Is.EqualTo(""));
+            Assert.That(_validator.IsLoginValid("йцукен"), Is.EqualTo("Field have to contain only english symbols"));
         }
 
         [Test]
         public void IsPasswordValidTest()
         {
-            Assert.That(_validator.IsPasswordValid("AntoshKa@987Lukas"), Is.EqualTo("\r\n\r\n"));
-            Assert.That(_validator.IsPasswordValid("&^&68Ff*%&(&*"), Is.EqualTo("\r\nNot allowed symbols for password\r\n"));
+            Assert.That(_validator.IsPasswordValid("AntoshKa@987Lukas"), Is.EqualTo(""));
+            Assert.That(_validator.IsPasswordValid("&^&68Ff*%&(&*"), Is.EqualTo("Not allowed symbols for password"));
         }
 
         [Test]
         public void IsEmptyPasswordValidTest()
         {
-            Assert.That(_validator.IsPasswordValid(""), Is.EqualTo("Field is too short\r\n\r\nPassword is too weak, or not set\r\n"));
+            Assert.That(_validator.IsPasswordValid(""), Is.EqualTo("Field is too shortPassword is too weak, or not set"));
         }
 
         [Test]
         public void IsEmptyLoginValidTest()
         {
-            Assert.That(_validator.IsLoginValid(""), Is.EqualTo("\r\nField is too short\r\n\r\n"));
+            Assert.That(_validator.IsLoginValid(""), Is.EqualTo("Field is too short"));
         }
 
         [Test]
         public void IsNameValidTest()
         {
-            Assert.That(_validator.IsNameValid("Andrey"), Is.EqualTo("\r\n\r\n"));
-            Assert.That(_validator.IsNameValid("йцукен"), Is.EqualTo("Field have to be started with Upper and have not to contain non-english symbols\r\n\r\n"));
+            Assert.That(_validator.IsNameValid("Andrey"), Is.EqualTo(""));
+            Assert.That(_validator.IsNameValid("йцукен"), Is.EqualTo("Field have to be started with Upper and have not to contain non-english symbols"));
         }
 
         [Test]
         public void IsSurnameValidTest()
         {
-            Assert.That(_validator.IsSurnameValid("Igorevich"), Is.EqualTo("\r\n\r\n"));
-            Assert.That(_validator.IsSurnameValid("йцукен"), Is.EqualTo("Field have to be started with Upper and have not to contain non-english symbols\r\n\r\n"));
+            Assert.That(_validator.IsSurnameValid("Igorevich"), Is.EqualTo(""));
+            Assert.That(_validator.IsSurnameValid("йцукен"), Is.EqualTo("Field have to be started with Upper and have not to contain non-english symbols"));
         }
 
         [Test]
         public void IsLastnameValidTest()
         {
-            Assert.That(_validator.IsLastnameValid("Sokov"), Is.EqualTo("\r\n\r\n"));
-            Assert.That(_validator.IsLastnameValid("йцукен"), Is.EqualTo("Field have to be started with Upper and have not to contain non-english symbols\r\n\r\n"));
+            Assert.That(_validator.IsLastnameValid("Sokov"), Is.EqualTo(""));
+            Assert.That(_validator.IsLastnameValid("йцукен"), Is.EqualTo("Field have to be started with Upper and have not to contain non-english symbols"));
         }
 
         [Test]
         public void IsPositionValidTest()
         {
-            Assert.That(_validator.IsPositionValid("Engineer"), Is.EqualTo("\r\n\r\n"));
-            Assert.That(_validator.IsPositionValid("Engineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineer"), Is.EqualTo("\r\nField is too long\r\n"));
+            Assert.That(_validator.IsPositionValid("Engineer"), Is.EqualTo(""));
+            Assert.That(_validator.IsPositionValid("Engineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineerengineer"), Is.EqualTo("Field is too long"));
         }
 
         [Test]

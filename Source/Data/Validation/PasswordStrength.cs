@@ -1,5 +1,8 @@
 ﻿namespace Data.Validation
 {
+    /// <summary>
+    /// Классы сложности пароля.
+    /// </summary>
     public enum PasswordStrength
     {
         PasswordNotSet = 0,

@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace Model
 {
+    /// <summary>
+    /// Описание класса пользователя и его полей.
+    /// </summary>
     public class User : ICloneable
     {
         public User()
@@ -27,10 +30,20 @@ namespace Model
 
         public string Lastname { get; set; }
 
-        public string Initials { get; set; }
+        public string Initials
+        {
+            get
+            {
+                return  Name.First() + "." + Surname.First();
+            }
+        }
 
         public string Position { get; set; }
 
+        /// <summary>
+        /// Создание нового пользователя, который является копией текущего.
+        /// </summary>
+        /// <returns>Новый пользователь, который является копией текущего.</returns>
         public object Clone()
         {
             return new User
@@ -45,6 +58,11 @@ namespace Model
             };
         }
 
+        /// <summary>
+        /// Проверка эквивалентности пользователей.
+        /// </summary>
+        /// <param name="other">Пользователь, с кем сравнивать текущего</param>
+        /// <returns>True - пользователи идиентичны, False - отличаются.</returns>
         protected bool Equals(User other)
         {
             return string.Equals(Login, other.Login) && string.Equals(Password, other.Password) 
@@ -53,6 +71,11 @@ namespace Model
                 && string.Equals(Position, other.Position);
         }
 
+        /// <summary>
+        /// Сравниваем пользователей, как объекты.
+        /// </summary>
+        /// <param name="obj">Объект другого пользователя</param>
+        /// <returns>True - пользователи идиентичны как объекты, False - отличаются как объекты.</returns>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -61,6 +84,10 @@ namespace Model
             return Equals((User) obj);
         }
 
+        /// <summary>
+        /// Хеш-функция для типа данных User.
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             unchecked
@@ -76,12 +103,24 @@ namespace Model
                 return hashCode;
             }
         }
-
+        
+        /// <summary>
+        /// Перегрузка оператора равенства
+        /// </summary>
+        /// <param name="left">Первый объект для сравнения</param>
+        /// <param name="right">Второй объект для сравнения</param>
+        /// <returns>True - пользователи идиентичны, False - отличаются.</returns>
         public static bool operator ==(User left, User right)
         {
             return Equals(left, right);
         }
 
+        /// <summary>
+        /// Перегрузка оператора неравенства
+        /// </summary>
+        /// <param name="left">Первый объект для сравнения</param>
+        /// <param name="right">Второй объект для сравнения</param>
+        /// <returns>False - пользователи идиентичны, True - отличаются.</returns>
         public static bool operator !=(User left, User right)
         {
             return !Equals(left, right);

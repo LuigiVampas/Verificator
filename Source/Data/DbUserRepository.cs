@@ -9,10 +9,21 @@ using Presentation;
 
 namespace Data
 {
+    /// <summary>
+    /// Репозиторий, в котором хранятся объекты класса User, основанный на базе данных
+    /// </summary>
     public class DbUserRepository : IUserRepository
     {
+        /// <summary>
+        /// Строка подключения к базе данных, параметры которой берутся из app.config.
+        /// </summary>
         private readonly string _connectionString = ConfigurationManager.ConnectionStrings["LocalUserDatabase"].ConnectionString;
 
+        /// <summary>
+        /// Возвращает объект класса User с заданным id, если он существует.
+        /// </summary>
+        /// <param name="id">id искомого объекта класса User.</param>
+        /// <returns>Объект класса User с заданным id. Если такого нет то null.</returns>
         public User GetUser(int id)
         {
             using (var connection = new MySqlConnection(_connectionString))
@@ -50,6 +61,10 @@ namespace Data
             }
         }
 
+        /// <summary>
+        /// Возвращает все объекты класса User, хранящиеся в репозитории.
+        /// </summary>
+        /// <returns>Все объекты класса User, хранящиеся в репозитории.</returns>
         public IEnumerable<User> GetAllUsers()
         {
             using (var connection = new MySqlConnection(_connectionString))
@@ -87,6 +102,10 @@ namespace Data
             }
         }
 
+        /// <summary>
+        /// Добавляет указанного юзера в репозиторий.
+        /// </summary>
+        /// <param name="user">Добавляемый объекта класса User.</param>
         public void AddUser(User user)
         {
             using (var connection = new MySqlConnection(_connectionString))
@@ -121,6 +140,10 @@ namespace Data
             }
         }
 
+        /// <summary>
+        /// Удаляет из репозитория указанный объект класса User.
+        /// </summary>
+        /// <param name="user">Удаляемый объект класса User.</param>
         public void DeleteUser(User user)
         {
             using (var connection = new MySqlConnection(_connectionString))
@@ -157,6 +180,10 @@ namespace Data
             }
         }
 
+        /// <summary>
+        /// Обновляет поля указанный объект класса User.
+        /// </summary>
+        /// <param name="user">Объект класса User, поля которого нужно обновить.</param>
         public void UpdateUser(User user)
         {
             using (var connection = new MySqlConnection(_connectionString))
@@ -192,6 +219,10 @@ namespace Data
             }
         }
 
+        /// <summary>
+        /// Сохраняет внесенные в контекст изменения в базе данных.
+        /// </summary>
+        /// <param name="context">Контекст, в котором произошли изменения.</param>
         private void SaveChanges(UserDbContext context)
         {
             bool saveFailed;
@@ -207,7 +238,6 @@ namespace Data
                 {
                     saveFailed = true;
 
-                    // Update the values of the entity that failed to save from the store 
                     ex.Entries.Single().Reload();
                 }
 
