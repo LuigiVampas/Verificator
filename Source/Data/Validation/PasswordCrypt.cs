@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
 using Presentation;
@@ -9,7 +10,7 @@ namespace Data.Validation
     {
         public string GetHashString(string password)
         {
-            return GetSaltPwdHash(password);
+            return GetSaltPasswordHash(password);
         }
 
         public bool IsPasswordValid(string passwordInput, string pwdHashFromDb)
@@ -19,7 +20,7 @@ namespace Data.Validation
             return 0 == comparer.Compare(GetHashString(passwordInput), pwdHashFromDb);
         }
 
-        private string GetPwdHashOnce(string password)
+        private string GetPasswordHashOnce(string password)
         {
             var passwordHash = string.Empty;
             var bytes = Encoding.Default.GetBytes(password);
@@ -33,11 +34,13 @@ namespace Data.Validation
             return passwordHash;
         }
 
-        private string GetSaltPwdHash(string password)
+        private string GetSaltPasswordHash(string password)
         {
-            var saltPwdHash = string.Empty;
-            for (int i = 0; i < 9999; ++i)
-                saltPwdHash = GetPwdHashOnce(password);
+            var iterationNumber = Convert.ToInt32(ConfigurationManager.AppSettings["PasswordHashingTries"]);
+
+            var saltPwdHash = password;
+            for (int i = 0; i < iterationNumber; ++i)
+                saltPwdHash = GetPasswordHashOnce(saltPwdHash);
 
             return saltPwdHash;
         }

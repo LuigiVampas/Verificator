@@ -44,9 +44,8 @@ namespace Verificator.App
             container.Register<IUserDataContext, UserDataContext>(new PerRequestLifeTime());
             container.Register<Func<IUserDataContext>>(c => (() => c.GetInstance<IUserDataContext>()), new PerContainerLifetime());
 
-            container.Register<string, IPasswordEditContext>(
-                (c, arg) => new PasswordEditContext(c.GetInstance<IValidator>(), c.GetInstance<IPasswordCrypt>(), arg));
-            container.Register<Func<string, IPasswordEditContext>>(c => (arg => c.GetInstance<string, IPasswordEditContext>(arg)));
+            container.Register<IPasswordEditContext, PasswordEditContext>(new PerRequestLifeTime());
+            container.Register<Func<IPasswordEditContext>>(c => (() => c.GetInstance<IPasswordEditContext>()));
 
             container.Register<IUserRepository, DbUserRepository>(new PerContainerLifetime());
             container.Register<IValidator, Validator>(new PerContainerLifetime());

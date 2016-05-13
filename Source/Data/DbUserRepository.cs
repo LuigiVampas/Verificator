@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Data
 {
     public class DbUserRepository : IUserRepository
     {
-        private readonly string _connectionString = "server=127.0.0.1;port=3306;database=Users;uid=root";
+        private readonly string _connectionString = ConfigurationManager.ConnectionStrings["LocalUserDatabase"].ConnectionString;
 
         public User GetUser(int id)
         {

@@ -23,8 +23,12 @@ namespace Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().MapToStoredProcedures();
+          //  modelBuilder.Entity<User>().HasRequired(u => u.Login)
+                                       
+    
         }
     }
 }

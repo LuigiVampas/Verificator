@@ -9,36 +9,13 @@ namespace Presentation.Contexts
     {
         private readonly IValidator _validator;
         private readonly IPasswordCrypt _passwordCrypt;
-        private string _oldPassword;
         private string _newPassword;
 
-        public PasswordEditContext(IValidator validator, IPasswordCrypt passwordCrypt, string oldPasswordHash)
+        public PasswordEditContext(IValidator validator, IPasswordCrypt passwordCrypt)
         {
             _validator = validator;
             _passwordCrypt = passwordCrypt;
-
-            OldPasswordHashSum = oldPasswordHash;
-            _oldPassword = "";
             _newPassword = "";
-        }
-
-        public string OldPasswordHashSum { get; private set; }
-
-        public string OldPassword
-        {
-            get { return _oldPassword; }
-            set
-            {
-                if (_oldPassword == value)
-                    return;
-
-                _oldPassword = value;
-
-                if (!_passwordCrypt.IsPasswordValid(_oldPassword, OldPasswordHashSum))
-                    throw new ArgumentException("Неправильный пароль!");
-
-                OnPropertyChanged();
-            }
         }
         
         public string NewPassword

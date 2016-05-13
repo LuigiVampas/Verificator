@@ -4,7 +4,7 @@
         xmlns:ui="clr-namespace:UI"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" x:Class="UI.UserInsertingDialog"
-        Title="UserInsertingDialog" Height="283" Width="316" ResizeMode="NoResize"
+        Title="Добавление пользователя" Height="283" Width="316" ResizeMode="NoResize"
         Activated="UserInsertingDialog_OnActivated">
     <Grid x:Name="UserParametersGrid">
         <Grid.ColumnDefinitions>

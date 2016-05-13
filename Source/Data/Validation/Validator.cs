@@ -16,9 +16,9 @@ namespace Data.Validation
         public string IsLoginValid(string login)
         {
             var error = new StringBuilder();
-            error.AppendLine(ContainsEnglish(login));
-            error.AppendLine(CheckLength(login, 15));
-            error.AppendLine(IsLoginUnique(login));
+            error.Append(ContainsEnglish(login));
+            error.Append(CheckLength(login, 15));
+            error.Append(IsLoginUnique(login));
             return error.ToString();
         }
 
@@ -30,12 +30,12 @@ namespace Data.Validation
         public string IsPasswordValid(string password)
         {
             var error = new StringBuilder();
-            error.AppendLine(CheckLength(password, 32));
-            error.AppendLine(IsPassword(password));
+            error.Append(CheckLength(password, 32));
+            error.Append(IsPassword(password));
             var passwordStrength = CheckPasswordStrength(password);
             if (passwordStrength == PasswordStrength.Weak ||
                 passwordStrength == PasswordStrength.PasswordNotSet)
-                error.AppendLine("Password is too weak, or not set");
+                error.Append("Password is too weak, or not set");
 
             return error.ToString();
         }
@@ -75,8 +75,9 @@ namespace Data.Validation
         private string IsDataValid(string str)
         {
             var error = new StringBuilder();
-            error.AppendLine(StartingWithUpper(str));
-            error.AppendLine(CheckLength(str, 20));
+            error.Append(StartingWithUpper(str));
+            error.Append(ContainsOnlyLetters(str));
+            error.Append(CheckLength(str, 20));
 
             return error.ToString();
         }
@@ -85,6 +86,13 @@ namespace Data.Validation
         {
            if ((str.First() >= 'A' && str.First() <= 'Z') || (str.First() >= 'А' && str.First() <= 'Я')) return "";
                 return "Field have to be started with Upper and have not to contain non-english symbols"; 
+        }
+
+        private string ContainsOnlyLetters(string str)
+        {
+            for (int i = 0; i < str.Length; ++i)
+                if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'А' && str[i]  <= 'Я') || (str[i] >= 'а' && str[i]  <= 'я'))) return "Field have to contain only letters";
+            return "";
         }
 
         private string ContainsEnglish(string str)
