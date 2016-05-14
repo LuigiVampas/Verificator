@@ -19,29 +19,18 @@ namespace Data.Tests
         }
 
         [Test]
-        public void CheckPasswordStrengthTest()
-        {
-            Assert.That(_validator.CheckPasswordStrength(""), Is.EqualTo(PasswordStrength.PasswordNotSet));
-            Assert.That(_validator.CheckPasswordStrength("lol"), Is.EqualTo(PasswordStrength.Weak));
-            Assert.That(_validator.CheckPasswordStrength("lol124"), Is.EqualTo(PasswordStrength.Weak));
-            Assert.That(_validator.CheckPasswordStrength("loL1%"), Is.EqualTo(PasswordStrength.Weak));
-            Assert.That(_validator.CheckPasswordStrength("AntoshKa@987Lukas"), Is.EqualTo(PasswordStrength.Strong));
-            Assert.That(_validator.CheckPasswordStrength("&^&68Ff*%&(&*"), Is.EqualTo(PasswordStrength.Normal));
-        }
-
-        [Test]
-        public void PasswordCryptTest()
-        {
-            Assert.True(_passwordCrypt.IsPasswordValid("AntoshKa@987Lukas", _passwordCrypt.GetHashString("AntoshKa@987Lukas")));
-        }
-
-        [Test]
         public void IsLoginValidTest()
         {
             Assert.That(_validator.IsLoginValid("qwerty"), Is.EqualTo(""));
             Assert.That(_validator.IsLoginValid("йцукен"), Is.EqualTo("Field have to contain only english symbols"));
         }
 
+        [Test]
+        public void IsNameContainsOnlyLettersTest()
+        {
+            Assert.That(_validator.IsNameValid("Andrey"), Is.EqualTo(""));
+            Assert.That(_validator.IsNameValid("Andrey123"), Is.EqualTo("Field have to contain only letters"));
+        }
         [Test]
         public void IsPasswordValidTest()
         {

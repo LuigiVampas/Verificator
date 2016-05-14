@@ -83,9 +83,55 @@ namespace Presentation.Tests
         [Test]
         public void EditingUserTest()
         {
+            var editingUser = new User();
+            var newUser = new User {Password = "Another password"};
+
             _mainViewMock.SetupGet(v => v.SelectedUser).Returns(_userDataContextMock.Object);
 
+            _userDataContextMock.Setup(c => c.CreateUser(false)).Returns(editingUser);
+
+            _userEditDialogPresenterMock.Setup(p => p.EditUser(editingUser)).Returns(newUser);
+
+            _userContextsFromView.Add(_userDataContextMock.Object);
+            _userContextsFromView.Add((new Mock<IUserDataContext>()).Object);
+
             _mainViewMock.Raise(v => v.EditingUser += null, EventArgs.Empty);
+
+            _userRepositoryMock.Verify(r => r.UpdateUser(newUser), Times.Once);
+            _userDataContextMock.Verify(c => c.Initialize(newUser), Times.Once);
+        }
+
+        [Test]
+        public void EditingNullUserTest()
+        {
+            _mainViewMock.Raise(v => v.EditingUser += null, EventArgs.Empty);
+        }
+
+        [Test]
+        public void DeletingUserTest()
+        {
+            var deletingUser = new User { Login = "DeletingUser" };
+            _userContextsFromView.Clear();
+
+            _usersInRepository.Add(deletingUser);
+
+            _userDeletingDialogPresenterMock.Setup(p => p.RunDialog()).Returns(true);
+
+            _userDataContextMock.Setup(c => c.CreateUser(false)).Returns(deletingUser);
+
+            _mainViewMock.SetupGet(v => v.SelectedUser).Returns(_userDataContextMock.Object);
+
+            _mainViewMock.Raise(v => v.DeletingUser += null, EventArgs.Empty);
+
+            _userRepositoryMock.Verify(r => r.DeleteUser(deletingUser), Times.Once);
+
+            Assert.That(_userContextsFromView.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void DeletingNullUserTest()
+        {
+            _mainViewMock.Raise(v => v.DeletingUser += null, EventArgs.Empty);
         }
     }
 }

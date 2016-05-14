@@ -10,11 +10,6 @@ namespace Data
     {
         public DbSet<User> Users { get; set; }
 
-        public UserDbContext()
-        {
-
-        }
-
         public UserDbContext(DbConnection existingConnection, bool contextOwnsConnection)
             : base(existingConnection, contextOwnsConnection)
         {

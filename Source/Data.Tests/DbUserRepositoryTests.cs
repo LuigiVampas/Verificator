@@ -10,7 +10,7 @@ namespace Data.Tests
     {
         private User _user;
 
-        private const string ConnectionString = "server=127.0.0.1;port=3306;database=Users;uid=root";
+        private const string ConnectionString = "server=127.0.0.1;port=3306;database=UsersTest;uid=root;";
 
         [SetUp]
         public void SetUp()
@@ -24,61 +24,6 @@ namespace Data.Tests
                 Surname = "Igorevich",
                 Password = "Qwerty123!asd"
             };
-        }
-
-        [Test]
-        public void AddUserToDb()
-        {
-
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
-            {
-                // Create database if not exists
-                using (var contextDb = new UserDbContext(connection, false))
-                {
-                    contextDb.Database.CreateIfNotExists();
-                }
-
-                connection.Open();
-                var transaction = connection.BeginTransaction();
-
-                try
-                {
-                    using (var context = new UserDbContext(connection, false))
-                    {
-                        context.Database.UseTransaction(transaction);
-
-                        context.Users.Add(_user);
-
-                        context.SaveChanges();
-                    }
-
-                    transaction.Commit();
-                }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-
-                transaction = connection.BeginTransaction();
-
-                try
-                {
-                    using (var context = new UserDbContext(connection, false))
-                    {
-                        var userInDb = context.Users.Where(u => u.Id == _user.Id).First();
-                        Assert.That(userInDb == _user);
-                    }
-
-                    transaction.Commit();
-                }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-
-            }
         }
 
         [Test]
@@ -102,6 +47,46 @@ namespace Data.Tests
             users = repository.GetAllUsers();
 
             Assert.That(users.All(u => u != _user), Is.True);
+        }
+
+        [Test]
+        public void GetUserFromRepository()
+        {
+            var repository = new DbUserRepository();
+
+            repository.AddUser(_user);
+
+            var users = repository.GetAllUsers();
+
+            var userid = users.First().Id;
+
+            var userWithNecessaryId = repository.GetUser(userid);
+
+            Assert.True(users.First().Equals(userWithNecessaryId));
+
+        }
+
+        [Test]
+        public void UpdateUserInRepository()
+        {
+            var repository = new DbUserRepository();
+
+            repository.AddUser(_user);
+            
+            var users = repository.GetAllUsers();
+            
+            Assert.True(_user.Equals(users.First()));
+
+            var newUser = _user;
+
+            newUser.Name = "Semen";
+
+            repository.UpdateUser(newUser);
+
+            var newUsers = repository.GetAllUsers();
+
+            Assert.True(newUser.Equals(newUsers.First()));
+
         }
     }
 }
