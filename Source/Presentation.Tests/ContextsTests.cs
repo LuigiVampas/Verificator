@@ -113,7 +113,7 @@ namespace Presentation.Tests
         }
 
         [Test]
-        public void UserDataContextWrongDataTestTest()
+        public void UserDataContextWrongDataTest()
         {
             _validatorMock.Setup(v => v.IsLoginValid(It.IsAny<string>())).Returns("Login");
             _validatorMock.Setup(v => v.IsPasswordValid(It.IsAny<string>())).Returns("Password");
@@ -183,6 +183,59 @@ namespace Presentation.Tests
                 Assert.That(e is ArgumentException, Is.True);
                 Assert.That(e.Message, Is.EqualTo("Position"));
             }
+        }
+
+        [Test]
+        public void PasswordEditContextAddingNewPasswordTest()
+        {
+            var passwordEditContext = new PasswordEditContext(_validatorMock.Object, _passwordCryptMock.Object);
+
+            Assert.That(passwordEditContext.NewPassword, Is.EqualTo(""));
+
+            var propertyHasChanged = false;
+
+            passwordEditContext.PropertyChanged += (sender, e) => propertyHasChanged = true;
+
+            passwordEditContext.NewPassword = "Password";
+
+            Assert.That(passwordEditContext.NewPassword, Is.EqualTo("Password"));
+            Assert.That(propertyHasChanged, Is.True);
+            _validatorMock.Verify(v => v.IsPasswordValid("Password"), Times.Once);
+
+            _passwordCryptMock.Setup(pc => pc.GetHashString(It.IsAny<string>())).Returns("PasswordHashString");
+
+            Assert.That(passwordEditContext.GetNewPasswordHash(), Is.EqualTo("PasswordHashString"));
+        }
+
+        [Test]
+        public void PasswordEditContextAddingWrongPasswordMustThrowArgumentExceptionTest()
+        {
+            var passwordEditContext = new PasswordEditContext(_validatorMock.Object, _passwordCryptMock.Object);
+
+            _validatorMock.Setup(v => v.IsPasswordValid(It.IsAny<string>())).Returns("PasswordError");
+
+            try
+            {
+                passwordEditContext.NewPassword = "Password";
+            }
+            catch (Exception e)
+            {
+                Assert.That(e is ArgumentException, Is.True);
+                Assert.That(e.Message, Is.EqualTo("PasswordError"));
+            }
+        }
+
+        [Test]
+        public void PasswordEditContextAddingStringTwiceMustDoNothingTest()
+        {
+            var passwordEditContext = new PasswordEditContext(_validatorMock.Object, _passwordCryptMock.Object);
+
+            var passwordString = "Password";
+
+            passwordEditContext.NewPassword = passwordString;
+            passwordEditContext.NewPassword = "Password";
+
+            Assert.That(ReferenceEquals(passwordEditContext.NewPassword, passwordString), Is.True);
         }
     }
 }

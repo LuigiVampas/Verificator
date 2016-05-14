@@ -57,14 +57,14 @@ namespace Presentation.UserList
             View.InsertingUser += OnInsertingUser;
             View.DeletingUser += OnDeletingUser;
             View.EditingUser += OnEditingUser;
-            FillViewWithUsersFromDb();
+            FillViewWithUsersFromRepository();
         }
 
-        private void FillViewWithUsersFromDb()
+        private void FillViewWithUsersFromRepository()
         {
-            var usersFormDb = _userRepository.GetAllUsers();
+            var usersFormRepository = _userRepository.GetAllUsers();
 
-            foreach (var user in usersFormDb)
+            foreach (var user in usersFormRepository)
             {
                 var userDataContext = _userDataContextFactory();
                 userDataContext.Initialize(user);
