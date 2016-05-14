@@ -27,5 +27,43 @@ namespace Model.Tests
             Assert.That(user.Initials, Is.EqualTo("A.I"));
 
         }
+
+        [Test]
+        public void AreUsersEqualOrUnequalTest()
+        {
+            var rightUser = new User
+            {
+                Name = "Andrey",
+                Surname = "Igorevich",
+                Lastname = "Sokov",
+                Login = "cwdlcs",
+                Password = "1234567890!LoL1234567890",
+                Position = "Engineer"
+            };
+
+            var leftUser = new User
+            {
+                Name = "Andrey",
+                Surname = "Igorevich",
+                Lastname = "Sokov",
+                Login = "cwdlcs",
+                Password = "1234567890!LoL1234567890",
+                Position = "Engineer"
+            };
+
+            var uncorrectUser = new User
+            {
+                Name = "Andrey",
+                Surname = "Igorevich",
+                Lastname = "Fnkdlsf",
+                Login = "cwdlcs",
+                Password = "1234567890!LoL1234567890",
+                Position = "Engineer"
+            };
+
+
+            Assert.True(leftUser.Equals(rightUser));
+            Assert.False(leftUser.Equals(uncorrectUser));
+        }
     }
 }
