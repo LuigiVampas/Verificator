@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbUserRepositoryTests.cs" />
+    <Compile Include="ListUserRepositoryTests.cs" />
+    <Compile Include="PasswordCryptTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidatorTests.cs" />
   </ItemGroup>
