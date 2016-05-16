@@ -109,9 +109,8 @@ namespace Presentation.Contexts
         {
             get
             {
-                var firstNameLetter = Name.FirstOrDefault();
-                var firstLastnameLetter = Lastname.FirstOrDefault();
-                return firstNameLetter + "." + firstLastnameLetter + ".";
+                return (!string.IsNullOrWhiteSpace(Name) ? Name.First() + "." : "") +
+                       (!string.IsNullOrWhiteSpace(Name) ? Lastname.First() + "." : "");
             }
         }
 
@@ -139,6 +138,8 @@ namespace Presentation.Contexts
         public User CreateUser(bool needHash)
         {
             var resultUser = (User)_user.Clone();
+
+            resultUser.Initials = Initials;
 
             if (needHash)
                 resultUser.Password = _passwordCrypt.GetHashString(Password);

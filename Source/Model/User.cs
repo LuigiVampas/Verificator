@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace Model
 {
@@ -16,6 +15,7 @@ namespace Model
             Name = "";
             Lastname = "";
             Position = "";
+            Initials = "";
         }
 
         public int Id { get; set; }
@@ -30,13 +30,7 @@ namespace Model
 
         public string Lastname { get; set; }
 
-        public string Initials
-        {
-            get
-            {
-                return  Name.FirstOrDefault() + "." + Lastname.FirstOrDefault() + ".";
-            }
-        }
+        public string Initials { get; set; }
 
         public string Position { get; set; }
 

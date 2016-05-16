@@ -18,16 +18,16 @@ namespace Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().MapToStoredProcedures();
             modelBuilder.Entity<User>().HasKey(user => user.Id);
-            modelBuilder.Entity<User>().Property(user => user.Login).HasColumnName("Login");
-            modelBuilder.Entity<User>().Property(user => user.Password).HasColumnName("Password");
-            modelBuilder.Entity<User>().Property(user => user.Name).HasColumnName("Name");
-            modelBuilder.Entity<User>().Property(user => user.Lastname).HasColumnName("Lastname");
-            modelBuilder.Entity<User>().Property(user => user.Surname).HasColumnName("Surname");
-            modelBuilder.Entity<User>().Property(user => user.Position).HasColumnName("Position");
+            modelBuilder.Entity<User>().Property(user => user.Login).HasColumnName("Login").IsRequired().HasMaxLength(20);
+            modelBuilder.Entity<User>().Property(user => user.Password).HasColumnName("Password").IsRequired();
+            modelBuilder.Entity<User>().Property(user => user.Name).HasColumnName("Name").IsRequired().HasMaxLength(20);
+            modelBuilder.Entity<User>().Property(user => user.Surname).HasColumnName("Surname").IsRequired().HasMaxLength(20);
+            modelBuilder.Entity<User>().Property(user => user.Lastname).HasColumnName("Lastname").IsOptional().HasMaxLength(20);
+            modelBuilder.Entity<User>().Property(user => user.Initials).HasColumnName("Initials").IsOptional();
+            modelBuilder.Entity<User>().Property(user => user.Position).HasColumnName("Position").IsOptional().HasMaxLength(20);
         }
     }
 }

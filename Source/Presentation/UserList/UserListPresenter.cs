@@ -60,15 +60,25 @@ namespace Presentation.UserList
             FillViewWithUsersFromRepository();
         }
 
+        /// <summary>
+        /// Заполняет список пользователей на основной форме.
+        /// </summary>
         private void FillViewWithUsersFromRepository()
         {
-            var usersFormRepository = _userRepository.GetAllUsers();
-
-            foreach (var user in usersFormRepository)
+            try
             {
-                var userDataContext = _userDataContextFactory();
-                userDataContext.Initialize(user);
-                View.Users.Add(userDataContext);
+                var usersFormRepository = _userRepository.GetAllUsers();
+
+                foreach (var user in usersFormRepository)
+                {
+                    var userDataContext = _userDataContextFactory();
+                    userDataContext.Initialize(user);
+                    View.Users.Add(userDataContext);
+                }
+            }
+            catch (Exception)
+            {
+                View.ShowErrorMessage("Не могу подключиться к базе данных. Попробуйте изменить конфигурацию приложения.");
             }
         }
 

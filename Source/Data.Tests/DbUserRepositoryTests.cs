@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Model;
-using MySql.Data.MySqlClient;
 using NUnit.Framework;
 
 namespace Data.Tests
@@ -54,7 +53,7 @@ namespace Data.Tests
 
             repository.AddUser(_user);
 
-            var users = repository.GetAllUsers();
+            var users = repository.GetAllUsers().ToArray();
 
             var userid = users.First().Id;
 

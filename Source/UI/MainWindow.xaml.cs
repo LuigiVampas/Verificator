@@ -36,6 +36,7 @@ namespace UI
         /// </summary>
         public event EventHandler LoadCompleted;
 
+
         /// <summary>
         /// Событие добавления нового пользователя.
         /// </summary>
@@ -74,6 +75,13 @@ namespace UI
 
                 return Users[selectedIndex];
             }
+        }
+
+        public void ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            Close();
         }
 
         /// <summary>

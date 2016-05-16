@@ -32,12 +32,12 @@ namespace Presentation.UserInserting
 
             var result = View.ShowDialog();
 
-            if (result == false) 
+            if (result != true) 
                 return false;
 
             User = View.UserDataContext.CreateUser(true);
 
-            return result;
+            return true;
         }
     }
 }

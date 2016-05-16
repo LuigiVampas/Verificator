@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Model;
-using MySql.Data.MySqlClient;
 using NUnit.Framework;
 
 namespace Data.Tests
@@ -82,7 +77,7 @@ namespace Data.Tests
             newUser.Name = "Vasya";
             usersList.UpdateUser(newUser);
 
-            usersFromList = usersList.GetAllUsers();
+            usersList.GetAllUsers();
 
             Assert.That(usersList.GetUser(213), Is.EqualTo(null));
 
@@ -95,7 +90,7 @@ namespace Data.Tests
 
             usersList.AddUser(_user);
 
-            var usersFromList = usersList.GetAllUsers();
+            var usersFromList = usersList.GetAllUsers().ToArray();
 
             var userid = usersFromList.First().Id;
 

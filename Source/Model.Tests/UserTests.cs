@@ -15,7 +15,8 @@ namespace Model.Tests
                 Lastname = "Igorevich",
                 Login = "cwdlcs",
                 Password = "1234567890!LoL1234567890",
-                Position = "Engineer"
+                Position = "Engineer",
+                Initials = "A.I."
             };
 
             Assert.That(user.Name, Is.EqualTo("Andrey"));

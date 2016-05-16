@@ -24,7 +24,8 @@ namespace Presentation.Tests
                 Password = "Password",
                 Name = "Name",
                 Surname = "Surname",
-                Position = "Position"
+                Position = "Position",
+                Initials = "N.L."
             };
 
             _validatorMock = new Mock<IValidator>();
@@ -43,7 +44,7 @@ namespace Presentation.Tests
             Assert.That(userDataContext.Position, Is.EqualTo(""));
             Assert.That(userDataContext.Login, Is.EqualTo(""));
             Assert.That(userDataContext.Password, Is.EqualTo(""));
-            Assert.That(userDataContext.Initials, Is.EqualTo("\0.\0."));
+            Assert.That(userDataContext.Initials, Is.EqualTo(""));
             Assert.That(userDataContext.CreateUser(false), Is.EqualTo(new User()));
         }
 

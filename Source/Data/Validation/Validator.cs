@@ -25,7 +25,7 @@ namespace Data.Validation
         {
             var error = new StringBuilder();
             error.Append(ContainsEnglish(login));
-            error.Append(CheckLength(login, 15));
+            error.Append(CheckLength(login, 20));
             error.Append(IsLoginUnique(login));
             return error.ToString();
         }
@@ -37,7 +37,7 @@ namespace Data.Validation
         /// <returns>Пустую строку, если логин уникален. "Данный логин уже используется другим пользователем." - если такой логин уже существует.</returns>
         private string IsLoginUnique(string login)
         {
-            return _userRepository.GetAllUsers().All(u => u.Login != login) ? "" : "Данный логин уже используется другим пользователем.";
+            return _userRepository.GetAllUsers().All(u => u.Login != login) ? "" : "Данный логин уже используется другим пользователем.\n";
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Data.Validation
             var passwordStrength = CheckPasswordStrength(password);
             if (passwordStrength == PasswordStrength.Weak ||
                 passwordStrength == PasswordStrength.PasswordNotSet)
-                error.Append("Password is too weak, or not set");
+                error.Append("Password is too weak, or not set\n");
 
             return error.ToString();
         }
@@ -107,7 +107,7 @@ namespace Data.Validation
         /// <returns>Ошибки, допущенные при автоматической генерации инициалов, либо пустая строка, если все верно.</returns>
         public string AreInitialsValid(string initials, string name, string surname)
         {
-            return initials != GetInitialsFromNameAndSurname(name, surname) ? "Initials are not correct" : "";
+            return initials != GetInitialsFromNameAndSurname(name, surname) ? "Initials are not correct\n" : "";
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace Data.Validation
         private static string StartingWithUpper(string str)
         {
            if ((str.First() >= 'A' && str.First() <= 'Z') || (str.First() >= 'А' && str.First() <= 'Я')) return "";
-                return "Field have to be started with Upper and have not to contain non-english symbols"; 
+           return "Field have to be started with Upper and have not to contain non-english symbols\n"; 
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Data.Validation
         {
             if (str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z') || (t >= 'А' && t  <= 'Я') || (t >= 'а' && t  <= 'я'))))
             {
-                return "Field have to contain only letters";
+                return "Field have to contain only letters\n";
             }
             return "";
         }
@@ -173,7 +173,7 @@ namespace Data.Validation
         {
             if (str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z'))))
             {
-                return "Field have to contain only english symbols";
+                return "Field have to contain only english symbols\n";
             }
             return "";
         }
@@ -187,7 +187,7 @@ namespace Data.Validation
         {
             if (str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z') || (t >= '!' && t <= '@'))))
             {
-                return "Not allowed symbols for password";
+                return "Not allowed symbols for password\n";
             }
             return "";
         }
@@ -201,8 +201,8 @@ namespace Data.Validation
         private static string CheckLength(string str, int allowedLength)
         {
             if (string.IsNullOrWhiteSpace(str))
-                return "Field is too short";
-            return str.Length <= allowedLength ? "" : "Field is too long";
+                return "Field is too short\n";
+            return str.Length <= allowedLength ? "" : "Field is too long\n";
         }
 
         /// <summary>
@@ -232,6 +232,7 @@ namespace Data.Validation
                 if (!hasDigits && digits.IndexOf(password[i]) != -1) hasDigits = true;
                 if (!hasSpecials && specialChars.IndexOf(password[i]) != -1) hasSpecials = true;
             }
+
             if (hasLowers) difficulty++;
             if (hasUppers) difficulty++;
             if (hasDigits) difficulty++;

@@ -37,6 +37,7 @@ namespace Presentation.Tests
             _passwordEditViewMock.Setup(v => v.ShowDialog()).Returns(false);
 
             _passwordEditViewMock.Verify(v => v.PasswordDataContext, Times.Once);
+
             Assert.That(passwordEditPresenter.EditPassword("OldPassword"), Is.EqualTo("OldPassword"));
         }
     }

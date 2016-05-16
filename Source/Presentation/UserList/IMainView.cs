@@ -21,6 +21,8 @@ namespace Presentation.UserList
         /// </summary>
         IUserDataContext SelectedUser { get; }
 
+        void ShowErrorMessage(string message);
+
         /// <summary>
         /// Событие добавления нового пользователя.
         /// </summary>
