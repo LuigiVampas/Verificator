@@ -23,13 +23,14 @@ namespace Data.Validation
         /// <returns>Ошибки, допущенные при задании логина, либо пустая строка, если все верно.</returns>
         public string IsLoginValid(string login)
         {
+            if (!IsFieldSetted(login)) return "Поле не установлено";
             var error = new StringBuilder();
             error.Append(ContainsEnglish(login));
             error.Append(CheckLength(login, 20));
             error.Append(IsLoginUnique(login));
             return error.ToString();
         }
-        
+
         /// <summary>
         /// Проверка логина на уникальность в базе данных.
         /// </summary>
@@ -47,13 +48,14 @@ namespace Data.Validation
         /// <returns>Ошибки, допущенные при задании пароля, либо пустая строка, если все верно.</returns>
         public string IsPasswordValid(string password)
         {
+            if (!IsFieldSetted(password)) return "Поле не установлено";
             var error = new StringBuilder();
             error.Append(CheckLength(password, 32));
             error.Append(IsPassword(password));
             var passwordStrength = CheckPasswordStrength(password);
             if (passwordStrength == PasswordStrength.Weak ||
                 passwordStrength == PasswordStrength.PasswordNotSet)
-                error.Append("Password is too weak, or not set\n");
+                error.Append("Пароль слишком слабый или не установлен\n");
 
             return error.ToString();
         }
@@ -85,7 +87,7 @@ namespace Data.Validation
         /// <returns>Ошибки, допущенные при задании фамилии, либо пустая строка, если все верно.</returns>
         public string IsLastnameValid(string lastname)
         {
-            return IsDataValid(lastname);
+            return IsFieldSetted(lastname) ? IsDataValid(lastname) : null;
         }
 
         /// <summary>
@@ -95,7 +97,7 @@ namespace Data.Validation
         /// <returns>Ошибки, допущенные при задании должности, либо пустая строка, если все верно.</returns>
         public string IsPositionValid(string position)
         {
-            return IsDataValid(position);
+            return IsFieldSetted(position) ? IsDataValid(position) : null;
         }
 
         /// <summary>
@@ -107,7 +109,7 @@ namespace Data.Validation
         /// <returns>Ошибки, допущенные при автоматической генерации инициалов, либо пустая строка, если все верно.</returns>
         public string AreInitialsValid(string initials, string name, string surname)
         {
-            return initials != GetInitialsFromNameAndSurname(name, surname) ? "Initials are not correct\n" : "";
+            return initials != GetInitialsFromNameAndSurname(name, surname) ? "Инициалы не верныt\n" : "";
         }
 
         /// <summary>
@@ -131,6 +133,7 @@ namespace Data.Validation
         /// <returns>Ошибки, допущенные при вводе данных(п.1,п.2,п.3).</returns>
         private static string IsDataValid(string str)
         {
+            if (!IsFieldSetted(str)) return "Поле не установлено";
             var error = new StringBuilder();
             error.Append(StartingWithUpper(str));
             error.Append(ContainsOnlyLetters(str));
@@ -143,53 +146,42 @@ namespace Data.Validation
         /// Проверка на то, начинается ли поле с данными с большой буквы.
         /// </summary>
         /// <param name="str">Поле с данными</param>
-        /// <returns>Если все верно - пустая строка, иначе: "Field have to be started with Upper and have not to contain non-english symbols".</returns>
+        /// <returns>Если все верно - пустая строка, иначе: "Поле должно начинаться с заглавной буквы и содержать только буквы".</returns>
         private static string StartingWithUpper(string str)
         {
-           if ((str.First() >= 'A' && str.First() <= 'Z') || (str.First() >= 'А' && str.First() <= 'Я')) return "";
-           return "Field have to be started with Upper and have not to contain non-english symbols\n"; 
+            return (str.First() >= 'A' && str.First() <= 'Z') || (str.First() >= 'А' && str.First() <= 'Я')
+                ? ""
+                : "Поле должно начинаться с заглавной буквы и содержать только буквы\n";
         }
 
         /// <summary>
         /// Проверка на то, содержит ли поле только английские или русские буквы.
         /// </summary>
         /// <param name="str">Поле с данными</param>
-        /// <returns>Если все верно - пустая строка, иначе: "Field have to contain only letters".</returns>
+        /// <returns>Если все верно - пустая строка, иначе: "Поле должно содержать только буквы".</returns>
         private static string ContainsOnlyLetters(string str)
         {
-            if (str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z') || (t >= 'А' && t  <= 'Я') || (t >= 'а' && t  <= 'я'))))
-            {
-                return "Field have to contain only letters\n";
-            }
-            return "";
+            return str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z') || (t >= 'А' && t  <= 'Я') || (t >= 'а' && t  <= 'я'))) ? "Поле должно содержать только буквы\n" : "";
         }
 
         /// <summary>
         /// Проверка на то, содержит ли поле только английские буквы.
         /// </summary>
         /// <param name="str">Поле с данными</param>
-        /// <returns>Если все верно - пустая строка, иначе: "Field have to contain only english symbols".</returns>
+        /// <returns>Если все верно - пустая строка, иначе: "Поле должно содержать только английские буквы".</returns>
         private static string ContainsEnglish(string str)
         {
-            if (str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z'))))
-            {
-                return "Field have to contain only english symbols\n";
-            }
-            return "";
+            return str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z'))) ? "Поле должно содержать только английские буквы\n" : "";
         }
 
         /// <summary>
         /// Проверка на то, содержит ли пароль допустимые символы.
         /// </summary>
         /// <param name="str">Пароль</param>
-        /// <returns>Если все верно - пустая строка, иначе: "Not allowed symbols for password".</returns>
+        /// <returns>Если все верно - пустая строка, иначе: "Недопостимые символы".</returns>
         private static string IsPassword(string str)
         {
-            if (str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z') || (t >= '!' && t <= '@'))))
-            {
-                return "Not allowed symbols for password\n";
-            }
-            return "";
+            return str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z') || (t >= '!' && t <= '@'))) ? "Недопостимые символы\n" : "";
         }
 
         /// <summary>
@@ -197,12 +189,20 @@ namespace Data.Validation
         /// </summary>
         /// <param name="str">Поле с данными</param>
         /// <param name="allowedLength">Максимальная длина для данного поля</param>
-        /// <returns>Если поле пустое или пробельное:"Field is too short", если длина поля в рамках разрешенной длины - пустая строка, если поле длиннее, чем должно быть:"Field is too long".</returns>
+        /// <returns>Если поле пустое или пробельное -  пустая строка, если длина поля в рамках разрешенной длины - пустая строка, если поле длиннее, чем должно быть:"Поле слишком длинное".</returns>
         private static string CheckLength(string str, int allowedLength)
         {
-            if (string.IsNullOrWhiteSpace(str))
-                return "Field is too short\n";
-            return str.Length <= allowedLength ? "" : "Field is too long\n";
+            return str.Length <= allowedLength ? "" : "Поле слишком длинное\n";
+        }
+
+        /// <summary>
+        /// Проверяет установленность поля.
+        /// </summary>
+        /// <param name="str">Поле</param>
+        /// <returns>true - поле задано, иначе false.</returns>
+        private static bool IsFieldSetted(string str)
+        {
+            return !string.IsNullOrWhiteSpace(str);
         }
 
         /// <summary>
