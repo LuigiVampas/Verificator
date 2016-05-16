@@ -10,8 +10,6 @@ namespace Data.Tests
     {
         private User _user;
 
-        private const string ConnectionString = "server=127.0.0.1;port=3306;database=UsersTest;uid=root;";
-
         [SetUp]
         public void SetUp()
         {
