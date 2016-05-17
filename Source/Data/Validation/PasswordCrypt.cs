@@ -48,10 +48,7 @@ namespace Data.Validation
 
             var byteHash = md5CryptoServiceProvider.ComputeHash(bytes);
 
-            string result = passwordHash;
-            foreach (var b in byteHash)
-                result = result + string.Format("{0:x2}", b);
-            return result;
+            return byteHash.Aggregate(passwordHash, (current, b) => current + string.Format("{0:x2}", b));
         }
 
         /// <summary>
@@ -64,7 +61,7 @@ namespace Data.Validation
             var iterationNumber = Convert.ToInt32(ConfigurationManager.AppSettings["PasswordHashingTries"]);
 
             var saltPasswordHash = password;
-            for (int i = 0; i < iterationNumber; ++i)
+            for (var i = 0; i < iterationNumber; ++i)
                 saltPasswordHash = GetPasswordHashOnce(saltPasswordHash);
 
             return saltPasswordHash;

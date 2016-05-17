@@ -5,6 +5,9 @@ using MySql.Data.Entity;
 
 namespace Data
 {
+    /// <summary>
+    /// Создание UserDbContext и описание структуры базы данных.
+    /// </summary>
     [DbConfigurationType(typeof (MySqlEFConfiguration))]
     public class UserDbContext : DbContext
     {
