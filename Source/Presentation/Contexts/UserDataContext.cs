@@ -109,8 +109,8 @@ namespace Presentation.Contexts
         {
             get
             {
-                return (!string.IsNullOrWhiteSpace(Name) ? Name.First() + "." : "") +
-                       (!string.IsNullOrWhiteSpace(Name) ? Lastname.First() + "." : "");
+                return (!string.IsNullOrWhiteSpace(Name) ? (Name.First() + ".") : "") +
+                       (!string.IsNullOrWhiteSpace(Lastname) ? (Lastname.First() + ".") : "");
             }
         }
 
