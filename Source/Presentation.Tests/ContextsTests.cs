@@ -19,7 +19,7 @@ namespace Presentation.Tests
         {
             _user = new User
             {
-                Id = 1,
+                Id = 0,
                 Login = "Login",
                 Lastname = "Lastname",
                 Password = "Password",

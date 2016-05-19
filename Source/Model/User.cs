@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Model
+﻿namespace Model
 {
     /// <summary>
     /// Описание класса пользователя и его полей.

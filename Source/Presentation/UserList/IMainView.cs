@@ -33,6 +33,9 @@ namespace Presentation.UserList
         /// </summary>
         event EventHandler DeletingUser;
 
+        /// <summary>
+        /// Событие, оповещающее о том, что пользователь собирается изменить данные неоторого пользователя.
+        /// </summary>
         event EventHandler EditingUser;
     }
 }

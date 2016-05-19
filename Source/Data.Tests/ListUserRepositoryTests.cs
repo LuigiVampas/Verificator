@@ -75,7 +75,7 @@ namespace Data.Tests
 
             newUser.Id = 213;
             newUser.Name = "Vasya";
-            usersList.UpdateUser(newUser);
+            usersList.DeleteUser(newUser);
 
             usersList.GetAllUsers();
 

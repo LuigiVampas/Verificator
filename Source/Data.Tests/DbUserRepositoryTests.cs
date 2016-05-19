@@ -60,7 +60,6 @@ namespace Data.Tests
             var userWithNecessaryId = repository.GetUser(userid);
 
             Assert.True(users.First().Equals(userWithNecessaryId));
-
         }
 
         [Test]
@@ -68,9 +67,14 @@ namespace Data.Tests
         {
             var repository = new DbUserRepository();
 
+            var users = repository.GetAllUsers();
+
+            foreach (var user in users)
+                repository.DeleteUser(user);
+
             repository.AddUser(_user);
             
-            var users = repository.GetAllUsers();
+            users = repository.GetAllUsers();
             
             Assert.True(_user.Equals(users.First()));
 

@@ -77,6 +77,10 @@ namespace UI
             }
         }
 
+        /// <summary>
+        /// Показывает сообщение об ошибке, с указанным текстом.
+        /// </summary>
+        /// <param name="message">Сообщение об ошибке.</param>
         public void ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -115,13 +119,18 @@ namespace UI
             OnDeletingUser();
         }
 
+        /// <summary>
+        /// Обработчик стандартного события нажатия на кнопку редактирования пользователя.
+        /// </summary>
+        /// <param name="sender">Отправитель события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void EditButton_OnClick(object sender, RoutedEventArgs e)
         {
             OnEditingUser();
         }
 
         /// <summary>
-        /// Трансляция стандарного события.
+        /// Трансляция стандарного события добавления пользователя.
         /// </summary>
         private void OnInsertingUser()
         {
@@ -130,7 +139,7 @@ namespace UI
         }
 
         /// <summary>
-        /// Трансляция стандарного события.
+        /// Трансляция стандарного события удаления пользователя.
         /// </summary>
         private void OnDeletingUser()
         {
@@ -138,6 +147,9 @@ namespace UI
                 DeletingUser(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Трансляция стандарного события редактирования пользователя.
+        /// </summary>
         private void OnEditingUser()
         {
             if (EditingUser != null)
@@ -161,6 +173,19 @@ namespace UI
                     OnDeletingUser();
                     break;
             }
+        }
+
+        /// <summary>
+        /// Обработчик стандартного события двойного нажатия мышью.
+        /// </summary>
+        /// <param name="sender">Отправитель события.</param>
+        /// <param name="e">Аргументы события.</param>
+        private void UsersList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var selectedDataContext = UsersList.SelectedItem as UserDataContext;
+
+            if (selectedDataContext != null)
+                OnEditingUser();
         }
     }
 }
