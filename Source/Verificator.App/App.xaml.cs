@@ -10,6 +10,7 @@ using Presentation.UserDeleting;
 using Presentation.UserEdit;
 using Presentation.UserInserting;
 using Presentation.UserList;
+using Presentation.Validation;
 using UI;
 
 namespace Verificator.App
