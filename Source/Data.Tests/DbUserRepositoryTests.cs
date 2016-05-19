@@ -85,6 +85,34 @@ namespace Data.Tests
             Assert.True(newUser.Equals(newUsers.First()));
 
         }
+
+        [Test]
+        public void DeleteUserFromRepository()
+        {
+            var repository = new DbUserRepository();
+
+            repository.AddUser(_user);
+
+            var anotherUser = new User
+            {
+                Login = "Login",
+                Password = "dsfhdskfhdsk",
+                Name = "Name",
+                Surname = "Surname",
+                Initials = "Initials"
+            };
+
+            repository.AddUser(anotherUser);
+
+            var users = repository.GetAllUsers();
+
+            repository.DeleteUser(anotherUser);
+
+            var newUsers = repository.GetAllUsers().ToArray();
+
+            Assert.True(newUsers.Contains(_user));
+            Assert.False(newUsers.Contains(anotherUser));
+        }
     }
 }
     

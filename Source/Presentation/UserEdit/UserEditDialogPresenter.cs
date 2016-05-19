@@ -38,7 +38,14 @@ namespace Presentation.UserEdit
             View.UserDataContext = dataContext;
 
             if (View.ShowDialog() == true)
-                return View.UserDataContext.CreateUser(false);
+            {
+                var resultUser = View.UserDataContext.CreateUser(false);
+                editingUser.Name = resultUser.Name;
+                editingUser.Surname = resultUser.Surname;
+                editingUser.Password = resultUser.Password;
+                editingUser.Lastname = resultUser.Lastname;
+                editingUser.Position = resultUser.Position;
+            }
 
             return editingUser;
         }

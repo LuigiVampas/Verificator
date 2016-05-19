@@ -48,7 +48,7 @@ namespace Presentation.Contexts
             {
                 var error = _validator.IsPasswordValid(value);
 
-                if (!string.IsNullOrWhiteSpace(error))
+                if (!string.IsNullOrWhiteSpace(error) && error != "Хороший пароль")
                     throw new ArgumentException(error);
 
                 _user.Password = value;
@@ -132,19 +132,17 @@ namespace Presentation.Contexts
 
         public void Initialize(User user)
         {
-            _user = (User)user.Clone();
+            _user = user;
         }
 
         public User CreateUser(bool needHash)
         {
-            var resultUser = (User)_user.Clone();
-
-            resultUser.Initials = Initials;
+            //_user.Initials = Initials;
 
             if (needHash)
-                resultUser.Password = _passwordCrypt.GetHashString(Password);
+                _user.Password = _passwordCrypt.GetHashString(Password);
 
-            return resultUser;
+            return _user;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

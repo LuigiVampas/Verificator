@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Model;
 using Presentation.Contexts;
 using Presentation.MVP;
 using Presentation.UserDeleting;
@@ -102,6 +101,8 @@ namespace Presentation.UserList
 
                 View.Users.Add(userDataContext);
             }
+
+            var users = _userRepository.GetAllUsers();
         }
 
         /// <summary>

@@ -22,8 +22,6 @@ namespace Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().MapToStoredProcedures();
-            modelBuilder.Entity<User>().HasKey(user => user.Id);
             modelBuilder.Entity<User>().Property(user => user.Login).HasColumnName("Login").IsRequired().HasMaxLength(20);
             modelBuilder.Entity<User>().Property(user => user.Password).HasColumnName("Password").IsRequired();
             modelBuilder.Entity<User>().Property(user => user.Name).HasColumnName("Name").IsRequired().HasMaxLength(20);
