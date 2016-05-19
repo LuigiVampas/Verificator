@@ -132,6 +132,9 @@ namespace Presentation.UserList
 
             var newUser = _userEditDialogPresenter.EditUser(selectedUser.CreateUser(false));
 
+            if (newUser == selectedUser.CreateUser(false))
+                return;
+
             _userRepository.UpdateUser(newUser);
 
             View.Users = View.Users.Select(userDataContext =>
