@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using Presentation.Contexts;
 
-namespace UI
+namespace UI.Converters
 {
     [ValueConversion(typeof(object), typeof(UserDataContext))]
     public class DataContextConverter : IValueConverter

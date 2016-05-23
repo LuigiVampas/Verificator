@@ -3,22 +3,55 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ui="clr-namespace:UI"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" x:Class="UI.UserInsertingDialog"
+    xmlns:converters="clr-namespace:UI.Converters"
+    mc:Ignorable="d" x:Class="UI.UserInsertingDialog"
         Title="Добавление пользователя" Height="283" Width="316" ResizeMode="NoResize"
         Activated="UserInsertingDialog_OnActivated">
     <Grid x:Name="UserParametersGrid">
         <Grid.Resources>
-            <ui:ErrorColorConverter x:Key="ErrorColorConverter"/>
-            <ui:DataContextConverter x:Key="DataContextConverter"/>
-           
+            <converters:ErrorColorConverter x:Key="ErrorColorConverter"/>
+            <converters:DataContextConverter x:Key="DataContextConverter"/>
+            <converters:PasswordValidIcoConverter x:Key="PasswordValidIcoConverter"/>
+
+            <BitmapImage x:Key="Exclamation" UriSource="Resources/Exclamation.bmp"/>
+            <BitmapImage x:Key="Check" UriSource="Resources/Check.bmp"/>
+            
+            <Style TargetType="TextBox">
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <DockPanel LastChildFill="True">
+                                <Image Source="{StaticResource Exclamation}"/>
+                                <Border BorderBrush="Green" BorderThickness="1">
+                                    <AdornedElementPlaceholder Name="adornerPlaceholder"/>
+                                </Border>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TextAlignment" Value="Center"></Setter>
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                <Setter Property="FontSize" Value="14"></Setter>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="True">
+                        <Setter Property="Foreground" Value="Red"/>
+                        <Setter Property="ToolTipService.InitialShowDelay" Value="1"/>
+                        <Setter Property="ToolTipService.Placement" Value="Right"/>
+                        <Setter Property="ToolTip" 
+                             Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            
             <Style x:Key="PasswordErrorStyle" TargetType="TextBox">
                 <Setter Property="Height" Value="20"/>
                 <Setter Property="Validation.ErrorTemplate">
                     <Setter.Value>
                         <ControlTemplate>
                             <DockPanel LastChildFill="True" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ui:UserInsertingDialog}, Path=DataContext, Converter={StaticResource DataContextConverter}}">
-                                <TextBlock DockPanel.Dock="Left" Foreground="Red" FontSize="20" FontWeight="Bold"
-                                        Text="!" Height="20"/>
+                                <Image Source="{Binding Path=PasswordStrength, Converter={StaticResource PasswordValidIcoConverter}}">
+                                </Image>
                                 <Border BorderBrush="{Binding Path=PasswordStrength, Converter={StaticResource ErrorColorConverter}}" BorderThickness="1">
                                     <AdornedElementPlaceholder Name="adornerPlaceholder"/>
                                 </Border>
@@ -31,7 +64,6 @@
                 <Setter Property="FontSize" Value="14"></Setter>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="True">
-                        <Setter Property="Foreground" Value="Green"/>
                         <Setter Property="ToolTipService.InitialShowDelay" Value="1"/>
                         <Setter Property="ToolTipService.Placement" Value="Right"/>
                         <Setter Property="ToolTip"
