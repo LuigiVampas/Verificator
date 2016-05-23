@@ -48,6 +48,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContextConverter.cs" />
+    <Compile Include="ErrorColorConverter.cs" />
     <Compile Include="PasswordEditDialog.xaml.cs">
       <DependentUpon>PasswordEditDialog.xaml</DependentUpon>
     </Compile>
@@ -62,6 +64,10 @@
       <DependentUpon>UserInsertingDialog.xaml</DependentUpon>
     </Compile>
     <Page Include="PasswordEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

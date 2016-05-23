@@ -32,6 +32,8 @@ namespace Presentation.Contexts
 
         private string _password;
 
+        private PasswordStrength _passwordStrength;
+
         private string _surname;
 
         private string _name;
@@ -50,6 +52,7 @@ namespace Presentation.Contexts
             _validator = validator;
             _passwordCrypt = passwordCrypt;
             _user = new User();
+            _passwordStrength = PasswordStrength.PasswordNotSet;
         }
 
         /// <summary>
@@ -68,6 +71,9 @@ namespace Presentation.Contexts
             get { return _login; }
             set
             {
+                if (_login == value)
+                    return;
+
                 var error = _validator.IsLoginValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
@@ -87,12 +93,46 @@ namespace Presentation.Contexts
             get { return _password; }
             set
             {
+                if (_password == value)
+                    return;
+
                 var error = _validator.IsPasswordValid(value);
 
-                if (!string.IsNullOrWhiteSpace(error) && error != ValidatorMessages.StrongPassword)
-                    throw new ArgumentException(error);
+                if (string.IsNullOrWhiteSpace(error))
+                    PasswordStrength = PasswordStrength.PasswordNotSet;
+
+                if (error == ValidatorMessages.LongField)
+                    PasswordStrength = PasswordStrength.PasswordNotSet;
+
+                if (error == ValidatorMessages.WeakPassword)
+                    PasswordStrength = PasswordStrength.Weak;
+                
+                if (error == ValidatorMessages.NormalPassword)
+                    PasswordStrength = PasswordStrength.Normal;
+
+                if (error == ValidatorMessages.StrongPassword)
+                    PasswordStrength = PasswordStrength.Strong;
 
                 _password = value;
+
+                OnPropertyChanged();
+
+                throw new ArgumentException(error);
+            }
+        }
+
+        /// <summary>
+        /// Сложность введённого пароля.
+        /// </summary>
+        public PasswordStrength PasswordStrength
+        {
+            get { return _passwordStrength; }
+            set
+            {
+                if (_passwordStrength == value)
+                    return;
+
+                _passwordStrength = value;
 
                 OnPropertyChanged();
             }
@@ -106,6 +146,9 @@ namespace Presentation.Contexts
             get { return _surname; }
             set
             {
+                if (_surname == value)
+                    return;
+
                 var error = _validator.IsSurnameValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
@@ -125,6 +168,9 @@ namespace Presentation.Contexts
             get { return _name; }
             set
             {
+                if (_name == value)
+                    return;
+
                 var error = _validator.IsNameValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
@@ -144,6 +190,9 @@ namespace Presentation.Contexts
             get { return _lastname; }
             set
             {
+                if (_lastname == value)
+                    return;
+
                 var error = _validator.IsLastnameValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))
@@ -175,6 +224,9 @@ namespace Presentation.Contexts
             get { return _position; }
             set
             {
+                if (_position == value)
+                    return;
+
                 var error = _validator.IsPositionValid(value);
 
                 if (!string.IsNullOrWhiteSpace(error))

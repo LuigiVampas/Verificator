@@ -63,6 +63,7 @@
     <Compile Include="UserEdit\UserEditDialogPresenter.cs" />
     <Compile Include="UserList\UserListPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\PasswordStrength.cs" />
     <Compile Include="Validation\ValidatorMessages.Designer.cs">
       <DependentUpon>ValidatorMessages.resx</DependentUpon>
       <AutoGen>True</AutoGen>

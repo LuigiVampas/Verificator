@@ -62,7 +62,6 @@
     <Compile Include="UserDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\PasswordCrypt.cs" />
-    <Compile Include="Validation\PasswordStrength.cs" />
     <Compile Include="Validation\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
