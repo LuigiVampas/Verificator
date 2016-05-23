@@ -158,7 +158,7 @@ namespace Data.Validation
         /// <returns>Если все верно - пустая строка, иначе: "Поле должно содержать только буквы".</returns>
         private static string ContainsOnlyLetters(string str)
         {
-            return str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z') || (t >= 'А' && t  <= 'Я') || (t >= 'а' && t  <= 'я'))) ? ValidatorMessages.MustContainOnlyLetters : "";
+            return str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z') || (t >= 'А' && t <= 'Я') || (t >= 'а' && t <= 'я'))) ? ValidatorMessages.MustContainOnlyLetters : "";
         }
 
         /// <summary>
