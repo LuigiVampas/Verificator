@@ -65,7 +65,7 @@ namespace Data.Tests
 
             var usersFromList = usersList.GetAllUsers();
 
-            var newUser = (User) _user.Clone();
+            var newUser = _user;
             
             newUser.Name = "Semen";
 
@@ -75,7 +75,7 @@ namespace Data.Tests
 
             newUser.Id = 213;
             newUser.Name = "Vasya";
-            usersList.UpdateUser(newUser);
+            usersList.DeleteUser(newUser);
 
             usersList.GetAllUsers();
 

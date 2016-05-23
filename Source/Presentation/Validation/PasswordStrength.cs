@@ -1,4 +1,4 @@
-﻿namespace Data.Validation
+﻿namespace Presentation.Validation
 {
     /// <summary>
     /// Классы сложности пароля.

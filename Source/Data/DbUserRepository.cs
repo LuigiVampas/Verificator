@@ -163,9 +163,8 @@ namespace Data
                     {
 
                         context.Database.UseTransaction(transaction);
-
-                        context.Users.Attach(user);
-                        context.Users.Remove(user);
+                                
+                        context.Entry(user).State = EntityState.Deleted;
 
                         SaveChanges(context);
                     }

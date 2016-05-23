@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Model;
 using Presentation.Contexts;
 using Presentation.MVP;
 using Presentation.UserDeleting;
@@ -24,6 +23,9 @@ namespace Presentation.UserList
         /// </summary>
         private readonly IUserDeletingDialogPresenter _userDeletingDialogPresenter;
 
+        /// <summary>
+        /// Презентер диалога изменения данных пользователя.
+        /// </summary>
         private readonly IUserEditDialogPresenter _userEditDialogPresenter;
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace Presentation.UserList
         /// <param name="userDeletingDialogPresenter">Презентер диалога удаления пользователя.</param>
         /// <param name="userEditDialogPresenter">Презентер диалога изменения данных пользователя.</param>
         /// <param name="userRepository">Репозиторий, в котором хранятся объекты класса User.</param>
-        /// <param name="userDataContextFactory"></param>
+        /// <param name="userDataContextFactory">Презентер диалога изменения данных пользователя.</param>
         public UserListPresenter(IUserInsertingDialogPresenter userInsertingDialogPresenter, IUserDeletingDialogPresenter userDeletingDialogPresenter, IUserEditDialogPresenter userEditDialogPresenter, IUserRepository userRepository, Func<IUserDataContext> userDataContextFactory)
         {
             _userInsertingDialogPresenter = userInsertingDialogPresenter;
@@ -122,6 +124,11 @@ namespace Presentation.UserList
             }
         }
 
+        /// <summary>
+        /// Действия, которые необходимо выполнить при изменении данных пользователя.
+        /// </summary>
+        /// <param name="sender">Оправитель события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void OnEditingUser(object sender, EventArgs e)
         {
             if (View.SelectedUser == null)
@@ -130,6 +137,9 @@ namespace Presentation.UserList
             var selectedUser = View.SelectedUser;
 
             var newUser = _userEditDialogPresenter.EditUser(selectedUser.CreateUser(false));
+
+            if (newUser == null)
+                return;
 
             _userRepository.UpdateUser(newUser);
 

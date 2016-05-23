@@ -1,4 +1,4 @@
-namespace Presentation
+namespace Presentation.Validation
 {
     /// <summary>
     /// »нтерфейс валидатора, провер€ющего данные.

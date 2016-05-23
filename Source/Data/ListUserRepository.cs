@@ -39,7 +39,7 @@ namespace Data
             if (singleOrDefault == null)
                 return null;
 
-            return (User)singleOrDefault.Clone();
+            return singleOrDefault;
         }
 
         /// <summary>
