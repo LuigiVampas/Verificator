@@ -108,7 +108,7 @@ namespace Data.Validation
         /// <returns>Ошибки, допущенные при автоматической генерации инициалов, либо пустая строка, если все верно.</returns>
         public string AreInitialsValid(string initials, string name, string surname)
         {
-            return initials != GetInitialsFromNameAndSurname(name, surname) ? ValidatorMessages.InvalidInitials : "";
+            return initials != GetInitialsFromNameAndSurname(name, surname) ? ValidatorMessages.InvalidInitials : ValidatorMessages.HasNoErrors;
         }
 
         /// <summary>
