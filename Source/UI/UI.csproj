@@ -49,7 +49,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\DataContextConverter.cs" />
+    <Compile Include="Converters\PasswordEditContextConverter.cs" />
+    <Compile Include="Converters\UserDataContextConverter.cs" />
     <Compile Include="Converters\ErrorColorConverter.cs" />
     <Compile Include="Converters\HasErrorToBorderColorConverter.cs" />
     <Compile Include="ImageResources\ImageResources.Designer.cs">

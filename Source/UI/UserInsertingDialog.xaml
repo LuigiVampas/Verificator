@@ -10,7 +10,7 @@
     <Grid x:Name="UserParametersGrid">
         <Grid.Resources>
             <converters:ErrorColorConverter x:Key="ErrorColorConverter"/>
-            <converters:DataContextConverter x:Key="DataContextConverter"/>
+            <converters:UserDataContextConverter x:Key="DataContextConverter"/>
             <converters:HasErrorToBmpConverter x:Key="HasErrorToBmpConverter"/>
             <converters:HasErrorToBorderColorConverter x:Key="HasErrorToBorderColorConverter"/>
             

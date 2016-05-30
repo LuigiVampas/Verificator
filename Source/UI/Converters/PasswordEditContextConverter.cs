@@ -5,12 +5,12 @@ using Presentation.Contexts;
 
 namespace UI.Converters
 {
-    [ValueConversion(typeof(object), typeof(UserDataContext))]
-    public class DataContextConverter : IValueConverter
+    [ValueConversion(typeof(object), typeof(PasswordEditContext))]
+    public class PasswordEditContextConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (UserDataContext) value;
+            return (PasswordEditContext)value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

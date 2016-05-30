@@ -26,6 +26,8 @@ namespace Presentation.Contexts
         /// </summary>
         private string _newPassword;
 
+        private PasswordStrength _passwordStrength;
+
         /// <summary>
         /// Создаёт новый объект класса PasswordEditContext.
         /// </summary>
@@ -51,14 +53,62 @@ namespace Presentation.Contexts
 
                 var error = _validator.IsPasswordValid(value);
 
-                if (!string.IsNullOrWhiteSpace(error) && error != ValidatorMessages.StrongPassword)
-                    throw new ArgumentException(error);
+                if (string.IsNullOrWhiteSpace(error))
+                {
+                    PasswordStrength = PasswordStrength.PasswordNotSet;
+                    PasswordHasError = true;
+                }
+
+                if (error == ValidatorMessages.LongField)
+                {
+                    PasswordStrength = PasswordStrength.PasswordNotSet;
+                    PasswordHasError = true;
+                }
+
+                if (error == ValidatorMessages.WeakPassword)
+                {
+                    PasswordStrength = PasswordStrength.Weak;
+                    PasswordHasError = true;
+                }
+
+                if (error == ValidatorMessages.NormalPassword)
+                {
+                    PasswordStrength = PasswordStrength.Normal;
+                    PasswordHasError = false;
+                }
+
+                if (error == ValidatorMessages.StrongPassword)
+                {
+                    PasswordStrength = PasswordStrength.Strong;
+                    PasswordHasError = false;
+                }
 
                 _newPassword = value;
 
                 OnPropertyChanged();
+
+                throw new ArgumentException(error);
             }
         }
+
+        /// <summary>
+        /// Сложность введённого пароля.
+        /// </summary>
+        public PasswordStrength PasswordStrength
+        {
+            get { return _passwordStrength; }
+            set
+            {
+                if (_passwordStrength == value)
+                    return;
+
+                _passwordStrength = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        public bool PasswordHasError { get; set; }
 
         /// <summary>
         /// Возвращает хэш нового пароля.
