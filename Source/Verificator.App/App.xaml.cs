@@ -26,6 +26,8 @@ namespace Verificator.App
         /// <param name="e">Аргументы запуска приложения.</param>
         protected override void OnStartup(StartupEventArgs e)
         {
+            WpfSingleInstance.Make();
+
             var container = new ServiceContainer();
             container.Register<IUserListPresenter, UserListPresenter>(new PerContainerLifetime());
             container.Register<IMainView>(c => new MainWindow(), new PerContainerLifetime());
