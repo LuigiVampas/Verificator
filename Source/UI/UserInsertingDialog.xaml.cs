@@ -38,19 +38,25 @@ namespace UI
         {
             foreach(var child in UserParametersGrid.Children)
             {
-                if ((Validation.GetHasError((DependencyObject)child)
-                    &&  Validation.GetErrors((DependencyObject)child)[0].Exception.Message != ValidatorMessages.NormalPassword
-                    && Validation.GetErrors((DependencyObject)child)[0].Exception.Message != ValidatorMessages.StrongPassword)
-                    || (child is TextBox && ((TextBox)child).Text == "" 
-                    && ((TextBox)child).Name != "LastNameTextBox" 
-                    && ((TextBox)child).Name != "PositionTextBox"))
+                if (Validation.GetHasError((DependencyObject) child))
                 {
-                    var control = (UIElement) child;
+                    var errorMessage = Validation.GetErrors((DependencyObject) child)[0].Exception.Message;
+
+                    if (IsNotError(errorMessage)) continue;
+                    
+                    var control = (UIElement)child;
                     control.Focus();
                     return;
                 }
             }
             DialogResult = true;
+        }
+
+        public bool IsNotError(string errorMassage)
+        {
+            return errorMassage == ValidatorMessages.HasNoErrors
+                    || errorMassage ==ValidatorMessages.NormalPassword
+                    || errorMassage ==ValidatorMessages.StrongPassword;
         }
 
         /// <summary>

@@ -11,46 +11,107 @@
         <Grid.Resources>
             <converters:ErrorColorConverter x:Key="ErrorColorConverter"/>
             <converters:DataContextConverter x:Key="DataContextConverter"/>
-            <converters:PasswordValidIcoConverter x:Key="PasswordValidIcoConverter"/>
-
-            <BitmapImage x:Key="Exclamation" UriSource="Resources/Exclamation.bmp"/>
-            <BitmapImage x:Key="Check" UriSource="Resources/Check.bmp"/>
+            <converters:HasErrorToBmpConverter x:Key="HasErrorToBmpConverter"/>
+            <converters:HasErrorToBorderColorConverter x:Key="HasErrorToBorderColorConverter"/>
             
-            <Style TargetType="TextBox">
-                <Setter Property="Height" Value="20"/>
+            <Style x:Key="ValidatingTextBox">
+                <Setter Property="TextBox.Height" Value="20"/>
+                <Setter Property="TextBox.TextAlignment" Value="Center"></Setter>
+                <Setter Property="TextBox.VerticalAlignment" Value="Center"></Setter>
+                <Setter Property="TextBox.FontSize" Value="14"></Setter>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="True">
+                        <Setter Property="TextBox.Foreground" Value="Green"/>
+                        <Setter Property="ToolTipService.InitialShowDelay" Value="1"/>
+                        <Setter Property="ToolTipService.Placement" Value="Right"/>
+                        <Setter Property="TextBox.ToolTip" 
+                             Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="LoginValidatingTextBox" BasedOn="{StaticResource ValidatingTextBox}" TargetType="TextBox">
                 <Setter Property="Validation.ErrorTemplate">
                     <Setter.Value>
                         <ControlTemplate>
-                            <DockPanel LastChildFill="True">
-                                <Image Source="{StaticResource Exclamation}"/>
-                                <Border BorderBrush="Green" BorderThickness="1">
+                            <DockPanel LastChildFill="True" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ui:UserInsertingDialog}, Path=DataContext, Converter={StaticResource DataContextConverter}}">
+                                <Image DockPanel.Dock="Left" Source="{Binding Path=LoginHasError, Converter={StaticResource HasErrorToBmpConverter}}"></Image>
+                                <Border BorderBrush="{Binding Path=LoginHasError, Converter={StaticResource HasErrorToBorderColorConverter}}" BorderThickness="1">
                                     <AdornedElementPlaceholder Name="adornerPlaceholder"/>
                                 </Border>
                             </DockPanel>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="TextAlignment" Value="Center"></Setter>
-                <Setter Property="VerticalAlignment" Value="Center"></Setter>
-                <Setter Property="FontSize" Value="14"></Setter>
-                <Style.Triggers>
-                    <Trigger Property="Validation.HasError" Value="True">
-                        <Setter Property="Foreground" Value="Red"/>
-                        <Setter Property="ToolTipService.InitialShowDelay" Value="1"/>
-                        <Setter Property="ToolTipService.Placement" Value="Right"/>
-                        <Setter Property="ToolTip" 
-                             Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                    </Trigger>
-                </Style.Triggers>
             </Style>
-            
+
+            <Style x:Key="SurnameValidatingTextBox" BasedOn="{StaticResource ValidatingTextBox}" TargetType="TextBox">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <DockPanel LastChildFill="True" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ui:UserInsertingDialog}, Path=DataContext, Converter={StaticResource DataContextConverter}}">
+                                <Image DockPanel.Dock="Left" Source="{Binding Path=SurnameHasError, Converter={StaticResource HasErrorToBmpConverter}}"></Image>
+                                <Border BorderBrush="{Binding Path=SurnameHasError, Converter={StaticResource HasErrorToBorderColorConverter}}" BorderThickness="1">
+                                    <AdornedElementPlaceholder Name="adornerPlaceholder"/>
+                                </Border>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="NameValidatingTextBox" BasedOn="{StaticResource ValidatingTextBox}" TargetType="TextBox">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <DockPanel LastChildFill="True" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ui:UserInsertingDialog}, Path=DataContext, Converter={StaticResource DataContextConverter}}">
+                                <Image DockPanel.Dock="Left" Source="{Binding Path=NameHasError, Converter={StaticResource HasErrorToBmpConverter}}"></Image>
+                                <Border BorderBrush="{Binding Path=NameHasError, Converter={StaticResource HasErrorToBorderColorConverter}}" BorderThickness="1">
+                                    <AdornedElementPlaceholder Name="adornerPlaceholder"/>
+                                </Border>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="LastnameValidatingTextBox" BasedOn="{StaticResource ValidatingTextBox}" TargetType="TextBox">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <DockPanel LastChildFill="True" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ui:UserInsertingDialog}, Path=DataContext, Converter={StaticResource DataContextConverter}}">
+                                <Image DockPanel.Dock="Left" Source="{Binding Path=LastnameHasError, Converter={StaticResource HasErrorToBmpConverter}}"></Image>
+                                <Border BorderBrush="{Binding Path=LastnameHasError, Converter={StaticResource HasErrorToBorderColorConverter}}" BorderThickness="1">
+                                    <AdornedElementPlaceholder Name="adornerPlaceholder"/>
+                                </Border>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="PositionValidatingTextBox" BasedOn="{StaticResource ValidatingTextBox}" TargetType="TextBox">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <DockPanel LastChildFill="True" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ui:UserInsertingDialog}, Path=DataContext, Converter={StaticResource DataContextConverter}}">
+                                <Image DockPanel.Dock="Left" Source="{Binding Path=PositionHasError, Converter={StaticResource HasErrorToBmpConverter}}"></Image>
+                                <Border BorderBrush="{Binding Path=PositionHasError, Converter={StaticResource HasErrorToBorderColorConverter}}" BorderThickness="1">
+                                    <AdornedElementPlaceholder Name="adornerPlaceholder"/>
+                                </Border>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <Style x:Key="PasswordErrorStyle" TargetType="TextBox">
                 <Setter Property="Height" Value="20"/>
                 <Setter Property="Validation.ErrorTemplate">
                     <Setter.Value>
                         <ControlTemplate>
                             <DockPanel LastChildFill="True" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ui:UserInsertingDialog}, Path=DataContext, Converter={StaticResource DataContextConverter}}">
-                                <Image Source="{Binding Path=PasswordStrength, Converter={StaticResource PasswordValidIcoConverter}}">
+                                <Image Source="{Binding Path=PasswordHasError, Converter={StaticResource HasErrorToBmpConverter}}">
                                 </Image>
                                 <Border BorderBrush="{Binding Path=PasswordStrength, Converter={StaticResource ErrorColorConverter}}" BorderThickness="1">
                                     <AdornedElementPlaceholder Name="adornerPlaceholder"/>
@@ -64,6 +125,7 @@
                 <Setter Property="FontSize" Value="14"></Setter>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="True">
+                        <Setter Property="Foreground" Value="Green"></Setter>
                         <Setter Property="ToolTipService.InitialShowDelay" Value="1"/>
                         <Setter Property="ToolTipService.Placement" Value="Right"/>
                         <Setter Property="ToolTip"
@@ -72,6 +134,7 @@
                 </Style.Triggers>
             </Style>
         </Grid.Resources>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="200"/>
@@ -87,7 +150,7 @@
         </Grid.RowDefinitions>
         
         <Label Grid.Column="0" Grid.Row="0" Content="Логин" HorizontalAlignment="Center"/>
-        <TextBox x:Name="LoginTextBox" Grid.Column="1" Grid.Row="0" TabIndex="0" TextAlignment="Center" Margin="16,6,3,6">
+        <TextBox x:Name="LoginTextBox" Grid.Column="1" Grid.Row="0" TabIndex="0" Margin="16,6,3,6" Style="{StaticResource LoginValidatingTextBox}">
             <TextBox.Text>
                 <Binding Path="Login" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -109,7 +172,7 @@
         </TextBox>
         
         <Label Grid.Column="0" Grid.Row="2" Content="Фамилия"/>
-        <TextBox x:Name="SurnameTextBox" Grid.Column="1" Grid.Row="2" TabIndex="2" TextAlignment="Center" Margin="16,5,3,5">
+        <TextBox x:Name="SurnameTextBox" Grid.Column="1" Grid.Row="2" TabIndex="2" Margin="16,5,3,5" Style="{StaticResource SurnameValidatingTextBox}">
             <TextBox.Text>
                 <Binding Path="Surname" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -120,7 +183,7 @@
         </TextBox>
         
         <Label Grid.Column="0" Grid.Row="3" Content="Имя"/>
-        <TextBox x:Name="NameTextBox" Grid.Column="1" Grid.Row="3" TabIndex="3" TextAlignment="Center" Margin="16,5,3,5">
+        <TextBox x:Name="NameTextBox" Grid.Column="1" Grid.Row="3" TabIndex="3" Margin="16,5,3,5" Style="{StaticResource NameValidatingTextBox}">
             <TextBox.Text>
                 <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -130,7 +193,7 @@
             </TextBox.Text>
         </TextBox>
         <Label Grid.Column="0" Grid.Row="4" Content="Отчество"/>
-        <TextBox x:Name="LastNameTextBox" Grid.Column="1" Grid.Row="4" TabIndex="4" TextAlignment="Center" Margin="16,5,3,5">
+        <TextBox x:Name="LastNameTextBox" Grid.Column="1" Grid.Row="4" TabIndex="4" Margin="16,5,3,5" Style="{StaticResource LastnameValidatingTextBox}">
             <TextBox.Text>
                 <Binding Path="Lastname" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -140,7 +203,7 @@
             </TextBox.Text>
         </TextBox>
         <Label Grid.Column="0" Grid.Row="5" Content="Должность"/>
-        <TextBox x:Name="PositionTextBox" Grid.Column="1" Grid.Row="5" TabIndex="5" TextAlignment="Center" Margin="16,6,3,6">
+        <TextBox x:Name="PositionTextBox" Grid.Column="1" Grid.Row="5" TabIndex="5" Margin="16,6,3,6" Style="{StaticResource PositionValidatingTextBox}">
             <TextBox.Text>
                 <Binding Path="Position" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>

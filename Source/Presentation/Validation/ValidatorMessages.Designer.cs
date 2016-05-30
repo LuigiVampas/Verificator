@@ -70,6 +70,15 @@ namespace Presentation.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Поле заполнено верно.
+        /// </summary>
+        public static string HasNoErrors {
+            get {
+                return ResourceManager.GetString("HasNoErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Инициалы не верны.
         /// </summary>
         public static string InvalidInitials {

@@ -29,7 +29,8 @@ namespace Data.Validation
             error.Append(ContainsEnglish(login));
             error.Append(CheckLength(login, 20));
             error.Append(IsLoginUnique(login));
-            return error.ToString();
+
+            return error.Length != 0 ? error.ToString() : ValidatorMessages.HasNoErrors;
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace Data.Validation
         /// <returns>Ошибки, допущенные при задании фамилии, либо пустая строка, если все верно.</returns>
         public string IsLastnameValid(string lastname)
         {
-            return IsFieldSetted(lastname) ? IsDataValid(lastname) : null;
+            return IsFieldSetted(lastname) ? IsDataValid(lastname) : ValidatorMessages.HasNoErrors;
         }
 
         /// <summary>
@@ -95,7 +96,7 @@ namespace Data.Validation
         /// <returns>Ошибки, допущенные при задании должности, либо пустая строка, если все верно.</returns>
         public string IsPositionValid(string position)
         {
-            return IsFieldSetted(position) ? IsDataValid(position) : null;
+            return IsFieldSetted(position) ? IsDataValid(position) : ValidatorMessages.HasNoErrors;
         }
 
         /// <summary>
@@ -137,7 +138,7 @@ namespace Data.Validation
             error.Append(ContainsOnlyLetters(str));
             error.Append(CheckLength(str, 20));
 
-            return error.ToString();
+            return error.Length != 0 ? error.ToString() : ValidatorMessages.HasNoErrors;
         }
 
         /// <summary>

@@ -162,4 +162,7 @@
   <data name="WeakPassword" xml:space="preserve">
     <value>Слабый пароль</value>
   </data>
+  <data name="HasNoErrors" xml:space="preserve">
+    <value>Поле заполнено верно</value>
+  </data>
 </root>
