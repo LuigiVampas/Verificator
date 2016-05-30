@@ -35,39 +35,46 @@ namespace Data
         /// <returns>Объект класса User с заданным id. Если такого нет то null.</returns>
         public User GetUser(int id)
         {
-            using (var connection = new MySqlConnection(_connectionString))
+            try
             {
-                using (var contextDb = new UserDbContext(connection, false))
+                using (var connection = new MySqlConnection(_connectionString))
                 {
-                    contextDb.Database.CreateIfNotExists();
-                }
-
-                connection.Open();
-
-                var transaction = connection.BeginTransaction();
-
-                User user;
-
-                try
-                {
-                    using (var context = new UserDbContext(connection, false))
+                    using (var contextDb = new UserDbContext(connection, false))
                     {
-
-                        context.Database.UseTransaction(transaction);
-
-                        user = context.Users.SingleOrDefault(u => u.Id == id);
+                        contextDb.Database.CreateIfNotExists();
                     }
 
-                    transaction.Commit();
-                }
-                catch (Exception e)
-                {
-                    transaction.Rollback();
-                    _errorProvider.ShowDbConnectionErrorMessage(e);
-                    return null;
-                }
+                    connection.Open();
 
-                return user;
+                    var transaction = connection.BeginTransaction();
+
+                    User user;
+
+                    try
+                    {
+                        using (var context = new UserDbContext(connection, false))
+                        {
+
+                            context.Database.UseTransaction(transaction);
+
+                            user = context.Users.SingleOrDefault(u => u.Id == id);
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+
+                    return user;
+                }
+            }
+            catch (Exception e)
+            {
+                _errorProvider.ShowDbConnectionErrorMessage(e);
+                return null;
             }
         }
 
@@ -77,40 +84,48 @@ namespace Data
         /// <returns>Все объекты класса User, хранящиеся в репозитории.</returns>
         public IEnumerable<User> GetAllUsers()
         {
-            using (var connection = new MySqlConnection(_connectionString))
+            try
             {
-                using (var contextDb = new UserDbContext(connection, false))
+                using (var connection = new MySqlConnection(_connectionString))
                 {
-                    contextDb.Database.CreateIfNotExists();
-                }
-
-                connection.Open();
-
-                var transaction = connection.BeginTransaction();
-
-                IEnumerable<User> users;
-
-                try
-                {
-                    using (var context = new UserDbContext(connection, false))
+                    using (var contextDb = new UserDbContext(connection, false))
                     {
-
-                        context.Database.UseTransaction(transaction);
-
-                        users = context.Users.ToArray();
+                        contextDb.Database.CreateIfNotExists();
                     }
 
-                    transaction.Commit();
-                }
-                catch(Exception e)
-                {
-                    transaction.Rollback();
-                    _errorProvider.ShowDbConnectionErrorMessage(e);
-                    return null;
-                }
+                    connection.Open();
 
-                return users;
+                    var transaction = connection.BeginTransaction();
+
+                    IEnumerable<User> users;
+
+                    try
+                    {
+                        using (var context = new UserDbContext(connection, false))
+                        {
+
+                            context.Database.UseTransaction(transaction);
+
+                            users = context.Users.ToArray();
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch 
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+
+                    return users;
+                }
             }
+            catch (Exception e)
+            {
+                _errorProvider.ShowDbConnectionErrorMessage(e);
+                return null;
+            }
+            
         }
 
         /// <summary>
@@ -119,36 +134,44 @@ namespace Data
         /// <param name="user">Добавляемый объекта класса User.</param>
         public void AddUser(User user)
         {
-            using (var connection = new MySqlConnection(_connectionString))
+            try
             {
-                using (var contextDb = new UserDbContext(connection, false))
+                using (var connection = new MySqlConnection(_connectionString))
                 {
-                    contextDb.Database.CreateIfNotExists();
-                }
-
-                connection.Open();
-
-                var transaction = connection.BeginTransaction();
-
-                try
-                {
-                    using (var context = new UserDbContext(connection, false))
+                    using (var contextDb = new UserDbContext(connection, false))
                     {
-                        context.Database.UseTransaction(transaction);
-
-                        context.Users.Add(user);
-
-                        SaveChanges(context);
+                        contextDb.Database.CreateIfNotExists();
                     }
 
-                    transaction.Commit();
-                }
-                catch (Exception e)
-                {
-                    transaction.Rollback();
-                    _errorProvider.ShowDbConnectionErrorMessage(e);
+                    connection.Open();
+
+                    var transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        using (var context = new UserDbContext(connection, false))
+                        {
+                            context.Database.UseTransaction(transaction);
+
+                            context.Users.Add(user);
+
+                            SaveChanges(context);
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                _errorProvider.ShowDbConnectionErrorMessage(e);
+            }
+            
         }
 
         /// <summary>
@@ -157,36 +180,43 @@ namespace Data
         /// <param name="user">Удаляемый объект класса User.</param>
         public void DeleteUser(User user)
         {
-            using (var connection = new MySqlConnection(_connectionString))
+            try
             {
-                using (var contextDb = new UserDbContext(connection, false))
+                using (var connection = new MySqlConnection(_connectionString))
                 {
-                    contextDb.Database.CreateIfNotExists();
-                }
-
-                connection.Open();
-
-                var transaction = connection.BeginTransaction();
-
-                try
-                {
-                    using (var context = new UserDbContext(connection, false))
+                    using (var contextDb = new UserDbContext(connection, false))
                     {
-
-                        context.Database.UseTransaction(transaction);
-                                
-                        context.Entry(user).State = EntityState.Deleted;
-
-                        SaveChanges(context);
+                        contextDb.Database.CreateIfNotExists();
                     }
 
-                    transaction.Commit();
+                    connection.Open();
+
+                    var transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        using (var context = new UserDbContext(connection, false))
+                        {
+
+                            context.Database.UseTransaction(transaction);
+
+                            context.Entry(user).State = EntityState.Deleted;
+
+                            SaveChanges(context);
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch 
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
-                catch (Exception e)
-                {
-                    transaction.Rollback();
-                    _errorProvider.ShowDbConnectionErrorMessage(e);
-                }
+            }
+            catch (Exception e)
+            {
+                _errorProvider.ShowDbConnectionErrorMessage(e);
             }
         }
 
@@ -196,37 +226,45 @@ namespace Data
         /// <param name="user">Объект класса User, поля которого нужно обновить.</param>
         public void UpdateUser(User user)
         {
-            using (var connection = new MySqlConnection(_connectionString))
+            try
             {
-                using (var contextDb = new UserDbContext(connection, false))
+                using (var connection = new MySqlConnection(_connectionString))
                 {
-                    contextDb.Database.CreateIfNotExists();
-                }
-
-                connection.Open();
-
-                var transaction = connection.BeginTransaction();
-
-                try
-                {
-                    using (var context = new UserDbContext(connection, false))
+                    using (var contextDb = new UserDbContext(connection, false))
                     {
-
-                        context.Database.UseTransaction(transaction);
-
-                        context.Entry(user).State = EntityState.Modified;
-
-                        SaveChanges(context);
+                        contextDb.Database.CreateIfNotExists();
                     }
 
-                    transaction.Commit();
-                }
-                catch (Exception e)
-                {
-                    transaction.Rollback();
-                    _errorProvider.ShowDbConnectionErrorMessage(e);
+                    connection.Open();
+
+                    var transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        using (var context = new UserDbContext(connection, false))
+                        {
+
+                            context.Database.UseTransaction(transaction);
+
+                            context.Entry(user).State = EntityState.Modified;
+
+                            SaveChanges(context);
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                _errorProvider.ShowDbConnectionErrorMessage(e);
+            }
+            
         }
 
         /// <summary>

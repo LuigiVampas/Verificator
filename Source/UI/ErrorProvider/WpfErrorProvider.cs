@@ -10,6 +10,8 @@ namespace UI.ErrorProvider
         {
             MessageBox.Show(ErrorMessages.DbConnectionError, ErrorMessages.DbConnectionErrorCaption, MessageBoxButton.OK,
                 MessageBoxImage.Error);
+
+            Application.Current.MainWindow.Close();
         }
     }
 }

@@ -68,20 +68,13 @@ namespace Presentation.UserList
         /// </summary>
         private void FillViewWithUsersFromRepository()
         {
-            try
-            {
-                var usersFormRepository = _userRepository.GetAllUsers();
+            var usersFormRepository = _userRepository.GetAllUsers();
 
-                foreach (var user in usersFormRepository)
-                {
-                    var userDataContext = _userDataContextFactory();
-                    userDataContext.Initialize(user);
-                    View.Users.Add(userDataContext);
-                }
-            }
-            catch (Exception)
+            foreach (var user in usersFormRepository)
             {
-                View.ShowErrorMessage("Не могу подключиться к базе данных. Попробуйте изменить конфигурацию приложения.");
+                var userDataContext = _userDataContextFactory();
+                userDataContext.Initialize(user);
+                View.Users.Add(userDataContext);
             }
         }
 
