@@ -37,6 +37,7 @@
     <Compile Include="Contexts\IPasswordEditContext.cs" />
     <Compile Include="Contexts\IUserDataContext.cs" />
     <Compile Include="Contexts\PasswordEditContext.cs" />
+    <Compile Include="ErrorProvider\IErrorProvider.cs" />
     <Compile Include="Validation\IPasswordCrypt.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="Validation\IValidator.cs" />

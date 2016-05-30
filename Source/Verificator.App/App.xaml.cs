@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Security;
 using System.Windows;
 using Data;
 using Data.Validation;
 using LightInject;
 using Presentation;
 using Presentation.Contexts;
+using Presentation.ErrorProvider;
 using Presentation.PasswordEdit;
 using Presentation.UserDeleting;
 using Presentation.UserEdit;
@@ -14,6 +13,7 @@ using Presentation.UserInserting;
 using Presentation.UserList;
 using Presentation.Validation;
 using UI;
+using UI.ErrorProvider;
 
 namespace Verificator.App
 {
@@ -55,7 +55,8 @@ namespace Verificator.App
             container.Register<IUserRepository, DbUserRepository>(new PerContainerLifetime());
             container.Register<IValidator, Validator>(new PerContainerLifetime());
             container.Register<IPasswordCrypt, PasswordCrypt>(new PerContainerLifetime());
-
+            container.Register<IErrorProvider, WpfErrorProvider>(new PerContainerLifetime());
+            
             var mainPresenter = container.GetInstance<IUserListPresenter>();
             mainPresenter.Initialize();
             mainPresenter.Run();

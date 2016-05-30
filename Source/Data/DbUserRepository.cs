@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -6,6 +7,7 @@ using System.Linq;
 using Model;
 using MySql.Data.MySqlClient;
 using Presentation;
+using Presentation.ErrorProvider;
 
 namespace Data
 {
@@ -14,10 +16,17 @@ namespace Data
     /// </summary>
     public class DbUserRepository : IUserRepository
     {
+        private readonly IErrorProvider _errorProvider;
+
         /// <summary>
         /// Строка подключения к базе данных, параметры которой берутся из app.config.
         /// </summary>
         private readonly string _connectionString = ConfigurationManager.ConnectionStrings["LocalUserDatabase"].ConnectionString;
+
+        public DbUserRepository(IErrorProvider errorProvider)
+        {
+            _errorProvider = errorProvider;
+        }
 
         /// <summary>
         /// Возвращает объект класса User с заданным id, если он существует.
@@ -51,10 +60,11 @@ namespace Data
 
                     transaction.Commit();
                 }
-                catch
+                catch (Exception e)
                 {
                     transaction.Rollback();
-                    throw;
+                    _errorProvider.ShowDbConnectionErrorMessage(e);
+                    return null;
                 }
 
                 return user;
@@ -92,10 +102,11 @@ namespace Data
 
                     transaction.Commit();
                 }
-                catch
+                catch(Exception e)
                 {
                     transaction.Rollback();
-                    throw;
+                    _errorProvider.ShowDbConnectionErrorMessage(e);
+                    return null;
                 }
 
                 return users;
@@ -132,10 +143,10 @@ namespace Data
 
                     transaction.Commit();
                 }
-                catch
+                catch (Exception e)
                 {
                     transaction.Rollback();
-                    throw;
+                    _errorProvider.ShowDbConnectionErrorMessage(e);
                 }
             }
         }
@@ -171,10 +182,10 @@ namespace Data
 
                     transaction.Commit();
                 }
-                catch
+                catch (Exception e)
                 {
                     transaction.Rollback();
-                    throw;
+                    _errorProvider.ShowDbConnectionErrorMessage(e);
                 }
             }
         }
@@ -210,10 +221,10 @@ namespace Data
 
                     transaction.Commit();
                 }
-                catch
+                catch (Exception e)
                 {
                     transaction.Rollback();
-                    throw;
+                    _errorProvider.ShowDbConnectionErrorMessage(e);
                 }
             }
         }

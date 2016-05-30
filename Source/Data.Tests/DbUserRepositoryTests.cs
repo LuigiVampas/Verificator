@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using Model;
+using Moq;
 using NUnit.Framework;
+using Presentation.ErrorProvider;
 
 namespace Data.Tests
 {
@@ -8,6 +10,7 @@ namespace Data.Tests
     public class DbUserRepositoryTests
     {
         private User _user;
+        private Mock<IErrorProvider> _errorProviderMock;
 
         [SetUp]
         public void SetUp()
@@ -21,12 +24,14 @@ namespace Data.Tests
                 Surname = "Igorevich",
                 Password = "Qwerty123!asd"
             };
+
+            _errorProviderMock = new Mock<IErrorProvider>();
         }
 
         [Test]
         public void AddUserToRepository()
         {
-            var repository = new DbUserRepository();
+            var repository = new DbUserRepository(_errorProviderMock.Object);
 
             repository.AddUser(_user);
 
@@ -49,7 +54,7 @@ namespace Data.Tests
         [Test]
         public void GetUserFromRepository()
         {
-            var repository = new DbUserRepository();
+            var repository = new DbUserRepository(_errorProviderMock.Object);
 
             repository.AddUser(_user);
 
@@ -65,7 +70,7 @@ namespace Data.Tests
         [Test]
         public void UpdateUserInRepository()
         {
-            var repository = new DbUserRepository();
+            var repository = new DbUserRepository(_errorProviderMock.Object);
 
             var users = repository.GetAllUsers();
 
@@ -93,7 +98,7 @@ namespace Data.Tests
         [Test]
         public void DeleteUserFromRepository()
         {
-            var repository = new DbUserRepository();
+            var repository = new DbUserRepository(_errorProviderMock.Object);
 
             repository.AddUser(_user);
 
