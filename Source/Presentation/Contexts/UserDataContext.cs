@@ -29,19 +29,19 @@ namespace Presentation.Contexts
         /// </summary>
         private User _user;
 
-        private string _login;
+        private string _login = "";
 
-        private string _password;
+        private string _password = "";
 
         private PasswordStrength _passwordStrength;
 
-        private string _surname;
+        private string _surname = "";
 
-        private string _name;
+        private string _name = "";
 
-        private string _lastname;
+        private string _lastname = "";
 
-        private string _position;
+        private string _position = "";
 
         /// <summary>
         /// Создаёт новый объект класса UserDataContext.
