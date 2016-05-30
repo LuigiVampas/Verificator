@@ -4,7 +4,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using Presentation.Validation;
 
-namespace UI
+namespace UI.Converters
 {
     [ValueConversion(typeof(PasswordStrength), typeof(SolidColorBrush))]
     public class ErrorColorConverter : IValueConverter

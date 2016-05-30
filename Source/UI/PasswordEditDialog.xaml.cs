@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Presentation.Contexts;
 using Presentation.PasswordEdit;
+using Presentation.Validation;
 
 namespace UI
 {
@@ -32,18 +33,29 @@ namespace UI
         /// </summary>
         /// <param name="sender">Отправитель события.</param>
         /// <param name="e">Аргументы события.</param>
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
             foreach (var child in PasswordsGrid.Children)
             {
                 if (Validation.GetHasError((DependencyObject)child))
                 {
+                    var errorMessage = Validation.GetErrors((DependencyObject)child)[0].Exception.Message;
+
+                    if (IsNotError(errorMessage)) continue;
+
                     var control = (UIElement)child;
                     control.Focus();
                     return;
                 }
             }
             DialogResult = true;
+        }
+
+        public bool IsNotError(string errorMassage)
+        {
+            return errorMassage == ValidatorMessages.HasNoErrors
+                    || errorMassage == ValidatorMessages.NormalPassword
+                    || errorMassage == ValidatorMessages.StrongPassword;
         }
     }
 }

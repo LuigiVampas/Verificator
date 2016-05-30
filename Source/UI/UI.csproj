@@ -38,6 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -48,11 +49,20 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataContextConverter.cs" />
-    <Compile Include="ErrorColorConverter.cs" />
+    <Compile Include="Converters\PasswordEditContextConverter.cs" />
+    <Compile Include="Converters\UserDataContextConverter.cs" />
+    <Compile Include="Converters\ErrorColorConverter.cs" />
+    <Compile Include="Converters\HasErrorToBorderColorConverter.cs" />
+    <Compile Include="ImageResources\ImageResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImageResources.resx</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="PasswordEditDialog.xaml.cs">
       <DependentUpon>PasswordEditDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\HasErrorToBmpConverter.cs" />
     <Compile Include="UserDeletingDialog.xaml.cs">
       <DependentUpon>UserDeletingDialog.xaml</DependentUpon>
     </Compile>
@@ -64,10 +74,6 @@
       <DependentUpon>UserInsertingDialog.xaml</DependentUpon>
     </Compile>
     <Page Include="PasswordEditDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -106,6 +112,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="ImageResources\ImageResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ImageResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -122,6 +134,16 @@
       <Project>{9F983495-9BC4-4870-BE0B-361EADC58688}</Project>
       <Name>Presentation</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exclamation.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Check.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -74,27 +74,27 @@ namespace Presentation.Tests
             var propertyChangedName = "";
             userDataContext.PropertyChanged += (sender, e) => propertyChangedName = e.PropertyName;
 
-            userDataContext.Login = _user.Login;
+            Assert.Throws<ArgumentException>(() => userDataContext.Login = _user.Login);
             _validatorMock.Verify(v => v.IsLoginValid(_user.Login), Times.Once);
             Assert.That(propertyChangedName, Is.EqualTo("Login"));
 
-            userDataContext.Password = _user.Password;
+            Assert.Throws<ArgumentException>(() => userDataContext.Password = _user.Password);
             _validatorMock.Verify(v => v.IsPasswordValid(_user.Password), Times.Once);
             Assert.That(propertyChangedName, Is.EqualTo("Password"));
 
-            userDataContext.Surname = _user.Surname;
+            Assert.Throws<ArgumentException>(() => userDataContext.Surname = _user.Surname);
             _validatorMock.Verify(v => v.IsSurnameValid(_user.Surname), Times.Once);
             Assert.That(propertyChangedName, Is.EqualTo("Surname"));
 
-            userDataContext.Lastname = _user.Lastname;
+            Assert.Throws<ArgumentException>(() => userDataContext.Lastname = _user.Lastname);
             _validatorMock.Verify(v => v.IsLastnameValid(_user.Lastname), Times.Once);
             Assert.That(propertyChangedName, Is.EqualTo("Lastname"));
 
-            userDataContext.Name = _user.Name;
+            Assert.Throws<ArgumentException>(() => userDataContext.Name = _user.Name);
             _validatorMock.Verify(v => v.IsNameValid(_user.Name), Times.Once);
             Assert.That(propertyChangedName, Is.EqualTo("Name"));
 
-            userDataContext.Position = _user.Position;
+            Assert.Throws<ArgumentException>(() => userDataContext.Position = _user.Position);
             _validatorMock.Verify(v => v.IsPositionValid(_user.Position), Times.Once);
             Assert.That(propertyChangedName, Is.EqualTo("Position"));
 
@@ -198,7 +198,7 @@ namespace Presentation.Tests
 
             passwordEditContext.PropertyChanged += (sender, e) => propertyHasChanged = true;
 
-            passwordEditContext.NewPassword = "Password";
+            Assert.Throws<ArgumentException>(() => passwordEditContext.NewPassword = "Password");
 
             Assert.That(passwordEditContext.NewPassword, Is.EqualTo("Password"));
             Assert.That(propertyHasChanged, Is.True);
@@ -234,7 +234,7 @@ namespace Presentation.Tests
 
             var passwordString = "Password";
 
-            passwordEditContext.NewPassword = passwordString;
+            Assert.Throws<ArgumentException>(() => passwordEditContext.NewPassword = passwordString);
             passwordEditContext.NewPassword = "Password";
 
             Assert.That(ReferenceEquals(passwordEditContext.NewPassword, passwordString), Is.True);

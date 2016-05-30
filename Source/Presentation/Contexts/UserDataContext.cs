@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Model;
@@ -28,19 +29,19 @@ namespace Presentation.Contexts
         /// </summary>
         private User _user;
 
-        private string _login;
+        private string _login = "";
 
-        private string _password;
+        private string _password = "";
 
         private PasswordStrength _passwordStrength;
 
-        private string _surname;
+        private string _surname = "";
 
-        private string _name;
+        private string _name = "";
 
-        private string _lastname;
+        private string _lastname = "";
 
-        private string _position;
+        private string _position = "";
 
         /// <summary>
         /// Создаёт новый объект класса UserDataContext.
@@ -76,12 +77,13 @@ namespace Presentation.Contexts
 
                 var error = _validator.IsLoginValid(value);
 
-                if (!string.IsNullOrWhiteSpace(error))
-                    throw new ArgumentException(error);
+                LoginHasError = error != ValidatorMessages.HasNoErrors;
 
                 _login = value;
 
                 OnPropertyChanged();
+
+                throw new ArgumentException(error);
             }
         }
 
@@ -99,19 +101,34 @@ namespace Presentation.Contexts
                 var error = _validator.IsPasswordValid(value);
 
                 if (string.IsNullOrWhiteSpace(error))
+                {
                     PasswordStrength = PasswordStrength.PasswordNotSet;
+                    PasswordHasError = true;
+                }
 
                 if (error == ValidatorMessages.LongField)
+                {
                     PasswordStrength = PasswordStrength.PasswordNotSet;
+                    PasswordHasError = true;
+                }
 
                 if (error == ValidatorMessages.WeakPassword)
+                {
                     PasswordStrength = PasswordStrength.Weak;
+                    PasswordHasError = true;
+                }
                 
                 if (error == ValidatorMessages.NormalPassword)
+                {
                     PasswordStrength = PasswordStrength.Normal;
+                    PasswordHasError = false;
+                }
 
                 if (error == ValidatorMessages.StrongPassword)
+                {
                     PasswordStrength = PasswordStrength.Strong;
+                    PasswordHasError = false;
+                }
 
                 _password = value;
 
@@ -151,12 +168,13 @@ namespace Presentation.Contexts
 
                 var error = _validator.IsSurnameValid(value);
 
-                if (!string.IsNullOrWhiteSpace(error))
-                    throw new ArgumentException(error);
+                SurnameHasError = error != ValidatorMessages.HasNoErrors;
 
                 _surname = value;
 
                 OnPropertyChanged();
+
+                throw new ArgumentException(error);
             }
         }
 
@@ -173,12 +191,13 @@ namespace Presentation.Contexts
 
                 var error = _validator.IsNameValid(value);
 
-                if (!string.IsNullOrWhiteSpace(error))
-                    throw new ArgumentException(error);
+                NameHasError = error != ValidatorMessages.HasNoErrors;
 
                 _name = value;
 
                 OnPropertyChanged();
+
+                throw new ArgumentException(error);
             }
         }
 
@@ -195,12 +214,13 @@ namespace Presentation.Contexts
 
                 var error = _validator.IsLastnameValid(value);
 
-                if (!string.IsNullOrWhiteSpace(error))
-                    throw new ArgumentException(error);
+                LastnameHasError = error != ValidatorMessages.HasNoErrors;
 
                 _lastname = value;
 
                 OnPropertyChanged();
+
+                throw new ArgumentException(error);
             }
         }
 
@@ -229,14 +249,28 @@ namespace Presentation.Contexts
 
                 var error = _validator.IsPositionValid(value);
 
-                if (!string.IsNullOrWhiteSpace(error))
-                    throw new ArgumentException(error);
+                PositionHasError = error != ValidatorMessages.HasNoErrors;
 
                 _position = value;
 
                 OnPropertyChanged();
+
+                throw new ArgumentException(error);
             }
         }
+
+        public bool LoginHasError { get; set; }
+
+        public bool PasswordHasError { get; set; }
+
+        public bool SurnameHasError { get; set; }
+
+        public bool NameHasError { get; set; }
+
+        public bool LastnameHasError { get; set; }
+
+        public bool PositionHasError { get; set; }
+
 
         /// <summary>
         /// Инициализирует контекст новый пользователем.
