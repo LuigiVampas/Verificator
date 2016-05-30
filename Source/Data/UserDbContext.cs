@@ -1,5 +1,6 @@
 ﻿using System.Data.Common;
 using System.Data.Entity;
+using System.Runtime.InteropServices.ComTypes;
 using Model;
 using MySql.Data.Entity;
 

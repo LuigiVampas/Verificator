@@ -3,7 +3,6 @@ using System.Configuration;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using Presentation;
 using Presentation.Validation;
 
 namespace Data.Validation

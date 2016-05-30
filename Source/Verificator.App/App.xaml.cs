@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Security;
 using System.Windows;
 using Data;
 using Data.Validation;

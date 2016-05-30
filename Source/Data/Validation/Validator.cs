@@ -160,7 +160,7 @@ namespace Data.Validation
         /// <returns>Если все верно - пустая строка, иначе: "Поле должно содержать только буквы".</returns>
         private static string ContainsOnlyLetters(string str)
         {
-            return str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z') || (t >= 'А' && t  <= 'Я') || (t >= 'а' && t  <= 'я'))) ? ValidatorMessages.MustContainOnlyLetters : "";
+            return str.Any(t => !((t >= 'A' && t <= 'Z') || (t >= 'a' && t <= 'z') || (t >= 'А' && t <= 'Я') || (t >= 'а' && t <= 'я'))) ? ValidatorMessages.MustContainOnlyLetters : "";
         }
 
         /// <summary>
@@ -237,8 +237,8 @@ namespace Data.Validation
             if (hasUppers) passwordDifficulty++;
             if (hasDigits) passwordDifficulty++;
             if (hasSpecials) passwordDifficulty++;
-            if (passwordLength >= 6 && passwordLength < 12 && passwordDifficulty >= 3) return PasswordStrength.Normal;
-            if (passwordLength >= 12 && passwordDifficulty == 4) return PasswordStrength.Strong;
+            if (passwordLength >= 6 && passwordLength <= 20 && passwordDifficulty >= 2 && passwordDifficulty < 4) return PasswordStrength.Normal;
+            if (passwordLength > 12 && passwordDifficulty == 4) return PasswordStrength.Strong;
             return PasswordStrength.Weak;
         }
 
