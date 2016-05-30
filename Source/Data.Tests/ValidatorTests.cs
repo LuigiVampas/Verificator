@@ -39,7 +39,7 @@ namespace Data.Tests
             Assert.That(_validator.IsPasswordValid("AntoshKa@987Lukas"), Is.EqualTo(ValidatorMessages.StrongPassword));
             Assert.That(_validator.IsPasswordValid("&^&68Ff*%&(&*"), Is.EqualTo(ValidatorMessages.UnallowedSymbols));
             Assert.That(_validator.IsPasswordValid("Password8"), Is.EqualTo(ValidatorMessages.NormalPassword));
-            Assert.That(_validator.IsPasswordValid("password8"), Is.EqualTo(ValidatorMessages.WeakPassword));
+            Assert.That(_validator.IsPasswordValid("password8"), Is.EqualTo(ValidatorMessages.NormalPassword));
             Assert.That(_validator.IsPasswordValid("12312&&^*FJKDFsasklanf!"), Is.EqualTo(ValidatorMessages.UnallowedSymbols));
             Assert.That(_validator.IsPasswordValid("1234Lans329@!"), Is.EqualTo(ValidatorMessages.StrongPassword));
         }

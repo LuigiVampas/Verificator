@@ -237,7 +237,7 @@ namespace Data.Validation
             if (hasUppers) passwordDifficulty++;
             if (hasDigits) passwordDifficulty++;
             if (hasSpecials) passwordDifficulty++;
-            if (passwordLength >= 6 && passwordLength <= 12 && passwordDifficulty >= 3) return PasswordStrength.Normal;
+            if (passwordLength >= 6 && passwordLength <= 20 && passwordDifficulty >= 2 && passwordDifficulty < 4) return PasswordStrength.Normal;
             if (passwordLength > 12 && passwordDifficulty == 4) return PasswordStrength.Strong;
             return PasswordStrength.Weak;
         }
