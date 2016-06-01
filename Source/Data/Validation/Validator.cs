@@ -232,14 +232,15 @@ namespace Data.Validation
                 if (!hasDigits && digits.IndexOf(password[i]) != -1) hasDigits = true;
                 if (!hasSpecials && specialChars.IndexOf(password[i]) != -1) hasSpecials = true;
             }
-            
+            var currentPasswordType = PasswordStrength.Weak;
             if (hasLowers) passwordDifficulty++;
             if (hasUppers) passwordDifficulty++;
             if (hasDigits) passwordDifficulty++;
             if (hasSpecials) passwordDifficulty++;
-            if (passwordLength >= 6 && passwordLength <= 12 && passwordDifficulty >= 2 && passwordDifficulty <= 4) return PasswordStrength.Normal;
-            if (passwordLength > 12 && passwordDifficulty >= 3) return PasswordStrength.Strong;
-            return PasswordStrength.Weak;
+            if (passwordLength >= 6 && passwordLength <= 12 && passwordDifficulty >= 2 && passwordDifficulty <= 4) currentPasswordType = PasswordStrength.Normal;
+            if (passwordLength > 12 && passwordDifficulty >= 3) currentPasswordType = PasswordStrength.Strong;
+
+            return currentPasswordType;
         }
 
         /// <summary>
@@ -259,6 +260,7 @@ namespace Data.Validation
                 case PasswordStrength.Strong:
                     return ValidatorMessages.StrongPassword;
             }
+
             return null;
         }
     }
